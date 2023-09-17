@@ -9,7 +9,6 @@
 }
 
 .grid {
-    background-color: rgba(255, 0, 0, 0.389);
     position: absolute;
     left: 0;
     height: 100%;
@@ -25,3 +24,15 @@
     border: black solid 1px;
 
 }
+
+.cell:hover {
+    background-color: rgba(0, 0, 0, 0.223);
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+  }
