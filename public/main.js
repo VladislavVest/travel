@@ -53,12 +53,7 @@ cells[91 - 1].innerHTML = `
   </span>
 `;
 
-cells[89 - 1].innerHTML = `
-<div>
-      <img class="dice" src="./images/dice.gif" alt="">
-     
-    </div>
-`
+
 
 
 

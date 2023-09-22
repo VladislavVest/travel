@@ -52,13 +52,48 @@
 }
 
 .top-panel {
-position: fixed;
-z-index: 10;
-left:0;
-top:0;
-background-color: rgba(0, 0, 0, 0.638);
-width:20%;
-height: 10%;
-border: black solid 3px;
-box-sizing: content-box;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.638);
+    width: 20%;
+    height: 10%;
+    border: black solid 3px;
+    box-sizing: content-box;
+}
+
+.bottom-panel {
+    position: fixed;
+    z-index: 10;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.638);
+    width: 20%;
+    height: 20%;
+    border: black solid 3px;
+    box-sizing: content-box;
+    display: flex;
+}
+
+.illustration {
+    width: 50%;
+    height: 100%;
+background-image: url(./images/dice.gif);
+background-size: cover ;
+}
+
+.controls {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: green;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.right {
+position: relative;
+width: 50%;
 }
