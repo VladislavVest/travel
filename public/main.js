@@ -83,3 +83,9 @@ elderly
 `
 }
 
+function run(){
+  const illustration = document.querySelector(".illustration");
+  const runButton  = document.querySelector("#run");
+  illustration.style.backgroundImage="url(./images/dice2.gif)" 
+runButton.disabled = true;
+}
