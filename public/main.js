@@ -3,6 +3,19 @@ const log = console.log;
 const img = document.createElement('img');
 
 
+// function getRandomInt(max) {
+//   return Math.floor(Math.random() * max);
+// }
+// log(getRandomInt(4));
+
+
+
+
+
+
+
+
+
 const socket = io();
 // socket.emit("massage", "hellotest");
 // // socket.on("data", (dt) => {
@@ -86,6 +99,19 @@ elderly
 function run(){
   const illustration = document.querySelector(".illustration");
   const runButton  = document.querySelector("#run");
-  illustration.style.backgroundImage="url(./images/dice2.gif)" 
+  illustration.style.backgroundImage="url(./images/dice2.gif)";
 runButton.disabled = true;
+
+
+setTimeout(()=>{
+  runButton.disabled = false;
+  illustration.style.backgroundImage="url(./images/dice.gif)";
+},1500);
+
 }
+
+
+
+
+
+
