@@ -96,50 +96,42 @@ elderly
 `
 }
 
-function run(){
+function run() {
   const illustration = document.querySelector(".illustration");
-  const runButton  = document.querySelector("#run");
-    illustration.style.backgroundImage="url(./images/dice2.gif)";
-runButton.disabled = true;
-
-let number = Math.ceil(Math.random()*3);
-log(number);
-switch (number) {
-  case 1:
-     setTimeout(()=>{
-        illustration.style.backgroundImage="url(./images/num1.jpg)";
+  const runButton = document.querySelector("#run");
+  illustration.style.backgroundImage = "url(./images/dice2.gif)";
+  runButton.disabled = true;
+  let number = Math.ceil(Math.random() * 3);
+  log(number);
+  switch (number) {
+    case 1:
+      setTimeout(() => {
+        illustration.style.backgroundImage = "url(./images/num1.jpg)";
         runButton.disabled = false;
-      },1500);
+      }, 1500);
       break;
-  case 2:
-    setTimeout(()=>{
-      illustration.style.backgroundImage="url(./images/num2.jpg)";
-      runButton.disabled = false;
-    },1500);
-    break
-  case 3:
-    setTimeout(()=>{
-      illustration.style.backgroundImage="url(./images/num3.jpg)";
-      runButton.disabled = false;
-    },1500);
-    break;
-}}
+    case 2:
+      setTimeout(() => {
+        illustration.style.backgroundImage = "url(./images/num2.jpg)";
+        runButton.disabled = false;
+      }, 1500);
+      break
+    case 3:
+      setTimeout(() => {
+        illustration.style.backgroundImage = "url(./images/num3.jpg)";
+        runButton.disabled = false;
+      }, 1500);
+      break;
+  }
+}
 
 
-
-      
-// setTimeout(()=>{
-//   illustration.style.backgroundImage="url(./images/num1.jpg)";
-//   runButton.disabled = true;
-// },1500);
-
-
-
-// setTimeout(()=>{
-  
-  
-//   illustration.style.backgroundImage="url(./images/dice.gif)";
-// },1500);
+var button = document.getElementById("run");
+var audio = document.getElementById("audio");
+button.addEventListener("click", function () {
+  audio.currentTime = 0;
+  audio.play();
+});
 
 
 
