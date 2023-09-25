@@ -20,14 +20,32 @@ const gameField = [
   [16, 15, 14, 13, 12, 11, 10, 9, 0, 0],
   [1, 2, 3, 4, 5, 6, 7, 8, 0, 0]
 ]
+
+const cellsDescription = [
+  {number:1,effect:[''],description:'Старт'}, 
+  {number:2,effect:['skip'],description:'пропуск хода'},
+  {number:3,effect:['plusXp'],description:'плюс хп'},
+  {number:4,effect:['minusXp'],description:'минусхп'},
+  {number:5,effect:['skip'],description:'пропускхода'},
+  {number:6,effect:['addStep'],description:'плюсход'},
+  {number:7,effect:['minusXp','skip'],description:'миунус хп, минус ход'},
+  {number:8,effect:['plusXp','addStep'],description:''},
+
+]
+
+
+
 ///peredelat 37 dobavit
 const grid = document.querySelector(".grid");
 log(grid);
 gameField.forEach((row, i) => {
   log(row);
   row.forEach((cell, ii) => {
+    const opisanie = cellsDescription.find(cdo=>cdo.number==cell)  || {description:''};
+    log(cell,opisanie);
+
     grid.innerHTML += `
-    <div id="${cell}" class="cell"></div>
+    <div id="${cell}" class="cell" title="${opisanie.description}"></div>
     `
   })
 });
