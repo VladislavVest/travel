@@ -55,21 +55,18 @@ const user = {
   position: 1,
 }
 
-
-
-// setInterval(() => {
-//   user.position++;
-//   log(user);
-//   moveUser();
-// }, 1000)
-
 function moveUser() {
+  cells.forEach((cell)=>{
+    cell.innerHTML="";
+    cell.classList.remove('with-user');
+  })
   const currentCell = document.getElementById(user.position);
   currentCell.innerHTML += `
 <span class="material-symbols-outlined">
 elderly
 </span>
 `
+currentCell.classList.add("with-user");
 }
 
 function run() {
@@ -99,6 +96,12 @@ function run() {
       }, 1500);
       break;
   }
+  setTimeout(() => {
+    user.position += number;
+    moveUser();
+  }, 1600);
+
+
 }
 
 
@@ -114,19 +117,4 @@ button.addEventListener("click", function () {
 
 
 
-// function run(){
-//   const illustration = document.querySelector(".illustration");
-//   const runButton  = document.querySelector("#run");
-//   illustration.style.backgroundImage="url(./images/dice2.gif)";
-// runButton.disabled = true;
-// let number = Math.ceil(Math.random()*3);
-// log(number);
 
-
-
-// setTimeout(()=>{
-//   runButton.disabled = false;
-//   illustration.style.backgroundImage="url(./images/dice.gif)";
-// },1500);
-
-// }
