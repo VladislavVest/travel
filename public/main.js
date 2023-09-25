@@ -2,20 +2,6 @@ const log = console.log;
 
 const img = document.createElement('img');
 
-
-// function getRandomInt(max) {
-//   return Math.floor(Math.random() * max);
-// }
-// log(getRandomInt(4));
-
-
-
-
-
-
-
-
-
 const socket = io();
 // socket.emit("massage", "hellotest");
 // // socket.on("data", (dt) => {
@@ -44,9 +30,7 @@ gameField.forEach((row, i) => {
     <div id="${cell}" class="cell"></div>
     `
   })
-
 });
-
 
 
 const cells = document.querySelectorAll(".cell");
@@ -66,15 +50,7 @@ cells[91 - 1].innerHTML = `
   </span>
 `;
 
-
-
-
-
-
-
 cells[91 - 1].classList.add("with-user");
-
-
 const user = {
   position: 1,
 }
