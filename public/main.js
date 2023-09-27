@@ -7,9 +7,20 @@ const socket = io();
 // // socket.on("data", (dt) => {
 // //   alert(dt);
 // // });
+const user = {
+  position: 1,
+  hitPoints: 30,
+}
+
+function render() {
+  const xp = document.querySelector("#xp");
+  xp.innerHTML = user.hitPoints;
+}
+render();
+
 
 const gameField = [
-  [0, 0, 96, 95, 94, 93, 92, 91, 90, 90],
+  [0, 0, 96, 95, 94, 93, 92, 91, 90, 89],
   [79, 80, 81, 82, 83, 84, 85, 86, 87, 88],
   [78, 77, 76, 75, 74, 73, 72, 71, 70, 69],
   [59, 60, 61, 62, 63, 64, 65, 66, 67, 68],
@@ -22,15 +33,14 @@ const gameField = [
 ]
 
 const cellsDescription = [
-  {number:1,effect:[''],description:'Старт'}, 
-  {number:2,effect:['skip'],description:'пропуск хода'},
-  {number:3,effect:['plusXp'],description:'плюс хп'},
-  {number:4,effect:['minusXp'],description:'минусхп'},
-  {number:5,effect:['skip'],description:'пропускхода'},
-  {number:6,effect:['addStep'],description:'плюсход'},
-  {number:7,effect:['minusXp','skip'],description:'миунус хп, минус ход'},
-  {number:8,effect:['plusXp','addStep'],description:''},
-
+  { number: 1, effect: [''], description: 'Старт' },
+  { number: 2, effect: ['skip'], description: 'пропуск хода' },
+  { number: 3, effect: [{ name: 'plusXp', n: 1 }], description: 'плюс 1 хп' },
+  { number: 4, effect: [{ name: 'minusXp', n: 1 }], description: 'минус 1 хп' },
+  { number: 5, effect: ['skip'], description: 'пропускхода' },
+  { number: 6, effect: ['addStep'], description: 'плюсход' },
+  { number: 7, effect: [{ name: 'minusXp', n: 2 }, 'skip'], description: 'миунус 2 хп, минус ход' },
+  { number: 8, effect: [{ name: 'plusXp', n: 1 }, 'addStep'], description: 'плюс 1 хп' },
 ]
 
 
@@ -41,8 +51,8 @@ log(grid);
 gameField.forEach((row, i) => {
   log(row);
   row.forEach((cell, ii) => {
-    const opisanie = cellsDescription.find(cdo=>cdo.number==cell)  || {description:''};
-    log(cell,opisanie);
+    const opisanie = cellsDescription.find(cdo => cdo.number == cell) || { description: '' };
+    log(cell, opisanie);
 
     grid.innerHTML += `
     <div id="${cell}" class="cell" title="${opisanie.description}"></div>
@@ -69,13 +79,11 @@ cells[91 - 1].innerHTML = `
 `;
 
 cells[91 - 1].classList.add("with-user");
-const user = {
-  position: 1,
-}
+
 
 function moveUser() {
-  cells.forEach((cell)=>{
-    cell.innerHTML="";
+  cells.forEach((cell) => {
+    cell.innerHTML = "";
     cell.classList.remove('with-user');
   })
   const currentCell = document.getElementById(user.position);
@@ -84,7 +92,10 @@ function moveUser() {
 elderly
 </span>
 `
-currentCell.classList.add("with-user");
+  currentCell.classList.add("with-user");
+  //получить айди из каррентцелл
+  //найти описание по айди
+  //
 }
 
 function run() {
@@ -117,6 +128,25 @@ function run() {
   setTimeout(() => {
     user.position += number;
     moveUser();
+    const opisanie = cellsDescription.find(cdo => cdo.number == user.position) || { effect:[] };
+log('start process xp change',opisanie);
+opisanie.effect.forEach((ef)=>{
+log(ef,typeof ef);
+if(typeof ef == 'string') {
+
+};
+if(typeof ef == 'object') {
+if(ef.name == 'minusXp') {
+  user.hitPoints-=ef.n
+};
+if(ef.name == 'plusXp') {
+  user.hitPoints+=ef.n
+};
+
+
+} 
+});
+    render();
   }, 1600);
 
 
