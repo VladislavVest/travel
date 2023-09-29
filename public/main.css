@@ -122,3 +122,29 @@
     height: 100%;
     padding: 0.5rem;
 }
+
+.empty-hole {
+ 
+    position: relative;
+}
+
+.empty-hole::before {
+    width: 70%;
+    height: 70%;
+    content: '';
+    background: #020000;
+    display: block;
+    border-radius: 100%;
+    left: 15%;
+    position: absolute;
+    top: 11%;
+    filter: blur(9px);
+
+    animation: mymove 6s infinite;
+    
+}
+@keyframes mymove {
+    0% {opacity: 1}
+    50% {opacity:.5}
+    100% {opacity: 1}
+  }

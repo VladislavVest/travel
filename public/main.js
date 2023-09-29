@@ -16,7 +16,7 @@ const user = {
 }
 
 function render() {
-  const xp = document.querySelector("#xp"); 
+  const xp = document.querySelector("#xp");
   xp.innerHTML = user.hitPoints;
   const moral = document.querySelector("#moral");
   moral.innerHTML = user.moral;
@@ -42,19 +42,19 @@ const gameField = [
 const cellsDescription = [
   { number: 1, effect: [''], description: 'Старт' },
   { number: 2, effect: ['skip'], description: 'пропуск хода' },
-  { number: 3, effect: ['addStep'], description: 'плюсход' },
+  { number: 3, effect: ['addStep'], description: 'плюс ход' },
   { number: 4, effect: [{ name: 'minusXp', n: 1 }], description: 'минус 1 хп' },
-  { number: 5, effect: [{ name: 'minusXp', n: 1 }, 'skip'], description: 'миунус 1 хп, минус ход' },
+  { number: 5, effect: [{ name: 'minusXp', n: 1 }, 'skip'], description: 'минус 1 хп, минус ход' },
   { number: 6, effect: [{ name: 'plusXp', n: 1 }, 'addStep'], description: 'плюс 1 хп' },
   { number: 7, effect: ['skip'], description: 'пропускхода' },
   { number: 8, effect: [{ name: 'minusXp', n: 1 }], description: 'минус 1 хп' },
   //
-  { number: 9, effect: [{ name: 'minusXp', n: 2 }, 'skip'], description: 'миунус 2 хп, минус ход' },
+  { number: 9, effect: [{ name: 'minusXp', n: 2 }, 'skip'], description: 'минус 2 хп, минус ход' },
   { number: 10, effect: [{ name: 'casino', n: 2 }, 'rotation'], description: 'казино ходов чёт:+1 к кубику на 2 хода, нечет -1' },
   { number: 11, effect: [{ name: 'minusMoral', n: 1 }], description: 'минус 1 мораль' },
   { number: 12, effect: [{ name: 'armor', n: 1 }, 'items'], description: 'защита от следующего негативного эффекта' },
   { number: 13, effect: [{ name: 'vampire', n: 1 }, 'jump'], description: 'вЫбери игрока и забери его хп себе, прыжок вперёд через поле' },
-  { number: 14, effect: [{ name: 'empty', n: 1 }], description: 'тут нихрена нет' },
+  { number: 14, effect: [{ name: 'emptyHole', n: 1 }], description: 'тут нихрена нет' },
   { number: 15, effect: [{ name: 'empty', n: 1 }], description: 'тут нихрена нет' },
   { number: 16, effect: [{ name: 'minusXp', n: 1 }, { name: 'minusMoral', n: 1 }], description: 'Лабиринт - миунус 1 хп, минус мораль' },
 
@@ -68,11 +68,16 @@ log(grid);
 gameField.forEach((row, i) => {
   log(row);
   row.forEach((cell, ii) => {
-    const opisanie = cellsDescription.find(cdo => cdo.number == cell) || { description: '' };
+    const opisanie = cellsDescription.find(cdo => cdo.number == cell) || { description: '' ,effect:[]};
     log(cell, opisanie);
-
+    let classes = 'cell';
+    opisanie.effect.forEach((ef) => {
+      if (ef.name == 'emptyHole') {
+        classes += ' empty-hole'
+      };
+    });
     grid.innerHTML += `
-    <div id="${cell}" class="cell" title="${opisanie.description}"></div>
+    <div id="${cell}" class="${classes}" title="${opisanie.description}"></div>
     `
   })
 });
