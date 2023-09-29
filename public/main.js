@@ -3,6 +3,8 @@ const log = console.log;
 const img = document.createElement('img');
 
 const socket = io();
+
+const descr = document.querySelector("#descr");
 // socket.emit("massage", "hellotest");
 // // socket.on("data", (dt) => {
 // //   alert(dt);
@@ -10,11 +12,16 @@ const socket = io();
 const user = {
   position: 1,
   hitPoints: 30,
+  moral: 10,
 }
 
 function render() {
-  const xp = document.querySelector("#xp");
+  const xp = document.querySelector("#xp"); 
   xp.innerHTML = user.hitPoints;
+  const moral = document.querySelector("#moral");
+  moral.innerHTML = user.moral;
+  // const descr = cellsDescription.description;
+  // descr.innerHTML = descr.description;
 }
 render();
 
@@ -35,17 +42,27 @@ const gameField = [
 const cellsDescription = [
   { number: 1, effect: [''], description: 'Старт' },
   { number: 2, effect: ['skip'], description: 'пропуск хода' },
-  { number: 3, effect: [{ name: 'plusXp', n: 1 }], description: 'плюс 1 хп' },
+  { number: 3, effect: ['addStep'], description: 'плюсход' },
   { number: 4, effect: [{ name: 'minusXp', n: 1 }], description: 'минус 1 хп' },
-  { number: 5, effect: ['skip'], description: 'пропускхода' },
-  { number: 6, effect: ['addStep'], description: 'плюсход' },
-  { number: 7, effect: [{ name: 'minusXp', n: 2 }, 'skip'], description: 'миунус 2 хп, минус ход' },
-  { number: 8, effect: [{ name: 'plusXp', n: 1 }, 'addStep'], description: 'плюс 1 хп' },
+  { number: 5, effect: [{ name: 'minusXp', n: 1 }, 'skip'], description: 'миунус 1 хп, минус ход' },
+  { number: 6, effect: [{ name: 'plusXp', n: 1 }, 'addStep'], description: 'плюс 1 хп' },
+  { number: 7, effect: ['skip'], description: 'пропускхода' },
+  { number: 8, effect: [{ name: 'minusXp', n: 1 }], description: 'минус 1 хп' },
+  //
+  { number: 9, effect: [{ name: 'minusXp', n: 2 }, 'skip'], description: 'миунус 2 хп, минус ход' },
+  { number: 10, effect: [{ name: 'casino', n: 2 }, 'rotation'], description: 'казино ходов чёт:+1 к кубику на 2 хода, нечет -1' },
+  { number: 11, effect: [{ name: 'minusMoral', n: 1 }], description: 'минус 1 мораль' },
+  { number: 12, effect: [{ name: 'armor', n: 1 }, 'items'], description: 'защита от следующего негативного эффекта' },
+  { number: 13, effect: [{ name: 'vampire', n: 1 }, 'jump'], description: 'вЫбери игрока и забери его хп себе, прыжок вперёд через поле' },
+  { number: 14, effect: [{ name: 'empty', n: 1 }], description: 'тут нихрена нет' },
+  { number: 15, effect: [{ name: 'empty', n: 1 }], description: 'тут нихрена нет' },
+  { number: 16, effect: [{ name: 'minusXp', n: 1 }, { name: 'minusMoral', n: 1 }], description: 'Лабиринт - миунус 1 хп, минус мораль' },
+
+
 ]
 
 
 
-///peredelat 37 dobavit
 const grid = document.querySelector(".grid");
 log(grid);
 gameField.forEach((row, i) => {
@@ -93,9 +110,6 @@ elderly
 </span>
 `
   currentCell.classList.add("with-user");
-  //получить айди из каррентцелл
-  //найти описание по айди
-  //
 }
 
 function run() {
@@ -128,24 +142,31 @@ function run() {
   setTimeout(() => {
     user.position += number;
     moveUser();
-    const opisanie = cellsDescription.find(cdo => cdo.number == user.position) || { effect:[] };
-log('start process xp change',opisanie);
-opisanie.effect.forEach((ef)=>{
-log(ef,typeof ef);
-if(typeof ef == 'string') {
+    const opisanie = cellsDescription.find(cdo => cdo.number == user.position) || { effect: [] };
+    descr.innerHTML = opisanie.description;
+    log('start process xp change', opisanie);
+    opisanie.effect.forEach((ef) => {
+      log(ef, typeof ef);
+      if (typeof ef == 'string') {
 
-};
-if(typeof ef == 'object') {
-if(ef.name == 'minusXp') {
-  user.hitPoints-=ef.n
-};
-if(ef.name == 'plusXp') {
-  user.hitPoints+=ef.n
-};
+      };
+      if (typeof ef == 'object') {
+        if (ef.name == 'minusXp') {
+          user.hitPoints -= ef.n
+        };
+        if (ef.name == 'plusXp') {
+          user.hitPoints += ef.n
+        };
+        if (ef.name == 'minusMoral') {
+          user.moral -= ef.n
+        };
+        if (ef.name == 'plusMoral') {
+          user.moral += ef.n
+        };
 
 
-} 
-});
+      }
+    });
     render();
   }, 1600);
 

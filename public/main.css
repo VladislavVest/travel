@@ -114,3 +114,11 @@
     font-family: 'Raleway', sans-serif;
     font-weight: 900;
 }
+
+.description {
+    background: #111d24;
+    color: #00fd0c;
+    display: flex;
+    height: 100%;
+    padding: 0.5rem;
+}
