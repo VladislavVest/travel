@@ -100,6 +100,7 @@
 .right {
     position: relative;
     width: 50%;
+    display: flex;
 }
 
 .stat {

@@ -27,28 +27,51 @@
 
 </audio> -->
 
-  <div class="top-panel"> 
-  <div class="description" id="descr"></div>
-</div>
+  <div class="top-panel">
+    <div class="description" id="descr"></div>
+  </div>
 
   <div class="bottom-panel">
     <div class="illustration"> </div>
     <div class="right">
-      <div class="stat">
+      <!-- <div class="stat">
         HP:&nbsp;
         <div id="xp"&nbsp></div>
         &nbsp Morality:&nbsp;
         <div id="moral"></div>
-      </div>
-      
-      <!-- <div id="moral"></div> -->
+        &nbsp Armor:&nbsp;
+        <div id="armor">
+        
+      </div> -->
 
-      <div class="controls">
-        <button type="button" class="btn btn-primary btn-lg" onclick="run()" id="run">Run</button>
-        <!-- <audio src="./public/audio/dice.wav" id="run"></audio> -->
-        <button type="button" class="btn btn-primary btn-lg">Skip</button>
+      <div class="stat">
+        <div>HP: <span id="xp"></span></div>
+        <div>Morality: <span id="moral"></span></div>
+        <div>Armor: <span id="armor"></span></div>
       </div>
+
+      <style>
+        .stat {
+          display: block;
+        }
+
+        .stat>div {
+          display: inline-block;
+        }
+      </style>
+      
+ <div class="controls">
+  <button type="button" class="btn btn-primary btn-lg" onclick="run()" id="run">Run</button>
+  <!-- <audio src="./public/audio/dice.wav" id="run"></audio> -->
+  <button type="button" class="btn btn-primary btn-lg">Skip</button>
+</div>
+
     </div>
+
+    <!-- <div id="moral"></div> -->
+
+   
+  </div>
   </div>
 
 

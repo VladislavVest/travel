@@ -13,6 +13,7 @@ const user = {
   position: 1,
   hitPoints: 30,
   moral: 10,
+  armor: 0,
 }
 
 function render() {
@@ -20,8 +21,9 @@ function render() {
   xp.innerHTML = user.hitPoints;
   const moral = document.querySelector("#moral");
   moral.innerHTML = user.moral;
-  // const descr = cellsDescription.description;
-  // descr.innerHTML = descr.description;
+  const armor = document.querySelector("#armor");
+  armor.innerHTML = user.armor;
+
 }
 render();
 
@@ -55,9 +57,10 @@ const cellsDescription = [
   { number: 12, effect: [{ name: 'armor', n: 1 }, 'items'], description: 'защита от следующего негативного эффекта' },
   { number: 13, effect: [{ name: 'vampire', n: 1 }, 'jump'], description: 'вЫбери игрока и забери его хп себе, прыжок вперёд через поле' },
   { number: 14, effect: [{ name: 'emptyHole', n: 1 }], description: 'тут нихрена нет' },
-  { number: 15, effect: [{ name: 'empty', n: 1 }], description: 'тут нихрена нет' },
+  { number: 15, effect: [{ name: 'empty', n: 1 }], description: 'тут нихрена нет cовсем' },
   { number: 16, effect: [{ name: 'minusXp', n: 1 }, { name: 'minusMoral', n: 1 }], description: 'Лабиринт - миунус 1 хп, минус мораль' },
-
+  { number: 17, effect: [{ name: 'plusXp', n: 1 }], description: '+хп вас починили' },
+  { number: 18, effect: [{ name: 'fall', to: 14}], description: 'падаете вниз' },
 
 ]
 
@@ -100,7 +103,7 @@ cells[91 - 1].innerHTML = `
   </span>
 `;
 
-cells[91 - 1].classList.add("with-user");
+cells[90].classList.add("with-user");
 
 
 function moveUser() {
@@ -168,7 +171,10 @@ function run() {
         if (ef.name == 'plusMoral') {
           user.moral += ef.n
         };
-
+if (ef.name == 'fall' ){
+  user.position = ef.to;
+    moveUser();
+}
 
       }
     });
