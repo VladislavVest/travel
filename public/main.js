@@ -150,13 +150,19 @@ button.addEventListener("click", function () {
   audio.play();
 });
 
-function devSetposition() {
+function devSetPosition() {
   const cell = document.querySelector('#set-position input').value;
   log(cell);
   user.position = cell;
   moveUser();
+  action();
 }
 
+function devAddPosition() {
+  user.position++;
+  moveUser();
+  action();
+}
 
 
 
