@@ -37,9 +37,8 @@ gameField.forEach((row, i) => {
     log(cell, opisanie);
     let classes = 'cell';
     opisanie.effect.forEach((ef) => {
-      if (ef.name == 'emptyHole') {
-        classes += ' empty-hole'
-      };
+      if (ef.name == 'emptyHole') classes += ' empty-hole';
+      if (ef.name == 'armor') classes += ' armor' ;
     });
     grid.innerHTML += `
     <div id="${cell}" class="${classes}" title="${opisanie.description}"></div>

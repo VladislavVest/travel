@@ -125,7 +125,6 @@
 }
 
 .empty-hole {
- 
     position: relative;
 }
 
@@ -149,3 +148,37 @@
     50% {opacity:.5}
     100% {opacity: 1}
   }
+
+
+  .armor {
+    position: relative;
+}
+.armor::before {
+    content: "";
+    display: block; 
+    width: 55px; 
+    height: 55px;
+    background-image: url('./images/armor.png');
+    background-size: contain; 
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 33%;
+    top: 11%;
+    animation: armor 6s infinite;
+}
+
+
+    
+@keyframes armor {
+    
+        from {
+          transform: rotateY(0deg);
+        }
+      
+        to {
+          transform: rotateY(360deg);
+        }
+      }
+      
+  
+
