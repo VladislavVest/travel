@@ -38,7 +38,7 @@ gameField.forEach((row, i) => {
     let classes = 'cell';
     opisanie.effect.forEach((ef) => {
       if (ef.name == 'emptyHole') classes += ' empty-hole';
-      if (ef.name == 'armor') classes += ' armor' ;
+      if (ef.name == 'armor') classes += ' armor';
     });
     grid.innerHTML += `
     <div id="${cell}" class="${classes}" title="${opisanie.description}"></div>
@@ -112,7 +112,7 @@ function run() {
   setTimeout(() => action(user.position), 1600);
 }
 
-function action(){
+function action() {
   moveUser();
   const opisanie = cellsDescription.find(cdo => cdo.number == user.position) || { effect: [] };
   descr.innerHTML = opisanie.description;
@@ -141,13 +141,18 @@ function action(){
       if (ef.name == 'plusMoral1') {
         user.moral += ef.n
         moveUser();
-        var audio1 = document.getElementById("roost");
-        audio1.volume = 0.1;
-        audio1.currentTime = 0;
-        audio1.play();
+        // var audio1 = document.getElementById("roost");
+        // audio1.volume = 0.1;
+        // audio1.currentTime = 0;
+        // audio1.play();
+        addSound('./audio/rooster.wav',0.1);
+      }
+      if (ef.name == 'armor') {
+        user.armor += ef.n
+        moveUser();
+        addSound('./audio/armor.mp3',0.1);
       }
 
-   
     }
   });
   render();
@@ -174,10 +179,21 @@ function devAddPosition() {
   moveUser();
   action();
 }
-function devAddPosition2(){
-user.position = user.position+2;
-moveUser();
-action();
+function devAddPosition2() {
+  user.position = user.position + 2;
+  moveUser();
+  action();
+}
+
+function addSound(path, volume = 1) {
+  let audio = new Audio(path);
+  audio.volume = volume;
+  audio.play().then(() => {
+    console.log('Audio played successfully');
+  }).catch((error) => {
+    console.error('Audio play failed:', error);
+    // Здесь можно добавить логику восстановления или информировать пользователя
+  });
 }
 
 
