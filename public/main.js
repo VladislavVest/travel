@@ -72,6 +72,7 @@ function moveUser() {
     cell.innerHTML = "";
     cell.classList.remove('with-user');
   })
+  log(user.position);
   const currentCell = document.getElementById(user.position);
   currentCell.innerHTML += `
 <span class="material-symbols-outlined">
@@ -138,10 +139,21 @@ function action(){
         user.position = ef.to;
         moveUser();
       }
+      if (ef.name == 'plusMoral1') {
+        user.moral += ef.n
+        moveUser();
+        var audio1 = document.getElementById("roost");
+        audio1.volume = 0.1;
+        audio1.currentTime = 0;
+        audio1.play();
+      }
+
+   
     }
   });
   render();
 }
+
 
 var button = document.getElementById("run");
 var audio = document.getElementById("audio");
@@ -162,6 +174,11 @@ function devAddPosition() {
   user.position++;
   moveUser();
   action();
+}
+function devAddPosition2(){
+user.position = user.position+2;
+moveUser();
+action();
 }
 
 

@@ -30,7 +30,11 @@ const gameField = [
     { number: 15, effect: [{ name: 'empty', n: 1 }], description: 'тут нихрена нет cовсем' },
     { number: 16, effect: [{ name: 'minusXp', n: 1 }, { name: 'minusMoral', n: 1 }], description: 'Лабиринт - миунус 1 хп, минус мораль' },
     //
-    { number: 17, effect: [{ name: 'plusXp', n: 1 }], description: '+хп вас починили' },
+    { number: 17, effect: [{ name: 'plusXp', n: 1 }], description: 'Портной, +1хп вас зашили, отпустили' },
     { number: 18, effect: [{ name: 'fall', to: 14 }], description: 'падаете вниз' },
+    { number: 19, effect: ['addStep'], description: 'плюс ход' },
+    { number: 20, effect: [{ name: 'minusXp', n: 2 }], description: 'минус 2 хп' },
+    { number: 21, effect: [{ name: 'minusMoral', n: 2 }, 'skip'], description: 'минус 2 морали, вас немного разорвали, теряете ход' },
+    { number: 22, effect: [{ name: 'plusMoral1', n: 2 },'addStep'], description: 'У вас встаёт боевой дух, за вами гонится ... + ход' },
   
   ]
