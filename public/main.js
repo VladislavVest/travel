@@ -30,13 +30,10 @@ render();
 
 
 const grid = document.querySelector(".grid");
-log(grid);
 gameField.forEach((row, i) => {
-  log(row);
   row.forEach((cell, ii) => {
     // const opisanie = cellsDescription.find(cdo => cdo.number == cell) || { description: '', effect: [] };
     const opisanie = getCellDescription(cell);
-    log(cell, opisanie);
     let classes = 'cell';
     opisanie.effect.forEach((ef) => {
       if (ef.name == 'emptyHole') classes += ' empty-hole';
@@ -49,7 +46,6 @@ gameField.forEach((row, i) => {
 });
 
 const cells = document.querySelectorAll(".cell");
-log(cells);
 cells[91 - 1].innerHTML = `
     <span class="material-symbols-outlined">
          elderly
@@ -73,7 +69,6 @@ function moveUser() {
     cell.innerHTML = "";
     cell.classList.remove('with-user');
   })
-  log(user.position);
   const currentCell = document.getElementById(user.position);
   currentCell.innerHTML += `
 <span class="material-symbols-outlined">
@@ -89,7 +84,6 @@ function run() {
   illustration.style.backgroundImage = "url(./images/dice2.gif)";
   runButton.disabled = true;
   let number = Math.ceil(Math.random() * 3);
-  log(number);
   switch (number) {
     case 1:
       setTimeout(() => {
@@ -115,9 +109,7 @@ function run() {
   opisanie.effect.forEach((ef) => {
     if (typeof ef == 'string' && ef == 'reverse') {
       setTimeout(() => {
-        log('do minysa', user.position);
         user.position -= number;
-        log('posle minysa', user.position);
         action(user.position)
       }, 1600);
       stop = true;
@@ -125,20 +117,16 @@ function run() {
  })
 
 if (!stop) {
-  log('ne doljno but esli propysk');
   user.position += number;
   setTimeout(() => action(user.position), 1600);
 }}
 
 
 function action(n) {
-  log(n)
-  log('action', user.position)
+
   moveUser();
-  // const opisanie = cellsDescription.find(cdo => cdo.number == user.position) || { effect: [] };
   const opisanie = getCellDescription(n);
   descr.innerHTML = opisanie.description;
-  log('start process xp change', opisanie);
   opisanie.effect.forEach((ef) => {
     log(ef, typeof ef);
     if (typeof ef == 'string') {
@@ -186,7 +174,6 @@ button.addEventListener("click", function () {
 
 function devSetPosition() {
   const cell = document.querySelector('#set-position input').value;
-  log(cell);
   user.position = cell;
   moveUser();
   action(user.position);
@@ -198,7 +185,6 @@ function devAddPosition() {
   action(user.position);
 }
 function devAddPosition2() {
-  log(+user.position);
   user.position = +user.position + 2;
   moveUser();
   action(user.position);
