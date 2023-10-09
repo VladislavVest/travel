@@ -15,6 +15,7 @@ const user = {
   moral: 10,
   armor: 0,
 }
+const getCellDescription = (cellNumber) => cellsDescription.find(cdo => cdo.number == cellNumber) || { effect: [], description: '' };
 
 function render() {
   const xp = document.querySelector("#xp");
@@ -33,7 +34,8 @@ log(grid);
 gameField.forEach((row, i) => {
   log(row);
   row.forEach((cell, ii) => {
-    const opisanie = cellsDescription.find(cdo => cdo.number == cell) || { description: '', effect: [] };
+    // const opisanie = cellsDescription.find(cdo => cdo.number == cell) || { description: '', effect: [] };
+    const opisanie = getCellDescription(cell);
     log(cell, opisanie);
     let classes = 'cell';
     opisanie.effect.forEach((ef) => {
@@ -108,13 +110,33 @@ function run() {
       }, 1500);
       break;
   }
+  const opisanie = getCellDescription(user.position);
+  let stop = false;
+  opisanie.effect.forEach((ef) => {
+    if (typeof ef == 'string' && ef == 'reverse') {
+      setTimeout(() => {
+        log('do minysa', user.position);
+        user.position -= number;
+        log('posle minysa', user.position);
+        action(user.position)
+      }, 1600);
+      stop = true;
+    };
+ })
+
+if (!stop) {
+  log('ne doljno but esli propysk');
   user.position += number;
   setTimeout(() => action(user.position), 1600);
-}
+}}
 
-function action() {
+
+function action(n) {
+  log(n)
+  log('action', user.position)
   moveUser();
-  const opisanie = cellsDescription.find(cdo => cdo.number == user.position) || { effect: [] };
+  // const opisanie = cellsDescription.find(cdo => cdo.number == user.position) || { effect: [] };
+  const opisanie = getCellDescription(n);
   descr.innerHTML = opisanie.description;
   log('start process xp change', opisanie);
   opisanie.effect.forEach((ef) => {
@@ -141,18 +163,14 @@ function action() {
       if (ef.name == 'plusMoral1') {
         user.moral += ef.n
         moveUser();
-        // var audio1 = document.getElementById("roost");
-        // audio1.volume = 0.1;
-        // audio1.currentTime = 0;
-        // audio1.play();
-        addSound('./audio/rooster.wav',0.1);
+
+        addSound('./audio/rooster.wav', 0.1);
       }
       if (ef.name == 'armor') {
         user.armor += ef.n
         moveUser();
-        addSound('./audio/armor.mp3',0.1);
+        addSound('./audio/armor.mp3', 0.1);
       }
-
     }
   });
   render();
@@ -171,18 +189,19 @@ function devSetPosition() {
   log(cell);
   user.position = cell;
   moveUser();
-  action();
+  action(user.position);
 }
 
 function devAddPosition() {
   user.position++;
   moveUser();
-  action();
+  action(user.position);
 }
 function devAddPosition2() {
-  user.position = user.position + 2;
+  log(+user.position);
+  user.position = +user.position + 2;
   moveUser();
-  action();
+  action(user.position);
 }
 
 function addSound(path, volume = 1) {
