@@ -27,41 +27,42 @@
 
 </audio> -->
   <main>
-  
-  <div class="top-panel">
-    <div class="description" id="descr"></div>
-  </div>
-  <div class="dev-panel">
-    <section id="set-position">
-      <input type="number" name="" id="">
-      <button onclick="devSetPosition()">Step</button>|
-      <button onclick="devAddPosition()">+</button>|
-      <button onclick="devAddPosition2()">+1</button>|
-      <button onclick="addSound('./audio/armor.mp3')">Sound</button>|
-    </section>
-    <section></section>
-    <section></section>
 
-  </div>
-  <style>
-    .dev-panel {
-      position: fixed;
-      right: 20%;
-      top: 0;
-      width: 20rem;
-      height: 5rem;
-      background: rgba(0, 0, 0, 0.592);
-      z-index: 100;
-    }
-    #set-position input {
-width: 4rem;
-    }
-  </style>
+    <div class="top-panel">
+      <div class="description" id="descr"></div>
+    </div>
+    <div class="dev-panel">
+      <section id="set-position">
+        <input type="number" name="" id="">
+        <button onclick="devSetPosition()">Step</button>|
+        <button onclick="devAddPosition()">+</button>|
+        <button onclick="devAddPosition2()">+1</button>|
+        <button onclick="addSound('./audio/armor.mp3')">Sound</button>|
+      </section>
+      <section></section>
+      <section></section>
 
-  <div class="bottom-panel">
-    <div class="illustration"> </div>
-    <div class="right">
-      <!-- <div class="stat">
+    </div>
+    <style>
+      .dev-panel {
+        position: fixed;
+        right: 20%;
+        top: 0;
+        width: 20rem;
+        height: 5rem;
+        background: rgba(0, 0, 0, 0.592);
+        z-index: 100;
+      }
+
+      #set-position input {
+        width: 4rem;
+      }
+    </style>
+
+    <div class="bottom-panel">
+      <div class="illustration"> </div>
+      <div class="right">
+        <!-- <div class="stat">
         HP:&nbsp;
         <div id="xp"&nbsp></div>
         &nbsp Morality:&nbsp;
@@ -71,34 +72,42 @@ width: 4rem;
         
       </div> -->
 
-      <div class="stat">
-        <div>HP: <span id="xp"></span></div>
-        <div>Morality: <span id="moral"></span></div>
-        <div>Armor: <span id="armor"></span></div>
+        <div class="stat">
+          <div>
+            <span style="color: red; zoom: 0.8;" class="material-symbols-outlined">
+              favorite
+            </span>:
+            <span id="xp"></span>
+          </div>
+          <div>Morality: <span id="moral"></span></div>
+          <div>
+            <span class="material-symbols-outlined">
+              security
+            </span>: <span id="armor"></span></div>
+        </div>
+
+        <style>
+          .stat {
+            display: block;
+          }
+
+          .stat>div {
+            display: inline-block;
+          }
+        </style>
+        <div class="controls">
+          <button type="button" class="btn btn-primary btn-lg btn-sm" onclick="run()" id="run">Run</button>
+          <!-- <audio src="./public/audio/dice.wav" id="run"></audio> -->
+          <button type="button" class="btn btn-primary btn-lg btn-sm">Skip</button>
+        </div>
+
       </div>
 
-      <style>
-        .stat {
-          display: block;
-        }
+      <!-- <div id="moral"></div> -->
 
-        .stat>div {
-          display: inline-block;
-        }
-      </style>
-      <div class="controls">
-        <button type="button" class="btn btn-primary btn-lg btn-sm" onclick="run()" id="run">Run</button>
-        <!-- <audio src="./public/audio/dice.wav" id="run"></audio> -->
-        <button type="button" class="btn btn-primary btn-lg btn-sm">Skip</button>
-      </div>
 
     </div>
-
-    <!-- <div id="moral"></div> -->
-
-
-  </div>
-  </div>
+    </div>
 
 
 
@@ -106,9 +115,9 @@ width: 4rem;
 
 
 
-  <div class="game-field">
-    <div class="grid">
-      <!-- <div class="cell"></div>
+    <div class="game-field">
+      <div class="grid">
+        <!-- <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
@@ -208,54 +217,54 @@ width: 4rem;
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div> -->
+      </div>
+      <!-- <img class="map" src="https://cdn.glitch.global/164631d8-afb1-4757-9701-8172f775d7a5/map.jpg?v=1694706132670"> -->
+
+      <img class="map" src="./images/map.jpg" alt="">
+
     </div>
-    <!-- <img class="map" src="https://cdn.glitch.global/164631d8-afb1-4757-9701-8172f775d7a5/map.jpg?v=1694706132670"> -->
 
-    <img class="map" src="./images/map.jpg" alt="">
+  </main>
 
-  </div>
+  <aside>
+    <div class="aside-buttons">
+      <button type="button" class="btn btn-primary btn-sm">Settings</button>
+      <button type="button" class="btn btn-primary btn-sm">Fuck off</button>
+      <button type="button" class="btn btn-primary btn-sm">Rules</button>
+      <button type="button" class="btn btn-primary btn-sm">Donate</button>
 
-</main>
-
-<aside>
-<div class="aside-buttons">
-  <button type="button" class="btn btn-primary btn-sm">Settings</button>
-  <button type="button" class="btn btn-primary btn-sm">Fuck off</button>
-  <button type="button" class="btn btn-primary btn-sm">Rules</button>
-  <button type="button" class="btn btn-primary btn-sm">Donate</button>
-
-</div>
-<div class="aside-userlist">
-  <div class="user">
-    <div class="avatar"></div>
-    <div class="username">player 1</div>
-  </div>
-  <div class="user">
-    <div class="avatar"></div>
-    <div class="username">player 2</div>
-  </div>
-
-</div>
-<div class="aside-chat">
-  <div class="message">
-    <div class="author">
-      <div class="avatar"></div>
-      <div class="username">player 1</div>
     </div>
-    <div class="text">Game start</div>
-  </div>
-  <div class="message">
-    <div class="author">
-      <div class="avatar"></div>
-      <div class="username">player 2</div>
+    <div class="aside-userlist">
+      <div class="user">
+        <div class="avatar"></div>
+        <div class="username">player 1</div>
+      </div>
+      <div class="user">
+        <div class="avatar"></div>
+        <div class="username">player 2</div>
+      </div>
+
     </div>
-    <div class="text">go first</div>
-  </div>
-</div>
-</aside>
+    <div class="aside-chat">
+      <div class="message">
+        <div class="author">
+          <div class="avatar"></div>
+          <div class="username">player 1</div>
+        </div>
+        <div class="text">Game start</div>
+      </div>
+      <div class="message">
+        <div class="author">
+          <div class="avatar"></div>
+          <div class="username">player 2</div>
+        </div>
+        <div class="text">go first</div>
+      </div>
+    </div>
+  </aside>
 
 
-<audio src="./audio/rooster.wav" id="roost"></audio>
+  <audio src="./audio/rooster.wav" id="roost"></audio>
 
   <audio src="./audio/dice.wav" id="audio"></audio>
 
@@ -263,7 +272,7 @@ width: 4rem;
   <script src="/socket.io/socket.io.js"></script>
   <script src="./data.js"></script>
   <script src="./main.js"></script>
-  
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
