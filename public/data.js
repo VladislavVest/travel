@@ -25,18 +25,110 @@ const cellsDescription = [
   { number: 10, effect: [{ name: 'casino', n: 2 }, 'rotation'], description: 'казино ходов чёт:+1 к кубику на 2 хода, нечет -1' },
   { number: 11, effect: [{ name: 'minusMoral', n: 1 }], description: 'минус 1 мораль' },
   { number: 12, effect: [{ name: 'armor', n: 1 }, 'items'], description: 'защита от следующего негативного эффекта' },
-  { number: 13, effect: [{ name: 'vampire', n: 1 }, 'jump'], description: 'вЫбери игрока и забери его хп себе, прыжок вперёд через поле' },
-  { number: 14, effect: [{ name: 'emptyHole', n: 1 }], description: 'тут нихрена нет' },
-  { number: 15, effect: [{ name: 'empty', n: 1 }], description: 'тут нихрена нет cовсем' },
-  { number: 16, effect: [{ name: 'minusXp', n: 1 }, { name: 'minusMoral', n: 1 }], description: 'Лабиринт - миунус 1 хп, минус мораль' },
-  //
-  { number: 17, effect: [{ name: 'plusXp', n: 1 }], description: 'Портной, +1хп вас зашили, отпустили' },
-  { number: 18, effect: [{ name: 'fall', to: 14 }], description: 'падаете вниз' },
-  { number: 19, effect: ['addStep'], description: 'плюс ход' },
-  { number: 20, effect: [{ name: 'minusXp', n: 2 }], description: 'минус 2 хп' },
-  { number: 21, effect: [{ name: 'minusMoral', n: 2 }, 'skip'], description: 'минус 2 морали, вас немного разорвали, теряете ход' },
-  { number: 22, effect: [{ name: 'plusMoral1', n: 2 }, 'addStep'], description: 'У вас встаёт боевой дух, за вами гонится ... + ход' },
-  { number: 23, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
-  { number: 24, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+  // { number: 13, effect: [{ name: 'vampire', n: 1 }, 'jump'], description: 'выбери игрока и забери его хп себе, прыжок вперёд через поле' },
+  { number: 13, effect: [{ name: 'vampire' }, 'jump'], description: 'выбери игрока и забери его хп себе, прыжок вперёд через поле' },
 
+  { number: 14, effect: [{ name: 'emptyHole',  to: 15 }], description: 'тут нихрена нет' },
+  { number: 15, effect: [{ name: 'empty', n: 1 }], description: 'тут нихрена нет cовсем' },
+  { number: 16, effect: [{ name: 'minusXp', n: 1 }, { name: 'minusMoral', n: 1 }, 'jump'], description: 'Лабиринт - миунус 1 хп, минус мораль,' },
+  //
+  { number: 17, effect: [{ name: 'emptyHole',  to: 18 }], description: 'тут шаром покати' },
+  { number: 18, effect: [{ name: 'plusXp', n: 1 }], description: 'Портной, +1хп вас зашили, отпустили' },
+  { number: 19, effect: [{ name: 'fall', to: 14 }], description: 'падаете вниз' },
+  { number: 20, effect: ['addStep'], description: 'плюс ход' },
+  { number: 21, effect: [{ name: 'minusXp', n: 2 }], description: 'минус 2 хп' },
+  { number: 22, effect: [{ name: 'minusMoral', n: 2 }, 'skip'], description: 'минус 2 морали, вас немного разорвали, теряете ход' },
+  { number: 23, effect: [{ name: 'plusMoral1', n: 2 }, 'addStep'], description: 'У вас встаёт боевой дух, за вами гонится ... + ход' },
+  { number: 24, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+  { number: 25, effect: [{ name: 'armor', n: 1 }, 'items'], description: 'защита от следующего негативного эффекта' },
+  { number: 26, effect: [{ name: 'plusXp', n: 2 }, 'addStep'], description: 'плюс 2 хп' },
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{ number: 27, effect: [{ name: 'weapon', n: 1 }], description: 'вооружитесь одной ловушкой' },
+{ number: 28, effect: [{ name: 'duel'}], description: 'Выберите игрока, если ваша мораль больше, заберите 1 хп себе' },
+{ number: 29, effect: ['addStep'], description: 'плюс ход' },
+{ number: 30, effect: [{ name: 'minusXp', n: 3 }], description: 'минус 3 хп' },
+{ number: 31, effect: ['skip'], description: 'пропуск хода' },
+{ number: 32, effect: [{ name: 'plusXp', n: 2 }], description: 'плюс 1 хп' },
+{ number: 33, effect:  [{ name: 'plusMoral1', n: 2 }, 'addStep'], description: '+2 морали' },
+{ number: 34, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+{ number: 35, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
+{ number: 36, effect: [{ name: 'fall', to: 17 }], description: 'падаете вниз' },
+//
+{ number: 37, effect: [{ name: 'plusXp', n: 1 }], description: 'Портной, +1хп вас зашили, отпустили' },
+{ number: 38, effect: [{ name: 'fall', to: 14 }], description: 'падаете вниз' },
+{ number: 39, effect: ['addStep'], description: 'плюс ход' },
+{ number: 40, effect: [{ name: 'minusXp', n: 2 }], description: 'минус 2 хп' },
+{ number: 41, effect: [{ name: 'minusMoral', n: 2 }, 'skip'], description: 'минус 2 морали, вас немного разорвали, теряете ход' },
+{ number: 42, effect: [{ name: 'plusMoral1', n: 2 }, 'addStep'], description: 'У вас встаёт боевой дух, за вами гонится ... + ход' },
+{ number: 43, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
+{ number: 44, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+{ number: 45, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
+{ number: 46, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+//
+{ number: 47, effect: [{ name: 'plusXp', n: 1 }], description: 'Портной, +1хп вас зашили, отпустили' },
+{ number: 48, effect: [{ name: 'fall', to: 14 }], description: 'падаете вниз' },
+{ number: 49, effect: ['addStep'], description: 'плюс ход' },
+{ number: 50, effect: [{ name: 'minusXp', n: 2 }], description: 'минус 2 хп' },
+{ number: 51, effect: [{ name: 'minusMoral', n: 2 }, 'skip'], description: 'минус 2 морали, вас немного разорвали, теряете ход' },
+{ number: 52, effect: [{ name: 'plusMoral1', n: 2 }, 'addStep'], description: 'У вас встаёт боевой дух, за вами гонится ... + ход' },
+{ number: 53, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
+{ number: 54, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+{ number: 55, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
+{ number: 56, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+//
+{ number: 57, effect: [{ name: 'plusXp', n: 1 }], description: 'Портной, +1хп вас зашили, отпустили' },
+{ number: 58, effect: [{ name: 'fall', to: 14 }], description: 'падаете вниз' },
+{ number: 59, effect: ['addStep'], description: 'плюс ход' },
+{ number: 60, effect: [{ name: 'minusXp', n: 2 }], description: 'минус 2 хп' },
+{ number: 61, effect: [{ name: 'minusMoral', n: 2 }, 'skip'], description: 'минус 2 морали, вас немного разорвали, теряете ход' },
+{ number: 62, effect: [{ name: 'plusMoral1', n: 2 }, 'addStep'], description: 'У вас встаёт боевой дух, за вами гонится ... + ход' },
+{ number: 63, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
+{ number: 64, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+{ number: 65, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
+{ number: 66, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+//
+{ number: 67, effect: [{ name: 'plusXp', n: 1 }], description: 'Портной, +1хп вас зашили, отпустили' },
+{ number: 68, effect: [{ name: 'fall', to: 14 }], description: 'падаете вниз' },
+{ number: 69, effect: ['addStep'], description: 'плюс ход' },
+{ number: 70, effect: [{ name: 'minusXp', n: 2 }], description: 'минус 2 хп' },
+{ number: 71, effect: [{ name: 'minusMoral', n: 2 }, 'skip'], description: 'минус 2 морали, вас немного разорвали, теряете ход' },
+{ number: 72, effect: [{ name: 'plusMoral1', n: 2 }, 'addStep'], description: 'У вас встаёт боевой дух, за вами гонится ... + ход' },
+{ number: 73, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
+{ number: 74, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+{ number: 75, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
+{ number: 76, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+//
+{ number: 77, effect: [{ name: 'plusXp', n: 1 }], description: 'Портной, +1хп вас зашили, отпустили' },
+{ number: 78, effect: [{ name: 'fall', to: 14 }], description: 'падаете вниз' },
+{ number: 79, effect: ['addStep'], description: 'плюс ход' },
+{ number: 80, effect: [{ name: 'minusXp', n: 2 }], description: 'минус 2 хп' },
+{ number: 81, effect: [{ name: 'minusMoral', n: 2 }, 'skip'], description: 'минус 2 морали, вас немного разорвали, теряете ход' },
+{ number: 82, effect: [{ name: 'plusMoral1', n: 2 }, 'addStep'], description: 'У вас встаёт боевой дух, за вами гонится ... + ход' },
+{ number: 83, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
+{ number: 84, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+{ number: 85, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
+{ number: 86, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+//
+{ number: 87, effect: [{ name: 'plusXp', n: 1 }], description: 'Портной, +1хп вас зашили, отпустили' },
+{ number: 88, effect: [{ name: 'fall', to: 14 }], description: 'падаете вниз' },
+{ number: 89, effect: ['addStep'], description: 'плюс ход' },
+{ number: 90, effect: [{ name: 'minusXp', n: 2 }], description: 'минус 2 хп' },
+{ number: 91, effect: [{ name: 'minusMoral', n: 2 }, 'skip'], description: 'минус 2 морали, вас немного разорвали, теряете ход' },
+{ number: 92, effect: [{ name: 'plusMoral1', n: 2 }, 'addStep'], description: 'У вас встаёт боевой дух, за вами гонится ... + ход' },
+{ number: 93, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
+{ number: 94, effect: ['reverse'], description: 'кинь кубик и иди назад' },
 ]

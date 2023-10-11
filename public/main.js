@@ -148,16 +148,21 @@ function action(n) {
         user.position = ef.to;
         moveUser();
       }
-      if (ef.name == 'plusMoral1') {
+      if (ef.name == 'vampire') {
+      }
+          if (ef.name == 'plusMoral1') {
         user.moral += ef.n
         moveUser();
-
         addSound('./audio/rooster.wav', 0.1);
       }
       if (ef.name == 'armor') {
         user.armor += ef.n
         moveUser();
         addSound('./audio/armor.mp3', 0.1);
+      }
+      if (ef.name == 'emptyHole') {
+        user.position = ef.to;
+        moveUser();
       }
     }
   });
@@ -174,7 +179,7 @@ button.addEventListener("click", function () {
 
 function devSetPosition() {
   const cell = document.querySelector('#set-position input').value;
-  user.position = cell;
+  user.position = +cell;
   moveUser();
   action(user.position);
 }
