@@ -2,7 +2,40 @@ main {
     width: 80%;
 }
 
+aside {
+    top: 0;
+    width: 20%;
+    position: fixed;
+    height: 100rem;
+    right: 0;
+    z-index: 10;
+    background: #0d1b15;
+}
+.aside-userlist {   
+    height: 43vh;
+    
+}
+.user {
+    color: #0bfff4;
+    padding: 0.5rem;
+}
+.user:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+.aside-buttons {
+    height: 7vh;
+    background: #1c382c;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 
+.aside-chat {
+height: 50vh;
+background: #5fc7de;
+
+}
 
 .game-field {
     height: 100vh;
@@ -43,7 +76,7 @@ main {
         'wght' 400,
         'GRAD' 0,
         'opsz' 74;
-    font-size: 35px !important;
+    font-size: 27px !important;
     color: white;
     /* text-shadow: rgb(255, 255, 255) 0px 0 5px; */
     background: rgba(0, 0, 0, 0.70);
@@ -98,9 +131,13 @@ main {
     position: absolute;
     bottom: 0;
     right: 0;
-    background-color: green;
+    /* background-color: green; */
     display: flex;
     justify-content: space-evenly;
+}
+.controls button {
+    width: 46%;
+    margin: 0.2rem;
 }
 
 .right {
