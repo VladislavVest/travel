@@ -209,6 +209,12 @@ function addSound(path, volume = 1) {
 }
 
 function message(msg){
-
+const gm = document.querySelector('.global-message');
+const text = gm.querySelector('.text');
+text.innerHTML=msg;
+gm.style.display='flex';
+setTimeout (()=>{
+  gm.style.display='none';
+},3000)
 }
 message('hello word');
