@@ -11,17 +11,21 @@ aside {
     z-index: 10;
     background: #0d1b15;
 }
-.aside-userlist {   
+
+.aside-userlist {
     height: 43vh;
-    
+
 }
+
 .user {
     color: #0bfff4;
     padding: 0.5rem;
 }
+
 .user:hover {
     background: rgba(255, 255, 255, 0.1);
 }
+
 .aside-buttons {
     height: 7vh;
     background: #1c382c;
@@ -32,8 +36,8 @@ aside {
 }
 
 .aside-chat {
-height: 50vh;
-background: #5fc7de;
+    height: 50vh;
+    background: #5fc7de;
 
 }
 
@@ -79,6 +83,9 @@ background: #5fc7de;
     font-size: 27px !important;
     color: white;
     /* text-shadow: rgb(255, 255, 255) 0px 0 5px; */
+}
+
+.fishka{
     background: rgba(0, 0, 0, 0.70);
     border-radius: 100px;
     padding: 3px;
@@ -135,6 +142,7 @@ background: #5fc7de;
     display: flex;
     justify-content: space-evenly;
 }
+
 .controls button {
     width: 46%;
     margin: 0.2rem;
@@ -151,6 +159,10 @@ background: #5fc7de;
     color: #00fd0c;
     display: flex;
     padding: 0.5rem;
+    display: flex;
+    /* flex-direction: column; */
+    width: 100%;
+    justify-content: space-between;
 }
 
 * {
@@ -184,25 +196,35 @@ background: #5fc7de;
     filter: blur(9px);
 
     animation: mymove 6s infinite;
-    
+
 }
+
 @keyframes mymove {
-    0% {opacity: 1}
-    50% {opacity:.5}
-    100% {opacity: 1}
-  }
+    0% {
+        opacity: 1
+    }
+
+    50% {
+        opacity: .5
+    }
+
+    100% {
+        opacity: 1
+    }
+}
 
 
-  .armor {
+.armor {
     position: relative;
 }
+
 .armor::before {
     content: "";
-    display: block; 
-    width: 55px; 
+    display: block;
+    width: 55px;
     height: 55px;
     background-image: url('./images/armor.png');
-    background-size: contain; 
+    background-size: contain;
     background-repeat: no-repeat;
     position: absolute;
     left: 33%;
@@ -211,17 +233,14 @@ background: #5fc7de;
 }
 
 
-    
-@keyframes armor {
-    
-        from {
-          transform: rotateY(0deg);
-        }
-      
-        to {
-          transform: rotateY(360deg);
-        }
-      }
-      
-  
 
+@keyframes armor {
+
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+}

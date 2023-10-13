@@ -47,16 +47,16 @@ gameField.forEach((row, i) => {
 
 const cells = document.querySelectorAll(".cell");
 cells[91 - 1].innerHTML = `
-    <span class="material-symbols-outlined">
+    <span class="material-symbols-outlined fishka">
          elderly
     </span>
-    <span class="material-symbols-outlined">
+    <span class="material-symbols-outlined fishka">
   elderly_woman
   </span>  
-  <span class="material-symbols-outlined">
+  <span class="material-symbols-outlined fishka">
   accessible
   </span>
-  <span class="material-symbols-outlined">
+  <span class="material-symbols-outlined fishka">
   accessible_forward
   </span>
 `;
@@ -71,7 +71,7 @@ function moveUser() {
   })
   const currentCell = document.getElementById(user.position);
   currentCell.innerHTML += `
-<span class="material-symbols-outlined">
+<span class="material-symbols-outlined fishka">
 elderly
 </span>
 `
