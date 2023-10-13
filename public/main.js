@@ -133,13 +133,15 @@ function action(n) {
     };
     if (typeof ef == 'object') {
       if (ef.name == 'minusXp') {
-        user.hitPoints -= ef.n
+        if (user.armor >0) user.armor--
+        else user.hitPoints -= ef.n;
       };
       if (ef.name == 'plusXp') {
         user.hitPoints += ef.n
       };
       if (ef.name == 'minusMoral') {
-        user.moral -= ef.n
+        if (user.armor >0) user.armor--
+        else user.moral -= ef.n;
       };
       if (ef.name == 'plusMoral') {
         user.moral += ef.n
@@ -206,5 +208,7 @@ function addSound(path, volume = 1) {
   });
 }
 
+function message(msg){
 
-
+}
+message('hello word');

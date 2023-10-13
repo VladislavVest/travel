@@ -22,11 +22,45 @@
 </head>
 
 <body>
+  <style>
+    .global-message {
+      background: rgba(0, 0, 0, 0.553);
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-  <!-- <audio src="audio/main.mp3" controls autoplay>
+    .text-container {
+      min-height: 5rem;
+      min-width: 20rem;
+      padding: 1rem;
+      background: rgb(255, 255, 255);
+      border-radius: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-</audio> -->
+    .text-container .text {
+      font-size: 1.5rem;
+    }
+  </style>
+  
+
+
   <main>
+
+    <div class="global-message">
+      <div class="text-container">
+        <div class="text">Hello 123</div>
+      </div>
+    </div>
 
     <div class="top-panel">
       <div class="description" id="descr"></div>
@@ -58,20 +92,9 @@
         width: 4rem;
       }
     </style>
-
     <div class="bottom-panel">
       <div class="illustration"> </div>
       <div class="right">
-        <!-- <div class="stat">
-        HP:&nbsp;
-        <div id="xp"&nbsp></div>
-        &nbsp Morality:&nbsp;
-        <div id="moral"></div>
-        &nbsp Armor:&nbsp;
-        <div id="armor">
-        
-      </div> -->
-
         <div class="stat">
           <div class="left">
             <div>
@@ -109,12 +132,11 @@
             </div>
             <div>
               <span style="color: red; zoom: 1;" class="material-symbols-outlined" title="dice">
-                  casino
+                casino
               </span>: <span id="dice"></span>
             </div>
           </div>
         </div>
-
         <style>
           .stat>div {
             display: inline-block;
@@ -122,15 +144,9 @@
         </style>
         <div class="controls">
           <button type="button" class="btn btn-primary btn-lg btn-sm" onclick="run()" id="run">Run</button>
-          <!-- <audio src="./public/audio/dice.wav" id="run"></audio> -->
           <button type="button" class="btn btn-primary btn-lg btn-sm">Skip</button>
         </div>
-
       </div>
-
-      <!-- <div id="moral"></div> -->
-
-
     </div>
     </div>
 
