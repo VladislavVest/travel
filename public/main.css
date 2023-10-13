@@ -17,6 +17,23 @@ aside {
 
 }
 
+.message {
+ padding: 0.5rem;   
+}
+
+.message .username {
+font-weight: 400;
+font-size: 0.8rem;
+width: fit-content;
+color: white;
+background: black;
+padding: 0.05rem 0.75rem;
+border-radius: 1rem
+}
+.text {
+    font-size: 0.9rem;  
+    padding: 0.5rem;   
+}
 .user {
     color: #0bfff4;
     padding: 0.5rem;
@@ -25,7 +42,6 @@ aside {
 .user:hover {
     background: rgba(255, 255, 255, 0.1);
 }
-
 .aside-buttons {
     height: 7vh;
     background: #1c382c;
