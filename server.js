@@ -17,9 +17,11 @@ app.get("/", (req, res) => {
 
 //////////////////////////// SOCKET /////////////////////////
 const connectedSockets = {};
+
 function getConnectedSockets() {
   return Object.entries(connectedSockets);
 }
+
 function getConnectedUsers() {
   const socketList = getConnectedSockets();
   const userList = socketList.map((double) => {
@@ -30,24 +32,25 @@ function getConnectedUsers() {
   });
   return userList;
 }
-function changeConnections(socket,io) {
+
+function changeConnections(socket, io) {
   // socket.broadcast.emit('refresh-users-list', getConnectedUsers());
   // socket.emit('refresh-users-list', getConnectedUsers());
   io.emit('refresh-users-list', getConnectedUsers());
-  
 }
+
 io.on("connection", (socket) => {
   console.log("a user connected");
   socket.username = 'Anonymous';
   connectedSockets[socket.id] = socket;
-  changeConnections(socket,io);
+  changeConnections(socket, io);
 
-
+  
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
     delete connectedSockets[socket.id];
-    changeConnections(socket,io);
+    changeConnections(socket, io);
   });
   //   socket.on("massage", (msg) => {
   //     log(msg);

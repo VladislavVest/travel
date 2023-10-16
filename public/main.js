@@ -4,23 +4,30 @@ const log = console.log;
 /////////////////////////////////////////////////////////////////   SOCKET    ////////////////////////////////////////////////
 const socket = io();
 // socket.emit("massage", "hellotest");
+
 socket.on("refresh-users-list", (userList) => {
   log(userList);
+  renderUserList(userList);
 });
+
 function renderUserList(userList) {
-  const asideUserList = document.querySelector('.aside-userList');
-asideUserList.innerHTML='';
-userList.forEach((user)=>{
-  asideUserList.innerHTML+=`
+  const asideUserList = document.querySelector('.aside-userlist');
+  asideUserList.innerHTML = '';
+  userList.forEach((user) => {
+    asideUserList.innerHTML += `
     <div class="user">
       <div class="avatar"></div>
       <div class="username">${user.username}</div>
     </div>
   `;
 
-})
+  })
 };
-
+const username = localStorage.getItem("username");
+if (!username) {
+  const setUsernameScreen = document.querySelector('.set-username-screen');
+  setUsernameScreen.style.display = 'flex';
+}
 //////////////////////////////////////////////////////////////////  SOCKET    ////////////////////////////////////////////////
 
 const img = document.createElement('img');
@@ -235,4 +242,4 @@ function message(msg) {
     gm.style.display = 'none';
   }, 3000)
 }
-message('hello word');
+// message('hello word');
