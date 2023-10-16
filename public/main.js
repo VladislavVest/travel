@@ -4,10 +4,22 @@ const log = console.log;
 /////////////////////////////////////////////////////////////////   SOCKET    ////////////////////////////////////////////////
 const socket = io();
 // socket.emit("massage", "hellotest");
-socket.on("refresh-users-list", (dt) => {
-  log(dt);
+socket.on("refresh-users-list", (userList) => {
+  log(userList);
 });
+function renderUserList(userList) {
+  const asideUserList = document.querySelector('.aside-userList');
+asideUserList.innerHTML='';
+userList.forEach((user)=>{
+  asideUserList.innerHTML+=`
+    <div class="user">
+      <div class="avatar"></div>
+      <div class="username">${user.username}</div>
+    </div>
+  `;
 
+})
+};
 
 //////////////////////////////////////////////////////////////////  SOCKET    ////////////////////////////////////////////////
 
@@ -119,12 +131,13 @@ function run() {
       }, 1600);
       stop = true;
     };
- })
+  })
 
-if (!stop) {
-  user.position += number;
-  setTimeout(() => action(user.position), 1600);
-}}
+  if (!stop) {
+    user.position += number;
+    setTimeout(() => action(user.position), 1600);
+  }
+}
 
 
 function action(n) {
@@ -138,14 +151,14 @@ function action(n) {
     };
     if (typeof ef == 'object') {
       if (ef.name == 'minusXp') {
-        if (user.armor >0) user.armor--
+        if (user.armor > 0) user.armor--
         else user.hitPoints -= ef.n;
       };
       if (ef.name == 'plusXp') {
         user.hitPoints += ef.n
       };
       if (ef.name == 'minusMoral') {
-        if (user.armor >0) user.armor--
+        if (user.armor > 0) user.armor--
         else user.moral -= ef.n;
       };
       if (ef.name == 'plusMoral') {
@@ -157,7 +170,7 @@ function action(n) {
       }
       if (ef.name == 'vampire') {
       }
-          if (ef.name == 'plusMoral1') {
+      if (ef.name == 'plusMoral1') {
         user.moral += ef.n
         moveUser();
         addSound('./audio/rooster.wav', 0.1);
@@ -213,13 +226,13 @@ function addSound(path, volume = 1) {
   });
 }
 
-function message(msg){
-const gm = document.querySelector('.global-message');
-const text = gm.querySelector('.text');
-text.innerHTML=msg;
-gm.style.display='flex';
-setTimeout (()=>{
-  gm.style.display='none';
-},3000)
+function message(msg) {
+  const gm = document.querySelector('.global-message');
+  const text = gm.querySelector('.text');
+  text.innerHTML = msg;
+  gm.style.display = 'flex';
+  setTimeout(() => {
+    gm.style.display = 'none';
+  }, 3000)
 }
 message('hello word');

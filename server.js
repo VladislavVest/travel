@@ -1,7 +1,7 @@
 const log = console.log;
 
 const express = require("express");
-const { createServer } = require("node:http");
+const { createServer, get } = require("node:http");
 const { join } = require("node:path");
 const { Server } = require("socket.io");
 
@@ -30,22 +30,24 @@ function getConnectedUsers() {
   });
   return userList;
 }
-function changeConnections(socket) {
-  socket.broadcast.emit('refresh-users-list', getConnectedUsers());
-  socket.emit('refresh-users-list', getConnectedUsers());
+function changeConnections(socket,io) {
+  // socket.broadcast.emit('refresh-users-list', getConnectedUsers());
+  // socket.emit('refresh-users-list', getConnectedUsers());
+  io.emit('refresh-users-list', getConnectedUsers());
+  
 }
 io.on("connection", (socket) => {
   console.log("a user connected");
   socket.username = 'Anonymous';
   connectedSockets[socket.id] = socket;
-  changeConnections(socket);
+  changeConnections(socket,io);
 
 
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
-delete connectedSockets[socket.id];
-changeConnections(socket);
+    delete connectedSockets[socket.id];
+    changeConnections(socket,io);
   });
   //   socket.on("massage", (msg) => {
   //     log(msg);
