@@ -1,14 +1,19 @@
 const log = console.log;
 
-const img = document.createElement('img');
 
+/////////////////////////////////////////////////////////////////   SOCKET    ////////////////////////////////////////////////
 const socket = io();
-
-const descr = document.querySelector("#descr");
 // socket.emit("massage", "hellotest");
-// // socket.on("data", (dt) => {
-// //   alert(dt);
-// // });
+socket.on("refresh-users-list", (dt) => {
+  log(dt);
+});
+
+
+//////////////////////////////////////////////////////////////////  SOCKET    ////////////////////////////////////////////////
+
+const img = document.createElement('img');
+const descr = document.querySelector("#descr");
+
 const user = {
   position: 1,
   hitPoints: 30,

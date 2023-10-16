@@ -15,17 +15,43 @@ app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "index.html"));
 });
 
+//////////////////////////// SOCKET /////////////////////////
+const connectedSockets = {};
+function getConnectedSockets() {
+  return Object.entries(connectedSockets);
+}
+function getConnectedUsers() {
+  const socketList = getConnectedSockets();
+  const userList = socketList.map((double) => {
+    return {
+      id: double[0],
+      username: double[1].username,
+    }
+  });
+  return userList;
+}
+function changeConnections(socket) {
+  socket.broadcast.emit('refresh-users-list', getConnectedUsers());
+  socket.emit('refresh-users-list', getConnectedUsers());
+}
 io.on("connection", (socket) => {
   console.log("a user connected");
+  socket.username = 'Anonymous';
+  connectedSockets[socket.id] = socket;
+  changeConnections(socket);
+
+
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
+delete connectedSockets[socket.id];
+changeConnections(socket);
   });
-//   socket.on("massage", (msg) => {
-//     log(msg);
+  //   socket.on("massage", (msg) => {
+  //     log(msg);
 
-//     socket.emit("data", "+++++++++++good+++++++++");
-//   });
+  //     socket.emit("data", "+++++++++++good+++++++++");
+  //   });
 });
 
 server.listen(3000, () => {
