@@ -29,7 +29,9 @@ if (!username) {
   setUsernameScreen.style.display = 'flex';
 }
 //////////////////////////////////////////////////////////////////  SOCKET    ////////////////////////////////////////////////
-
+function setUserName(){
+  log('chek 1111'); //preventDefoult
+}
 const img = document.createElement('img');
 const descr = document.querySelector("#descr");
 

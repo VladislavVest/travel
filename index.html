@@ -58,12 +58,21 @@
       height: 100vh;
       background: rgba(0, 0, 0, 0.567);
       z-index: 999;
+      display:flex;
+      justify-content: center;
+      align-items: center;
       display:none;
     }
   </style>
   
 
-  <div class="set-username-screen"></div>
+  <div class="set-username-screen">
+    <form id="nameForm" onsubmit="setUserName()">
+      <input type="text">
+      <input type="submit" value="Enter name">
+      
+    </form>
+  </div>
 
 
   <main>
