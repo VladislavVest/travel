@@ -34,7 +34,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      display:none;
+      display: none;
     }
 
     .text-container {
@@ -58,19 +58,19 @@
       height: 100vh;
       background: rgba(0, 0, 0, 0.567);
       z-index: 999;
-      display:flex;
+      display: flex;
       justify-content: center;
       align-items: center;
-      display:none;
+      display: none;
     }
   </style>
-  
+
 
   <div class="set-username-screen">
     <form id="nameForm" onsubmit="setUserName()">
       <input type="text">
       <input type="submit" value="Enter name">
-      
+
     </form>
   </div>
 
@@ -179,106 +179,6 @@
 
     <div class="game-field">
       <div class="grid">
-        <!-- <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div> -->
       </div>
       <!-- <img class="map" src="https://cdn.glitch.global/164631d8-afb1-4757-9701-8172f775d7a5/map.jpg?v=1694706132670"> -->
 
@@ -323,7 +223,14 @@
         <div class="text">go first</div>
       </div>
     </div>
+    <form class="aside-chat-form" id="nameForm" onsubmit="sendChatMessage()">
+      <textarea name="" id="" cols="30" rows="10"></textarea>
+      <input type="submit" value="Send">
+    </form>
   </aside>
+
+
+
 
 
   <audio src="./audio/rooster.wav" id="roost"></audio>

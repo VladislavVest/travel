@@ -53,9 +53,19 @@ border-radius: 1rem
 }
 
 .aside-chat {
-    height: 50vh;
+    height: 43vh;
     background: #5fc7de;
 
+}
+
+.aside-chat-form {
+    height: 7vh;
+    background: #79c5d6;
+    display: flex; 
+}
+
+.aside-chat-form textarea {
+width: 100%;
 }
 
 .game-field {
