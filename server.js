@@ -52,11 +52,12 @@ io.on("connection", (socket) => {
     delete connectedSockets[socket.id];
     changeConnections(socket, io);
   });
-  //   socket.on("massage", (msg) => {
-  //     log(msg);
-
-  //     socket.emit("data", "+++++++++++good+++++++++");
-  //   });
+    socket.on("set-username", (username) => {
+      log(username);
+socket.username = username;
+changeConnections(socket, io);
+      // socket.emit("data", "+++++++++++good+++++++++");
+    });
 });
 
 server.listen(3000, () => {

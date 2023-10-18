@@ -26,11 +26,13 @@ function renderUserList(userList) {
 const username = localStorage.getItem("username");
 if (!username) {
   const setUsernameScreen = document.querySelector('.set-username-screen');
-  setUsernameScreen.style.display = 'flex';
-}
+  // setUsernameScreen.style.display = 'flex';
+} else {socket.emit('set-username',username) }
+
+
 //////////////////////////////////////////////////////////////////  SOCKET    ////////////////////////////////////////////////
-function setUserName(){
-  log('chek 1111'); //preventDefoult
+function setUserName() {
+  log('chek 1111'); //preventDefoult propisat user name v local storage // otpravit nba bek end 4erez socket
 }
 const img = document.createElement('img');
 const descr = document.querySelector("#descr");
