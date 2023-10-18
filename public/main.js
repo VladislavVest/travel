@@ -251,6 +251,20 @@ function sendChatMessage(event) {
   log('1111111111', event);
   event.preventDefault();
   const textarea = event.srcElement[0];
+  if (!textarea.value) return;
   socket.emit('chat-message',textarea.value);
   textarea.value ='';
 }
+
+socket.on('new-all-message',(message)=>{
+  const asideChat = document.querySelector('.aside-chat');
+  asideChat.innerHTML+=`
+  <div class="message">
+        <div class="author">
+          <div class="avatar"></div>
+          <div class="username">${message.username}</div>
+        </div>
+        <div class="text">${message.text}</div>
+      </div>
+      `;
+});
