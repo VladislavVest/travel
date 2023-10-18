@@ -247,3 +247,10 @@ function message(msg) {
   }, 3000)
 }
 // message('hello word');
+function sendChatMessage(event) {
+  log('1111111111', event);
+  event.preventDefault();
+  const textarea = event.srcElement[0];
+  socket.emit('chat-message',textarea.value);
+  textarea.value ='';
+}

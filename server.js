@@ -45,21 +45,22 @@ io.on("connection", (socket) => {
   connectedSockets[socket.id] = socket;
   changeConnections(socket, io);
 
-  
-
   socket.on("disconnect", () => {
     console.log("user disconnected");
     delete connectedSockets[socket.id];
     changeConnections(socket, io);
   });
-    socket.on("set-username", (username) => {
-      log(username);
-socket.username = username;
-changeConnections(socket, io);
-      // socket.emit("data", "+++++++++++good+++++++++");
-    });
+
+  socket.on("set-username", (username) => {
+    log(username);
+    socket.username = username;
+    changeConnections(socket, io);
+    // socket.emit("data", "+++++++++++good+++++++++");
+  });
+  socket.on('chat-message',(message)=>{log('vot ono', message)});
 });
 
 server.listen(3000, () => {
   console.log("server running at http://localhost:3000");
 });
+
