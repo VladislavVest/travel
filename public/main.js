@@ -276,3 +276,8 @@ socket.on('new-all-message', (message) => {
     behavior: "smooth",
   });
 });
+
+function settingsToggle() {
+  const settingsMenu = document.querySelector('.settings-menu');
+settingsMenu.classList.toggle('open-settings');
+}

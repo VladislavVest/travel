@@ -9,7 +9,7 @@ aside {
     position: fixed;
     height: 100rem;
     right: 0;
-    z-index: 10;
+    z-index: 20;
     background: #0d1b15;
 }
 
@@ -43,6 +43,23 @@ border-radius: 1rem
 .user:hover {
     background: rgba(255, 255, 255, 0.1);
 }
+
+.settings-menu{
+    top: 0;
+    width: 20%;
+    position: fixed;
+    height: 100rem;
+    right: 0%;
+    z-index: 19;
+    background: #0d1b15;  
+    transition: right 0.4s ease-in-out;
+}
+
+.open-settings{
+    right: 20%;
+    
+}
+
 .aside-buttons {
     height: 7vh;
     background: #1c382c;
