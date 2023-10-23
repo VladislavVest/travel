@@ -23,16 +23,20 @@ function renderUserList(userList) {
 
   })
 };
+const setUsernameScreen = document.querySelector('.set-username-screen');
 const username = localStorage.getItem("username");
 if (!username) {
-  const setUsernameScreen = document.querySelector('.set-username-screen');
-  // setUsernameScreen.style.display = 'flex';
-} else {socket.emit('set-username',username) }
+  setUsernameScreen.style.display = 'flex';
+} else { socket.emit('set-username', username) }
 
 
 //////////////////////////////////////////////////////////////////  SOCKET    ////////////////////////////////////////////////
 function setUserName() {
   log('chek 1111'); //preventDefoult propisat user name v local storage // otpravit nba bek end 4erez socket
+  const nameUser = document.querySelector('#nameForm input').value;
+  localStorage.setItem("username", nameUser);
+  setUsernameScreen.style.display = 'none';
+  socket.emit('set-username', username);
 }
 const img = document.createElement('img');
 const descr = document.querySelector("#descr");
@@ -248,17 +252,16 @@ function message(msg) {
 }
 // message('hello word');
 function sendChatMessage(event) {
-  log('1111111111', event);
   event.preventDefault();
   const textarea = event.srcElement[0];
   if (!textarea.value) return;
-  socket.emit('chat-message',textarea.value);
-  textarea.value ='';
+  socket.emit('chat-message', textarea.value);
+  textarea.value = '';
 }
 
-socket.on('new-all-message',(message)=>{
+socket.on('new-all-message', (message) => {
   const asideChat = document.querySelector('.aside-chat');
-  asideChat.innerHTML+=`
+  asideChat.innerHTML += `
   <div class="message">
         <div class="author">
           <div class="avatar"></div>
@@ -267,4 +270,9 @@ socket.on('new-all-message',(message)=>{
         <div class="text">${message.text}</div>
       </div>
       `;
+  asideChat.scroll({
+    top: 99999900,
+    left: 0,
+    behavior: "smooth",
+  });
 });

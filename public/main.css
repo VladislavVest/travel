@@ -55,6 +55,7 @@ border-radius: 1rem
 .aside-chat {
     height: 43vh;
     background: #5fc7de;
+    overflow-y: scroll;
 
 }
 
