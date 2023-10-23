@@ -58,7 +58,7 @@
       height: 100vh;
       background: rgba(0, 0, 0, 0.567);
       z-index: 999;
-      display: flex;
+      /* display: flex; */
       justify-content: center;
       align-items: center;
       display: none;
@@ -101,7 +101,7 @@
     <style>
       .dev-panel {
         position: fixed;
-        right: 20%;
+        right: 50%;
         top: 0;
         width: 20rem;
         height: 5rem;
@@ -189,8 +189,22 @@
   </main>
 
   <div class="settings-menu">
-menu1111111
-
+    <div class="settings-section">
+      User name:&nbsp;&nbsp;
+      <div id="settings-username"></div>
+      <button  onclick="editUsername()">Edit</button>
+    </div>
+    <hr>
+    <div class="settings-section">
+      Example:
+      <button>Edit</button>
+    </div>
+    <hr>
+    <div class="settings-section">
+      Example:
+      <button>Edit</button>
+    </div>
+    <hr>
   </div>
 
   <aside>

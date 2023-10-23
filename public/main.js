@@ -280,4 +280,17 @@ socket.on('new-all-message', (message) => {
 function settingsToggle() {
   const settingsMenu = document.querySelector('.settings-menu');
 settingsMenu.classList.toggle('open-settings');
+const username = localStorage.getItem("username");
+const settingsUsername = document.querySelector('#settings-username');
+settingsUsername.innerHTML = username;
+}
+
+function editUsername() {
+  const setUsernameScreen = document.querySelector('.set-username-screen');
+  const username = localStorage.getItem("username");
+    setUsernameScreen.style.display = 'flex';
+  // } else { socket.emit('set-username', username) }
+  const nameUserInput = document.querySelector('#nameForm input');
+  nameUserInput.value = username;
+
 }
