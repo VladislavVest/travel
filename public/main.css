@@ -344,6 +344,13 @@ aside {
 .big-button .red-button .top {
     background-color: red;
     bottom: 50px;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-family: cursive;
+    color: #350305;
 }
 
 .big-button .red-button .bottom {
