@@ -294,3 +294,21 @@ function editUsername() {
   nameUserInput.value = username;
 
 }
+
+const currentPartyStatus = document.querySelector('.js-status'),
+      bigButton = document.querySelector('.js-big-button'),
+      partyScreen = document.querySelector('.start-game-screen');
+
+const party = () => {
+  if(bigButton.classList.contains('is-active')) {
+    bigButton.classList.remove('is-active');
+    partyScreen.classList.remove('is-active');
+    // currentPartyStatus.innerHTML = '😢 Not Partying, you should be! 😢';
+  } else {
+    bigButton.classList.add('is-active');
+    partyScreen.classList.add('is-active');
+    // currentPartyStatus.innerHTML = '🎉 🍻 🕺 Partying 💃 🍻 🎉';
+  }
+}
+
+bigButton.addEventListener('click', party);

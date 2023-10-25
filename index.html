@@ -63,7 +63,21 @@
       align-items: center;
       display: none;
     }
+
+    .start-game-screen {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.567);
+      z-index: 998;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* display: none; */
+    }
   </style>
+
+
 
 
   <div class="set-username-screen">
@@ -73,6 +87,25 @@
 
     </form>
   </div>
+
+  <div class="start-game-screen">
+    <h1 class="button-title"> <span class="js-status"></span></h1>
+
+    <div class="big-button js-big-button">
+      <div class="red-button">
+        <div class="top"></div>
+        <div class="button-height"></div>
+        <div class="bottom"></div>
+      </div>
+      <div class="grey-box">
+        <div class="top"></div>
+        <div class="front"></div>
+      </div>
+    </div>
+
+  </div>
+
+
 
 
   <main>
@@ -192,7 +225,7 @@
     <div class="settings-section">
       User name:&nbsp;&nbsp;
       <div id="settings-username"></div>
-      <button  onclick="editUsername()">Edit</button>
+      <button onclick="editUsername()">Edit</button>
     </div>
     <hr>
     <div class="settings-section">

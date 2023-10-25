@@ -19,22 +19,24 @@ aside {
 }
 
 .message {
- padding: 0.5rem;   
+    padding: 0.5rem;
 }
 
 .message .username {
-font-weight: 400;
-font-size: 0.8rem;
-width: fit-content;
-color: white;
-background: black;
-padding: 0.05rem 0.75rem;
-border-radius: 1rem
+    font-weight: 400;
+    font-size: 0.8rem;
+    width: fit-content;
+    color: white;
+    background: black;
+    padding: 0.05rem 0.75rem;
+    border-radius: 1rem
 }
+
 .text {
-    font-size: 0.9rem;  
-    padding: 0.5rem;   
+    font-size: 0.9rem;
+    padding: 0.5rem;
 }
+
 .user {
     color: #0bfff4;
     padding: 0.5rem;
@@ -44,26 +46,26 @@ border-radius: 1rem
     background: rgba(255, 255, 255, 0.1);
 }
 
-.settings-menu{
+.settings-menu {
     top: 0;
     width: 20%;
     position: fixed;
     height: 100rem;
     right: 0%;
     z-index: 19;
-    background: #0d1b15;  
+    background: #0d1b15;
     transition: right 0.4s ease-in-out;
 }
 
-.open-settings{
+.open-settings {
     right: 20%;
-    
+
 }
 
-.settings-section{
+.settings-section {
     padding: 1rem;
     display: flex;
-justify-content: space-between;
+    justify-content: space-between;
 }
 
 .aside-buttons {
@@ -85,11 +87,11 @@ justify-content: space-between;
 .aside-chat-form {
     height: 7vh;
     background: #79c5d6;
-    display: flex; 
+    display: flex;
 }
 
 .aside-chat-form textarea {
-width: 100%;
+    width: 100%;
 }
 
 .game-field {
@@ -136,7 +138,7 @@ width: 100%;
     /* text-shadow: rgb(255, 255, 255) 0px 0 5px; */
 }
 
-.fishka{
+.fishka {
     background: rgba(0, 0, 0, 0.70);
     border-radius: 100px;
     padding: 3px;
@@ -182,6 +184,8 @@ width: 100%;
     height: 100%;
     background-image: url(./images/dice.gif);
     background-size: cover;
+    position: relative;
+    z-index: 99;
 }
 
 .controls {
@@ -294,4 +298,114 @@ width: 100%;
     to {
         transform: rotateY(360deg);
     }
+}
+
+/*/////////////////////////////////////////////////////////*/
+
+
+
+
+
+.big-button {
+    height: 200px;
+    margin: 50px auto;
+    max-width: 320px;
+    position: relative;
+    width: 100%;
+}
+
+.big-button .red-button {
+    height: 100px;
+    left: 0;
+    margin: 10px auto;
+    position: absolute;
+    right: 0;
+}
+
+.big-button .red-button:hover {
+    cursor: pointer;
+}
+
+.big-button .red-button .top,
+.big-button .red-button .bottom {
+    background-color: #a40000;
+    border: 1px solid grey;
+    border-radius: 50%;
+    height: 50px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    transition: 0.4s ease-in;
+    width: 200px;
+    z-index: 10;
+}
+
+.big-button .red-button .top {
+    background-color: red;
+    bottom: 50px;
+}
+
+.big-button .red-button .bottom {
+    bottom: 0;
+    z-index: 8;
+}
+
+.big-button .red-button .button-height {
+    background-color: #a40000;
+    border: 1px solid grey;
+    border-bottom: none;
+    bottom: 20px;
+    height: 50px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    transition: 0.4s ease-in;
+    width: 200px;
+    z-index: 9;
+}
+
+.big-button .grey-box .top {
+    border-bottom: 100px solid #272f43;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    height: 0;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    width: 221px;
+    box-sizing: content-box;
+}
+
+.big-button .grey-box .front {
+    background-color: #1d2333;
+    border: 1px solid #181111;
+    height: 70px;
+    position: absolute;
+    top: 130px;
+    width: 320px;
+}
+
+.big-button.is-active .red-button .top {
+    bottom: 30px;
+}
+
+.big-button.is-active .red-button .button-height {
+    height: 30px;
+}
+
+.button-title {
+    font-family: sans-serif;
+    font-size: 2rem;
+    font-weight: 100;
+    text-align: center;
+}
+
+.button-title span {
+    display: block;
+    font-weight: 700;
+    margin-top: 30px;
 }
