@@ -32,7 +32,7 @@ if (!username) {
 
 //////////////////////////////////////////////////////////////////  SOCKET    ////////////////////////////////////////////////
 function setUserName() {
-  log('chek 1111'); //preventDefoult propisat user name v local storage // otpravit nba bek end 4erez socket
+  log('chek 1111'); 
   const nameUser = document.querySelector('#nameForm input').value;
   localStorage.setItem("username", nameUser);
   setUsernameScreen.style.display = 'none';
@@ -295,9 +295,9 @@ function editUsername() {
 
 }
 
-const currentPartyStatus = document.querySelector('.js-status'),
-      bigButton = document.querySelector('.js-big-button'),
-      partyScreen = document.querySelector('.start-game-screen');
+const currentPartyStatus = document.querySelector('.js-status');
+const    bigButton = document.querySelector('.js-big-button');
+const     partyScreen = document.querySelector('.start-game-screen');
 
 const party = () => {
   if(bigButton.classList.contains('is-active')) {
@@ -312,3 +312,42 @@ const party = () => {
 }
 
 bigButton.addEventListener('click', party);
+
+const startButton = document.querySelector('.start-game-screen');
+// bigButton.addEventListener('click',()=>{party(); startGame()} );как вызвать 2 функции в онклике
+
+bigButton.addEventListener('click', startGame);
+
+function startGame() {
+  addSound('./audio/start.wav', 0.1);
+  setTimeout(()=> {
+    startButton.style.display = 'none';
+  }, 2400);
+  startButton.style.backgroundImage = "url(./images/starting.gif)";
+  startButton.style.backgroundSize = 'cover';
+}
+
+
+
+
+
+
+// const startButton = document.querySelector('.start-game-screen');
+// const startSound =()=>{
+//   addSound('./audio/start.wav', 0.1);
+//   startButton.style.display = 'none';
+// }
+// bigButton.addEventListener('click', startSound);
+
+
+
+
+
+
+
+
+// bigButton.addEventListener('click', startGame);
+// function startGame() {
+//   addSound('./audio/start.wav', 0.1);
+//   startButton.style.display = 'none';
+// }
