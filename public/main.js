@@ -325,15 +325,24 @@ function startGame() {
     const username = localStorage.getItem("username");
     socket.emit('start-game-signal', username);
 
-  }, 2400);
+  }, 1000);
   startButton.style.backgroundImage = "url(./images/starting.gif)";
   startButton.style.backgroundSize = 'cover';
 }
 
+socket.on('open-step', (gameInfo) => {
+log(gameInfo);
+const runBut = document.querySelector('#run');
+runBut.disabled = false;
+const skipBut = document.querySelector('#skip');
+skipBut.disabled = false;
+})
+socket.on('game-activation', (gameInfo) => {
+  startButton.style.display = 'none';
 
+});
 
-
-
+socket.on('force-front-restart',()=>location.reload());
 
 
 

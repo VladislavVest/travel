@@ -17,7 +17,8 @@ app.get("/", (req, res) => {
 
 //////////////////////////// SOCKET /////////////////////////
 const connectedSockets = {};
-
+let players = [];
+let gameInfo = { playerPointer: 0, isGameStarted: false };
 function getConnectedSockets() {
   return Object.entries(connectedSockets);
 }
@@ -38,12 +39,19 @@ function changeConnections(socket, io) {
   // socket.emit('refresh-users-list', getConnectedUsers());
   io.emit('refresh-users-list', getConnectedUsers());
 }
-
+let reloadFrontFlag = false;
 io.on("connection", (socket) => {
   console.log("a user connected");
   socket.username = 'Anonymous';
   connectedSockets[socket.id] = socket;
   changeConnections(socket, io);
+  setTimeout(() => {
+    if (!reloadFrontFlag) {
+      io.emit('force-front-restart');
+      reloadFrontFlag = true;
+    };
+  }, 2000);
+
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
@@ -61,7 +69,16 @@ io.on("connection", (socket) => {
     log('vot ono', message);
     io.emit('new-all-message', { text: message, username: socket.username });
   });
-  socket.on('start-game-signal', (username)=>{});
+  socket.on('start-game-signal', (username) => {
+    players = getConnectedSockets();
+    gameInfo.isGameStarted = true;
+    //open step for first user
+    const playerId = players[gameInfo.playerPointer][0];
+    const playerSocket = players[gameInfo.playerPointer][1];
+    socket.emit('open-step', gameInfo);
+    //start game for all users
+    io.emit('game-activation', gameInfo)
+  });
 
 
 });
