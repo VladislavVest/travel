@@ -32,7 +32,7 @@ if (!username) {
 
 //////////////////////////////////////////////////////////////////  SOCKET    ////////////////////////////////////////////////
 function setUserName() {
-  log('chek 1111'); 
+  log('chek 1111');
   const nameUser = document.querySelector('#nameForm input').value;
   localStorage.setItem("username", nameUser);
   setUsernameScreen.style.display = 'none';
@@ -279,16 +279,16 @@ socket.on('new-all-message', (message) => {
 
 function settingsToggle() {
   const settingsMenu = document.querySelector('.settings-menu');
-settingsMenu.classList.toggle('open-settings');
-const username = localStorage.getItem("username");
-const settingsUsername = document.querySelector('#settings-username');
-settingsUsername.innerHTML = username;
+  settingsMenu.classList.toggle('open-settings');
+  const username = localStorage.getItem("username");
+  const settingsUsername = document.querySelector('#settings-username');
+  settingsUsername.innerHTML = username;
 }
 
 function editUsername() {
   const setUsernameScreen = document.querySelector('.set-username-screen');
   const username = localStorage.getItem("username");
-    setUsernameScreen.style.display = 'flex';
+  setUsernameScreen.style.display = 'flex';
   // } else { socket.emit('set-username', username) }
   const nameUserInput = document.querySelector('#nameForm input');
   nameUserInput.value = username;
@@ -296,11 +296,11 @@ function editUsername() {
 }
 
 const currentPartyStatus = document.querySelector('.js-status');
-const    bigButton = document.querySelector('.js-big-button');
-const     partyScreen = document.querySelector('.start-game-screen');
+const bigButton = document.querySelector('.js-big-button');
+const partyScreen = document.querySelector('.start-game-screen');
 
 const party = () => {
-  if(bigButton.classList.contains('is-active')) {
+  if (bigButton.classList.contains('is-active')) {
     bigButton.classList.remove('is-active');
     partyScreen.classList.remove('is-active');
     // currentPartyStatus.innerHTML = '😢 Not Partying, you should be! 😢';
@@ -320,8 +320,11 @@ bigButton.addEventListener('click', startGame);
 
 function startGame() {
   addSound('./audio/start.wav', 0.1);
-  setTimeout(()=> {
+  setTimeout(() => {
     startButton.style.display = 'none';
+    const username = localStorage.getItem("username");
+    socket.emit('start-game-signal', username);
+
   }, 2400);
   startButton.style.backgroundImage = "url(./images/starting.gif)";
   startButton.style.backgroundSize = 'cover';
@@ -332,22 +335,5 @@ function startGame() {
 
 
 
-// const startButton = document.querySelector('.start-game-screen');
-// const startSound =()=>{
-//   addSound('./audio/start.wav', 0.1);
-//   startButton.style.display = 'none';
-// }
-// bigButton.addEventListener('click', startSound);
 
 
-
-
-
-
-
-
-// bigButton.addEventListener('click', startGame);
-// function startGame() {
-//   addSound('./audio/start.wav', 0.1);
-//   startButton.style.display = 'none';
-// }

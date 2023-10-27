@@ -57,13 +57,15 @@ io.on("connection", (socket) => {
     changeConnections(socket, io);
     // socket.emit("data", "+++++++++++good+++++++++");
   });
-  socket.on('chat-message',(message)=>{
+  socket.on('chat-message', (message) => {
     log('vot ono', message);
-    io.emit('new-all-message',{text:message, username:socket.username});
-});
+    io.emit('new-all-message', { text: message, username: socket.username });
+  });
+  socket.on('start-game-signal', (username)=>{});
+
+
 });
 
 server.listen(3000, () => {
   console.log("server running at http://localhost:3000");
 });
-
