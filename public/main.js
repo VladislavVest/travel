@@ -6,7 +6,7 @@ const socket = io();
 // socket.emit("massage", "hellotest");
 
 socket.on("refresh-users-list", (userList) => {
-  log(userList);
+  log(userList,'vot ono 33333333333333333333333');
   renderUserList(userList);
 });
 
@@ -15,7 +15,7 @@ function renderUserList(userList) {
   asideUserList.innerHTML = '';
   userList.forEach((user) => {
     asideUserList.innerHTML += `
-    <div class="user">
+    <div class="user" id="x${user.id}">
       <div class="avatar"></div>
       <div class="username">${user.username}</div>
     </div>
@@ -250,7 +250,6 @@ function message(msg) {
     gm.style.display = 'none';
   }, 3000)
 }
-// message('hello word');
 function sendChatMessage(event) {
   event.preventDefault();
   const textarea = event.srcElement[0];
@@ -331,18 +330,21 @@ function startGame() {
 }
 
 socket.on('open-step', (gameInfo) => {
-log(gameInfo);
-const runBut = document.querySelector('#run');
-runBut.disabled = false;
-const skipBut = document.querySelector('#skip');
-skipBut.disabled = false;
+  const runBut = document.querySelector('#run');
+  runBut.disabled = false;
+  const skipBut = document.querySelector('#skip');
+  skipBut.disabled = false;
 })
+
 socket.on('game-activation', (gameInfo) => {
   startButton.style.display = 'none';
-
+  log('VOT ONOOOOOOOOOOOOOOOOOOOOOOOOO', gameInfo);
+  log(gameInfo.currentUserId, 'Votoono 22222222222222222222222');
+const userInList = document.querySelector('#x'+gameInfo.currentUserId);
+userInList.classList.add('active-step');
 });
 
-socket.on('force-front-restart',()=>location.reload());
+socket.on('force-front-restart', () => location.reload());// restart all-fronts if restart back
 
 
 

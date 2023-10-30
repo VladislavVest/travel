@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 //////////////////////////// SOCKET /////////////////////////
 const connectedSockets = {};
 let players = [];
-let gameInfo = { playerPointer: 0, isGameStarted: false };
+let gameInfo = { playerPointer: 0, isGameStarted: false , currentUserId: null};
 function getConnectedSockets() {
   return Object.entries(connectedSockets);
 }
@@ -75,6 +75,7 @@ io.on("connection", (socket) => {
     //open step for first user
     const playerId = players[gameInfo.playerPointer][0];
     const playerSocket = players[gameInfo.playerPointer][1];
+    gameInfo.currentUserId = playerId;
     socket.emit('open-step', gameInfo);
     //start game for all users
     io.emit('game-activation', gameInfo)

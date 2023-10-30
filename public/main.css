@@ -416,3 +416,18 @@ aside {
     font-weight: 700;
     margin-top: 30px;
 }
+
+.active-step {
+    background: rgba(255, 0, 0, 0.671);
+    animation-name: activUser;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+
+  }
+  
+  @keyframes activUser {
+    0% {background-color: rgba(255, 0, 0, 0.677);}
+    50% {background-color: rgba(185, 19, 119, 0.411);}
+    100% {background-color: rgba(255, 0, 0, 0.677);}
+
+  }
