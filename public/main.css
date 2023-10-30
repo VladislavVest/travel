@@ -186,6 +186,16 @@ aside {
     background-size: cover;
     position: relative;
     z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer {
+    background: #02000057;
+    font-size: xx-large;
+    color: #00fd0c;
+    width: fit-content;
 }
 
 .controls {

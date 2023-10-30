@@ -1,12 +1,12 @@
 const log = console.log;
 
+let timerCounter = 0;
 
 /////////////////////////////////////////////////////////////////   SOCKET    ////////////////////////////////////////////////
 const socket = io();
 // socket.emit("massage", "hellotest");
 
 socket.on("refresh-users-list", (userList) => {
-  log(userList,'vot ono 33333333333333333333333');
   renderUserList(userList);
 });
 
@@ -202,6 +202,8 @@ function action(n) {
     }
   });
   render();
+  //start timer to skip step
+
 }
 
 
@@ -334,14 +336,28 @@ socket.on('open-step', (gameInfo) => {
   runBut.disabled = false;
   const skipBut = document.querySelector('#skip');
   skipBut.disabled = false;
+
+
+  const timerPlace = document.querySelector('.bottom-panel .illustration');
+
+
+  const setTimer = setInterval(() => {
+    timerCounter++;
+    log(timerCounter);
+timerPlace.innerHTML = `
+<div class="timer">${timerCounter} </div>
+`
+    if (timerCounter > 5) {
+      clearInterval(setTimer);
+    }
+  }, 1000);
+
 })
 
 socket.on('game-activation', (gameInfo) => {
   startButton.style.display = 'none';
-  log('VOT ONOOOOOOOOOOOOOOOOOOOOOOOOO', gameInfo);
-  log(gameInfo.currentUserId, 'Votoono 22222222222222222222222');
-const userInList = document.querySelector('#x'+gameInfo.currentUserId);
-userInList.classList.add('active-step');
+  const userInList = document.querySelector('#x' + gameInfo.currentUserId);
+  userInList.classList.add('active-step');
 });
 
 socket.on('force-front-restart', () => location.reload());// restart all-fronts if restart back
