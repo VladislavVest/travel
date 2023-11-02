@@ -13,10 +13,10 @@ const gameField = [
 
 const cellsDescription = [
   { number: 1, effect: [''], description: 'Старт' },
-  { number: 2, effect: ['skip'], description: 'пропуск хода' },
+  { number: 2, effect: [{name: 'skip', n: 1}], description: 'пропуск хода' },
   { number: 3, effect: ['addStep'], description: 'плюс ход' },
   { number: 4, effect: [{ name: 'minusXp', n: 1 }], description: 'минус 1 хп' },
-  { number: 5, effect: [{ name: 'minusXp', n: 1 }, 'skip'], description: 'минус 1 хп, минус ход' },
+  { number: 5, effect: [{ name: 'minusXp', n: 1 }, {name:'skip', n:1}], description: 'минус 1 хп, минус ход' },
   { number: 6, effect: [{ name: 'plusXp', n: 1 }, 'addStep'], description: 'плюс 1 хп' },
   { number: 7, effect: ['skip'], description: 'пропускхода' },
   { number: 8, effect: [{ name: 'minusXp', n: 1 }], description: 'минус 1 хп' },

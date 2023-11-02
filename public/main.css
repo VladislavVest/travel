@@ -9,7 +9,7 @@ aside {
     position: fixed;
     height: 100rem;
     right: 0;
-    z-index: 20;
+    z-index: 1000;
     background: #0d1b15;
 }
 
@@ -52,7 +52,7 @@ aside {
     position: fixed;
     height: 100rem;
     right: 0%;
-    z-index: 19;
+    z-index: 999;
     background: #0d1b15;
     transition: right 0.4s ease-in-out;
 }
