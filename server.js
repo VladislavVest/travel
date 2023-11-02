@@ -80,6 +80,7 @@ io.on("connection", (socket) => {
     //start game for all users
     io.emit('game-activation', gameInfo)
   });
+  socket.on('skip-step',()=>{});
 
 
 });
@@ -87,3 +88,4 @@ io.on("connection", (socket) => {
 server.listen(3000, () => {
   console.log("server running at http://localhost:3000");
 });
+

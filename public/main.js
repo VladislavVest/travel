@@ -256,16 +256,34 @@ function addSound(path, volume = 1) {
     // Здесь можно добавить логику восстановления или информировать пользователя
   });
 }
-
-function message(msg) {
+// {/* <div class="global-message">
+//       <div class="text-container">
+//         <div class="text">Hello 123</div> */}
+function message(msg, effect) {
   const gm = document.querySelector('.global-message');
+  const container = gm.querySelector('.text-container');
   const text = gm.querySelector('.text');
   text.innerHTML = msg;
   gm.style.display = 'flex';
+  if (effect == 'your-step') {
+    container.style.background='rgb(255 255 255 / 47%)';
+    container.style.border='5px green solid';
+    text.style.color = '#004700';
+    text.style.fontSize = '5rem';
+    gm.style.transition = '.5s';
+     setTimeout(() => {
+      gm.style.transform = 'scale(3,3)';
+      const grid = document.querySelector(".grid");
+    grid.style.borderColor = 'green';
+
+
+  }, 1000)
+    }
   setTimeout(() => {
     gm.style.display = 'none';
   }, 3000)
 }
+message('Твой ход', 'your-step');
 function sendChatMessage(event) {
   event.preventDefault();
   const textarea = event.srcElement[0];
@@ -385,3 +403,11 @@ function updateTheInterface() {
 
 }
 
+function skip() {
+  log('skip');
+  socket.emit('skip-step');
+ message('Ход завершён');
+ document.querySelector('#run').disabled = true;
+ document.querySelector('#skip').disabled = true;
+
+}
