@@ -46,6 +46,9 @@ const user = {
   hitPoints: 30,
   moral: 10,
   armor: 0,
+  steps: 1,
+  weapon: 2,
+  dice: 0,
 }
 const getCellDescription = (cellNumber) => cellsDescription.find(cdo => cdo.number == cellNumber) || { effect: [], description: '' };
 
@@ -56,6 +59,13 @@ function render() {
   moral.innerHTML = user.moral;
   const armor = document.querySelector("#armor");
   armor.innerHTML = user.armor;
+  const steps = document.querySelector("#steps");
+  steps.innerHTML = user.steps;
+  const weapon = document.querySelector("#weapon");
+  weapon.innerHTML = user.weapon;
+  const dice = document.querySelector("#dice");
+  dice.innerHTML = user.dice;
+
 }
 render();
 
@@ -198,6 +208,10 @@ function action(n) {
       if (ef.name == 'emptyHole') {
         user.position = ef.to;
         moveUser();
+      }
+      if (ef.name == 'skip') {
+        if (user.armor > 0) user.armor--
+        else user.steps -= ef.n;
       }
     }
   });
@@ -344,7 +358,7 @@ socket.on('open-step', (gameInfo) => {
   const setTimer = setInterval(() => {
     timerCounter++;
     log(timerCounter);
-timerPlace.innerHTML = `
+    timerPlace.innerHTML = `
 <div class="timer">${timerCounter} </div>
 `
     if (timerCounter > 5) {
@@ -355,6 +369,9 @@ timerPlace.innerHTML = `
 })
 
 socket.on('game-activation', (gameInfo) => {
+  log(gameInfo);
+  window.gameInfo = gameInfo;
+  updateTheInterface();
   startButton.style.display = 'none';
   const userInList = document.querySelector('#x' + gameInfo.currentUserId);
   userInList.classList.add('active-step');
@@ -362,5 +379,9 @@ socket.on('game-activation', (gameInfo) => {
 
 socket.on('force-front-restart', () => location.reload());// restart all-fronts if restart back
 
+function updateTheInterface() {
+  const gi = window.gameInfo;
+  document.querySelector('#settings-username-btn').disabled = (gi.isGameStarted) ? true : false;
 
+}
 
