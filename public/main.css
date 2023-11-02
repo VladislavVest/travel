@@ -97,6 +97,7 @@ aside {
 .game-field {
     height: 100vh;
     width: 100%;
+
 }
 
 .game-field .map {
@@ -114,6 +115,8 @@ aside {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     border: black solid 5px;
+    box-shadow: inset 0 0 100px #000000, inset 0 0 100px #000000;
+    
 }
 
 .cell {
@@ -440,4 +443,75 @@ aside {
     50% {background-color: rgba(185, 19, 119, 0.411);}
     100% {background-color: rgba(255, 0, 0, 0.677);}
 
+  }
+
+  .stat>div {
+    display: inline-block;
+  }
+
+  .dev-panel {
+    position: fixed;
+    right: 50%;
+    top: 0;
+    width: 20rem;
+    height: 5rem;
+    background: rgba(0, 0, 0, 0.592);
+    z-index: 100;
+  }
+
+  #set-position input {
+    width: 4rem;
+  }
+
+  .global-message {
+    background: rgba(0, 0, 0, 0.553);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
+  .text-container {
+    min-height: 5rem;
+    min-width: 20rem;
+    padding: 1rem;
+    background: rgb(255, 255, 255);
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text-container .text {
+    font-size: 1.5rem;
+  }
+
+  .set-username-screen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.567);
+    z-index: 999;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
+  .start-game-screen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.567);
+    z-index: 998;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* display: none; */
   }

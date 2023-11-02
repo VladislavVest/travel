@@ -22,63 +22,6 @@
 </head>
 
 <body>
-  <style>
-    .global-message {
-      background: rgba(0, 0, 0, 0.553);
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      left: 0;
-      top: 0;
-      z-index: 1000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      display: none;
-    }
-
-    .text-container {
-      min-height: 5rem;
-      min-width: 20rem;
-      padding: 1rem;
-      background: rgb(255, 255, 255);
-      border-radius: 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .text-container .text {
-      font-size: 1.5rem;
-    }
-
-    .set-username-screen {
-      position: fixed;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.567);
-      z-index: 999;
-      /* display: flex; */
-      justify-content: center;
-      align-items: center;
-      display: none;
-    }
-
-    .start-game-screen {
-      position: fixed;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.567);
-      z-index: 998;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      /* display: none; */
-    }
-  </style>
-
-
-
 
   <div class="set-username-screen">
     <form id="nameForm" onsubmit="setUserName()">
@@ -131,21 +74,8 @@
       <section></section>
 
     </div>
-    <style>
-      .dev-panel {
-        position: fixed;
-        right: 50%;
-        top: 0;
-        width: 20rem;
-        height: 5rem;
-        background: rgba(0, 0, 0, 0.592);
-        z-index: 100;
-      }
-
-      #set-position input {
-        width: 4rem;
-      }
-    </style>
+    
+    
     <div class="bottom-panel">
       <div class="illustration"> </div>
       <div class="right">
@@ -191,11 +121,6 @@
             </div>
           </div>
         </div>
-        <style>
-          .stat>div {
-            display: inline-block;
-          }
-        </style>
         <div class="controls">
           <button type="button" class="btn btn-primary btn-lg btn-sm" onclick="run()" id="run" disabled>Run</button>
           <button type="button" class="btn btn-primary btn-lg btn-sm" id="skip" disabled>Skip</button>
