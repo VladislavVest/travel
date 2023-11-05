@@ -80,7 +80,17 @@ io.on("connection", (socket) => {
     //start game for all users
     io.emit('game-activation', gameInfo)
   });
-  socket.on('skip-step',()=>{});
+  socket.on('skip-step',()=>{
+    gameInfo.playerPointer++;
+    if (gameInfo.playerPointer > players.length-1) gameInfo.playerPointer=0;
+    const playerId = players[gameInfo.playerPointer][0];
+    const playerSocket = players[gameInfo.playerPointer][1];
+    gameInfo.currentUserId = playerId;
+    playerSocket.emit('open-step', gameInfo);
+    io.emit('refresh-game-state', gameInfo);
+  });
+ 
+  
 
 
 });

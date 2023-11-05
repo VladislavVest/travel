@@ -266,24 +266,28 @@ function message(msg, effect) {
   text.innerHTML = msg;
   gm.style.display = 'flex';
   if (effect == 'your-step') {
-    container.style.background='rgb(255 255 255 / 47%)';
-    container.style.border='5px green solid';
+    container.style.background = 'rgb(255 255 255 / 47%)';
+    container.style.border = '5px green solid';
     text.style.color = '#004700';
     text.style.fontSize = '5rem';
     gm.style.transition = '.5s';
-     setTimeout(() => {
+    setTimeout(() => {
       gm.style.transform = 'scale(3,3)';
       const grid = document.querySelector(".grid");
-    grid.style.borderColor = 'green';
-
-
-  }, 1000)
-    }
+      grid.style.borderColor = 'green';
+    }, 1000) 
+  } else {
+    gm.style.transform = 'scale(1)';
+    container.style.background = 'rgb(255 255 255 / 47%)';
+    container.style.border = '5px black solid';
+    text.style.color = 'black';
+    text.style.fontSize = '5rem';
+  }
   setTimeout(() => {
     gm.style.display = 'none';
   }, 3000)
 }
-message('Твой ход', 'your-step');
+
 function sendChatMessage(event) {
   event.preventDefault();
   const textarea = event.srcElement[0];
@@ -369,9 +373,7 @@ socket.on('open-step', (gameInfo) => {
   const skipBut = document.querySelector('#skip');
   skipBut.disabled = false;
 
-
   const timerPlace = document.querySelector('.bottom-panel .illustration');
-
 
   const setTimer = setInterval(() => {
     timerCounter++;
@@ -383,7 +385,7 @@ socket.on('open-step', (gameInfo) => {
       clearInterval(setTimer);
     }
   }, 1000);
-
+  message('Твой ход', 'your-step'); 
 })
 
 socket.on('game-activation', (gameInfo) => {
@@ -406,8 +408,9 @@ function updateTheInterface() {
 function skip() {
   log('skip');
   socket.emit('skip-step');
- message('Ход завершён');
- document.querySelector('#run').disabled = true;
- document.querySelector('#skip').disabled = true;
-
+  message('Ход завершён');
+  document.querySelector('#run').disabled = true;
+  document.querySelector('#skip').disabled = true;
+  const grid = document.querySelector(".grid");
+  grid.style.borderColor = 'black';
 }
