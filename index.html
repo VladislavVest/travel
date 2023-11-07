@@ -34,7 +34,7 @@
   <div class="start-game-screen">
     <h1 class="button-title"> <span class="js-status"></span></h1>
 
-    <div class="big-button js-big-button">
+    <div onclick="party()" class="big-button js-big-button">
       <div class="red-button">
         <div class="top">START</div>
         <div class="button-height"></div>
@@ -217,8 +217,11 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="./data.js"></script>
+  <script src="./functions.js"></script>
   <script src="./main.js"></script>
-
+  <script src="./front-on-socket/game-activation.js"></script>
+  <script src="./front-on-socket/new-all-message.js"></script>
+  <script src="./front-on-socket/open-step.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
