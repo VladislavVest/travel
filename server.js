@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 //////////////////////////// SOCKET /////////////////////////
 const connectedSockets = {};
 let players = [];
-let gameInfo = { playerPointer: 0, isGameStarted: false , currentUserId: null};
+let gameInfo = { playerPointer: 0, isGameStarted: false, currentUserId: null };
 function getConnectedSockets() {
   return Object.entries(connectedSockets);
 }
@@ -80,18 +80,20 @@ io.on("connection", (socket) => {
     //start game for all users
     io.emit('game-activation', gameInfo)
   });
-  socket.on('skip-step',()=>{
+  socket.on('skip-step', () => {
     gameInfo.playerPointer++;
-    if (gameInfo.playerPointer > players.length-1) gameInfo.playerPointer=0;
+    if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0;
     const playerId = players[gameInfo.playerPointer][0];
     const playerSocket = players[gameInfo.playerPointer][1];
     gameInfo.currentUserId = playerId;
     playerSocket.emit('open-step', gameInfo);
     io.emit('refresh-game-state', gameInfo);
   });
- 
-  
 
+  socket.on('reset', () => {
+    io.emit('force-front-restart');
+    gameInfo = { playerPointer: 0, isGameStarted: false, currentUserId: null };
+  })
 
 });
 

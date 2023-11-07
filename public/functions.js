@@ -294,22 +294,26 @@ function skip() {
 function checkUsernameInMemory() {
     const username = localStorage.getItem("username");
     if (!username) {
-      setUsernameScreen.style.display = 'flex';
+        setUsernameScreen.style.display = 'flex';
     } else { socket.emit('set-username', username) }
+}
+
+const getCellDescription = (cellNumber) => cellsDescription.find(cdo => cdo.number == cellNumber) || { effect: [], description: '' };
+
+const party = () => {
+    startGame();
+    const currentPartyStatus = document.querySelector('.js-status');
+    const bigButton = document.querySelector('.js-big-button');
+    const partyScreen = document.querySelector('.start-game-screen');
+    if (bigButton.classList.contains('is-active')) {
+        bigButton.classList.remove('is-active');
+        partyScreen.classList.remove('is-active');
+    } else {
+        bigButton.classList.add('is-active');
+        partyScreen.classList.add('is-active');
     }
+}
 
-    const getCellDescription = (cellNumber) => cellsDescription.find(cdo => cdo.number == cellNumber) || { effect: [], description: '' };
-
-    const party = () => {
-        startGame();
-        const currentPartyStatus = document.querySelector('.js-status');
-        const bigButton = document.querySelector('.js-big-button');
-        const partyScreen = document.querySelector('.start-game-screen');
-        if (bigButton.classList.contains('is-active')) {
-          bigButton.classList.remove('is-active');
-          partyScreen.classList.remove('is-active');
-        } else {
-          bigButton.classList.add('is-active');
-          partyScreen.classList.add('is-active');
-        }
-      }
+function reset() { 
+socket.emit('reset')
+}
