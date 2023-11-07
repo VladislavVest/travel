@@ -27,15 +27,6 @@ render();
 init();
 checkUsernameInMemory();
 
-// ------------------------------------BIG START BUTTON-------------------------------------
-
-
-
-
-// bigButton.addEventListener('click', party);
-// bigButton.addEventListener('click', startGame);
-
-// ------------------------------------BIG START BUTTON-------------------------------------
 
 
 

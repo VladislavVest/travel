@@ -68,6 +68,7 @@ function init() {
 };
 
 function moveUser() {
+    const cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => {
         cell.innerHTML = "";
         cell.classList.remove('with-user');
