@@ -1,14 +1,40 @@
-function renderUserList(userList) {
-    asideUserList.innerHTML = '';
-    userList.forEach((user) => {
-        asideUserList.innerHTML += `
+function renderUserList(userList, gameInfo) {
+    log('10.11.2023', userList, gameInfo);
+    if (userList) {
+        asideUserList.innerHTML = '';
+        userList.forEach((user) => {
+            asideUserList.innerHTML += `
       <div class="user" id="x${user.id}">
         <div class="avatar"></div>
         <div class="username">${user.username}</div>
       </div>
     `;
-    })
+        });
+    };
+    if (gameInfo) {
+        log('gameInfo logic');
+        asideUserList.innerHTML = '';
+        gameInfo.connectedUsers.forEach((user) => {
+           const isActive = user.id == gameInfo.playerPointer;
+           const isPlayer = gameInfo.connectedPlayers.some((p)=>p.id==user.id);
+            asideUserList.innerHTML += `
+      <div class="user ${(isActive)?'active-step':''} ${(isPlayer)?'player':''}" id="x${user.id}">
+        <div class="avatar"></div>
+        <div class="username">${user.username}</div>
+      </div>
+    `;
+        });
+    }
 };
+// currentUserId
+// : 
+// "Sx-cnMWNCRFxfmgjAAAI"
+// isGameStarted
+// : 
+// true
+// playerPointer
+// : 
+// 0
 
 function setUserName() {
     log('chek 1111');
@@ -314,6 +340,6 @@ const party = () => {
     }
 }
 
-function reset() { 
-socket.emit('reset')
+function reset() {
+    socket.emit('reset')
 }
