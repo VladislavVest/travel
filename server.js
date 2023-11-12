@@ -49,6 +49,7 @@ function changeConnections(socket, io) {
   // socket.broadcast.emit('refresh-users-list', getConnectedUsers());
   // socket.emit('refresh-users-list', getConnectedUsers());
   io.emit('refresh-users-list', getConnectedUsers());
+  io.emit('refresh-game-state', gameInfo);
 }
 let reloadFrontFlag = false;
 
@@ -84,6 +85,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on('start-game-signal', (username) => {
+    if (gameInfo.isGameStarted) return;
     players = getConnectedSockets();
     gameInfo.isGameStarted = true;
     gameInfo.connectedUsers = getConnectedUsers();

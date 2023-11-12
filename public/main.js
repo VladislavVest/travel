@@ -22,7 +22,15 @@ const user = {
 
 socket.on('force-front-restart', () => location.reload());// restart all-fronts if restart back
 socket.on("refresh-users-list", (userList) => renderUserList(userList));
-socket.on('refresh-game-state', (gameInfo) => {renderUserList(null,gameInfo);});
+socket.on('refresh-game-state', (gameInfo) => {
+  renderUserList(null, gameInfo);
+  log('refresh knopkaaaaaaaaaaaaaaa', gameInfo, gameInfo.isGameStarted);
+  if (gameInfo.isGameStarted) {
+    const partyScreen = document.querySelector('.start-game-screen');
+    partyScreen.style.display = 'none';
+  };
+}
+);
 
 render();
 init();

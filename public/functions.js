@@ -328,7 +328,7 @@ const getCellDescription = (cellNumber) => cellsDescription.find(cdo => cdo.numb
 
 const party = () => {
     startGame();
-    const currentPartyStatus = document.querySelector('.js-status');
+    // const currentPartyStatus = document.querySelector('.js-status');
     const bigButton = document.querySelector('.js-big-button');
     const partyScreen = document.querySelector('.start-game-screen');
     if (bigButton.classList.contains('is-active')) {

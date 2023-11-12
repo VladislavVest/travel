@@ -456,7 +456,7 @@ aside {
     width: 20rem;
     height: 5rem;
     background: rgba(0, 0, 0, 0.592);
-    z-index: 100;
+    z-index: 8888;
   }
 
   #set-position input {
