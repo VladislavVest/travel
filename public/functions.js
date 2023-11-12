@@ -14,8 +14,8 @@ function renderUserList(userList, gameInfo) {
     if (gameInfo) {
         log('gameInfo logic');
         asideUserList.innerHTML = '';
-        gameInfo.connectedUsers.forEach((user) => {
-           const isActive = user.id == gameInfo.playerPointer;
+        gameInfo.connectedUsers.forEach((user,i) => {
+           const isActive = i == gameInfo.playerPointer;
            const isPlayer = gameInfo.connectedPlayers.some((p)=>p.id==user.id);
             asideUserList.innerHTML += `
       <div class="user ${(isActive)?'active-step':''} ${(isPlayer)?'player':''}" id="x${user.id}">

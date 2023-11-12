@@ -17,4 +17,5 @@ socket.on('open-step', (gameInfo) => {
       }
     }, 1000);
     message('Твой ход', 'your-step'); 
+    renderUserList(null,gameInfo);
   });
