@@ -46,6 +46,7 @@ function getConnectedPlayers() {
     return {
       id: double[0],
       username: double[1].username,
+      position: double[1].position
     }
   });
   return userList;
@@ -62,6 +63,7 @@ let reloadFrontFlag = false;
 io.on("connection", (socket) => {
   console.log("a user connected");
   socket.username = 'Anonymous';
+  socket.position = 0;
   gameInfo.connectedUsers = getConnectedUsers();
   connectedSockets[socket.id] = socket;
   socket.emit('your-id',socket.id);
@@ -127,6 +129,12 @@ io.on("connection", (socket) => {
       connectedPlayers: []
     };
   })
+  socket.on('new-user-position', (position) => { 
+    socket.position = position;
+    gameInfo.connectedUsers = getConnectedUsers();
+    gameInfo.connectedPlayers =  getConnectedPlayers();
+    io.emit('refresh-game-state', gameInfo);
+  });
 
 });
 

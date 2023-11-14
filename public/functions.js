@@ -161,6 +161,7 @@ function run() {
 function action(n) {
 
     moveUser();
+    socket.emit('new-user-position',user.position);
     const opisanie = getCellDescription(n);
     descr.innerHTML = opisanie.description;
     opisanie.effect.forEach((ef) => {
