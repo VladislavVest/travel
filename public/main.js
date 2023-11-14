@@ -22,6 +22,7 @@ const user = {
 
 socket.on('force-front-restart', () => location.reload());// restart all-fronts if restart back
 socket.on("refresh-users-list", (userList) => renderUserList(userList));
+socket.on('your-id',(id) => {localStorage.setItem('socket-id', id)});
 socket.on('refresh-game-state', (gameInfo) => {
   renderUserList(null, gameInfo);
   log('refresh knopkaaaaaaaaaaaaaaa', gameInfo, gameInfo.isGameStarted);

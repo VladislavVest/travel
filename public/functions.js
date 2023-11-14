@@ -14,17 +14,23 @@ function renderUserList(userList, gameInfo) {
     if (gameInfo) {
         log('gameInfo logic');
         asideUserList.innerHTML = '';
+        log('bagggggggggggggggggggggg',gameInfo);
         gameInfo.connectedUsers.forEach((user,i) => {
            const isActive = i == gameInfo.playerPointer;
            const isPlayer = gameInfo.connectedPlayers.some((p)=>p.id==user.id);
+           const currentUser = localStorage.getItem('socket-id') == user.id;
             asideUserList.innerHTML += `
       <div class="user ${(isActive)?'active-step':''} ${(isPlayer)?'player':''}" id="x${user.id}">
         <div class="avatar"></div>
-        <div class="username">${user.username}</div>
+        <div class="username">
+        ${user.username}
+        ${currentUser ? '(Это ты)':''}
+        </div>
       </div>
     `;
         });
     }
+    
 };
 // currentUserId
 // : 

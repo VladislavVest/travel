@@ -18,7 +18,13 @@ app.get("/", (req, res) => {
 //////////////////////////// SOCKET /////////////////////////
 const connectedSockets = {};
 let players = [];
-let gameInfo = { playerPointer: 0, isGameStarted: false, currentUserId: null };
+let gameInfo = { 
+  playerPointer: 0, 
+  isGameStarted: false, 
+  currentUserId: null,
+  connectedUsers: [],
+  connectedPlayers: []
+ };
 function getConnectedSockets() {
   return Object.entries(connectedSockets);
 }
@@ -56,7 +62,9 @@ let reloadFrontFlag = false;
 io.on("connection", (socket) => {
   console.log("a user connected");
   socket.username = 'Anonymous';
+  gameInfo.connectedUsers = getConnectedUsers();
   connectedSockets[socket.id] = socket;
+  socket.emit('your-id',socket.id);
   changeConnections(socket, io);
   setTimeout(() => {
     if (!reloadFrontFlag) {
@@ -111,7 +119,13 @@ io.on("connection", (socket) => {
 
   socket.on('reset', () => {
     io.emit('force-front-restart');
-    gameInfo = { playerPointer: 0, isGameStarted: false, currentUserId: null };
+    gameInfo = { 
+      playerPointer: 0,
+      isGameStarted: false,
+      currentUserId: null,
+      connectedUsers: [],
+      connectedPlayers: []
+    };
   })
 
 });
