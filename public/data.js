@@ -11,6 +11,23 @@ const gameField = [
   [1, 2, 3, 4, 5, 6, 7, 8, 0, 0]
 ]
 
+const chips = [
+  `<span class="material-symbols-outlined fishka">
+              elderly
+  </span>`,
+  `<span class="material-symbols-outlined fishka">
+             elderly_woman
+  </span>`,
+  `<span class="material-symbols-outlined fishka">
+             accessible
+  </span>`,
+  `<span class="material-symbols-outlined fishka">
+             accessible_forward
+  </span>`
+]
+
+
+
 const cellsDescription = [
   { number: 1, effect: [''], description: 'Старт' },
   { number: 2, effect: [{name: 'skip', n: 1}], description: 'пропуск хода' },

@@ -336,32 +336,29 @@ function moveUsers(players) {
         cell.innerHTML = "";
         cell.classList.remove('with-user');
     });
-    players.forEach(p => {
-        log('final etap',p);
+    players.forEach((p,i) => {
+        log('final etap', p);
         const currentCell = document.getElementById(p.position);
-        currentCell.innerHTML += `
-          <span class="material-symbols-outlined fishka">
-          elderly
-          </span>
-          `
+        currentCell.innerHTML += chips[i]
         currentCell.classList.add("with-user");
     });
 }
 
-const cells = document.querySelectorAll(".cell");
-cells[91 - 1].innerHTML = `
-    <span class="material-symbols-outlined fishka">
-         elderly
-    </span>
-    <span class="material-symbols-outlined fishka">
-  elderly_woman
-  </span>  
-  <span class="material-symbols-outlined fishka">
-  accessible
-  </span>
-  <span class="material-symbols-outlined fishka">
-  accessible_forward
-  </span>
-`;
-cells[90].classList.add("with-user");
+// const cells = document.querySelectorAll(".cell");
+// cells[91 - 1].innerHTML = `
+//     <span class="material-symbols-outlined fishka">
+//          elderly
+//     </span>
+//     <span class="material-symbols-outlined fishka">
+//   elderly_woman
+//   </span>  
+//   <span class="material-symbols-outlined fishka">
+//   accessible
+//   </span>
+//   <span class="material-symbols-outlined fishka">
+//   accessible_forward
+//   </span>
+// `;
+// cells[90].classList.add("with-user");
+
 
