@@ -14,33 +14,24 @@ function renderUserList(userList, gameInfo) {
     if (gameInfo) {
         log('gameInfo logic');
         asideUserList.innerHTML = '';
-        log('bagggggggggggggggggggggg',gameInfo);
-        gameInfo.connectedUsers.forEach((user,i) => {
-           const isActive = i == gameInfo.playerPointer;
-           const isPlayer = gameInfo.connectedPlayers.some((p)=>p.id==user.id);
-           const currentUser = localStorage.getItem('socket-id') == user.id;
+        log('bagggggggggggggggggggggg', gameInfo);
+        gameInfo.connectedUsers.forEach((user, i) => {
+            const isActive = i == gameInfo.playerPointer;
+            const isPlayer = gameInfo.connectedPlayers.some((p) => p.id == user.id);
+            const currentUser = localStorage.getItem('socket-id') == user.id;
             asideUserList.innerHTML += `
-      <div class="user ${(isActive)?'active-step':''} ${(isPlayer)?'player':''}" id="x${user.id}">
+      <div class="user ${(isActive) ? 'active-step' : ''} ${(isPlayer) ? 'player' : ''}" id="x${user.id}">
         <div class="avatar"></div>
         <div class="username">
         ${user.username}
-        ${currentUser ? '(Это ты)':''}
+        ${currentUser ? '(Это ты)' : ''}
         </div>
       </div>
     `;
         });
     }
-    
+
 };
-// currentUserId
-// : 
-// "Sx-cnMWNCRFxfmgjAAAI"
-// isGameStarted
-// : 
-// true
-// playerPointer
-// : 
-// 0
 
 function setUserName() {
     log('chek 1111');
@@ -99,20 +90,6 @@ function init() {
     cells[90].classList.add("with-user");
 };
 
-function moveUser() {
-    const cells = document.querySelectorAll(".cell");
-    cells.forEach((cell) => {
-        cell.innerHTML = "";
-        cell.classList.remove('with-user');
-    })
-    const currentCell = document.getElementById(user.position);
-    currentCell.innerHTML += `
-      <span class="material-symbols-outlined fishka">
-      elderly
-      </span>
-      `
-    currentCell.classList.add("with-user");
-}
 
 function run() {
     audio.currentTime = 0;
@@ -160,8 +137,8 @@ function run() {
 
 function action(n) {
 
-    moveUser();
-    socket.emit('new-user-position',user.position);
+    // moveUser();
+    socket.emit('new-user-position', user.position);
     const opisanie = getCellDescription(n);
     descr.innerHTML = opisanie.description;
     opisanie.effect.forEach((ef) => {
@@ -350,3 +327,37 @@ const party = () => {
 function reset() {
     socket.emit('reset')
 }
+
+// function moveUser() {
+//     const cells = document.querySelectorAll(".cell");
+//     cells.forEach((cell) => {
+//         cell.innerHTML = "";
+//         cell.classList.remove('with-user');
+//     })
+//     const currentCell = document.getElementById(user.position);
+//     currentCell.innerHTML += `
+//       <span class="material-symbols-outlined fishka">
+//       elderly
+//       </span>
+//       `
+//     currentCell.classList.add("with-user");
+// }
+
+function moveUsers(players) {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => {
+        cell.innerHTML = "";
+        cell.classList.remove('with-user');
+    });
+    players.forEach(p => {
+        log('final etap',p);
+        const currentCell = document.getElementById(p.position);
+        currentCell.innerHTML += `
+          <span class="material-symbols-outlined fishka">
+          elderly
+          </span>
+          `
+        currentCell.classList.add("with-user");
+    });
+}
+

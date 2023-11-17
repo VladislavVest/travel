@@ -25,11 +25,12 @@ socket.on("refresh-users-list", (userList) => renderUserList(userList));
 socket.on('your-id',(id) => {localStorage.setItem('socket-id', id)});
 socket.on('refresh-game-state', (gameInfo) => {
   renderUserList(null, gameInfo);
-  log('refresh knopkaaaaaaaaaaaaaaa', gameInfo, gameInfo.isGameStarted);
+  log(gameInfo, gameInfo.isGameStarted);
   if (gameInfo.isGameStarted) {
     const partyScreen = document.querySelector('.start-game-screen');
     partyScreen.style.display = 'none';
   };
+  moveUsers(gameInfo.connectedPlayers);
 }
 );
 
