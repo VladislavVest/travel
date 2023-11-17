@@ -71,23 +71,6 @@ function init() {
         `
         })
     });
-
-    const cells = document.querySelectorAll(".cell");
-    cells[91 - 1].innerHTML = `
-        <span class="material-symbols-outlined fishka">
-             elderly
-        </span>
-        <span class="material-symbols-outlined fishka">
-      elderly_woman
-      </span>  
-      <span class="material-symbols-outlined fishka">
-      accessible
-      </span>
-      <span class="material-symbols-outlined fishka">
-      accessible_forward
-      </span>
-    `;
-    cells[90].classList.add("with-user");
 };
 
 
@@ -162,23 +145,27 @@ function action(n) {
             };
             if (ef.name == 'fall') {
                 user.position = ef.to;
-                moveUser();
+                socket.emit('new-user-position', user.position);
+                ;
             }
             if (ef.name == 'vampire') {
             }
             if (ef.name == 'plusMoral1') {
                 user.moral += ef.n
-                moveUser();
+                socket.emit('new-user-position', user.position);
+                ;
                 addSound('./audio/rooster.wav', 0.1);
             }
             if (ef.name == 'armor') {
                 user.armor += ef.n
-                moveUser();
+                socket.emit('new-user-position', user.position);
+                ;
                 addSound('./audio/armor.mp3', 0.1);
             }
             if (ef.name == 'emptyHole') {
                 user.position = ef.to;
-                moveUser();
+                socket.emit('new-user-position', user.position);
+                ;
             }
             if (ef.name == 'skip') {
                 if (user.armor > 0) user.armor--
@@ -193,19 +180,19 @@ function action(n) {
 function devSetPosition() {
     const cell = document.querySelector('#set-position input').value;
     user.position = +cell;
-    moveUser();
+    moveUsers([user]);
     action(user.position);
 }
 
 function devAddPosition() {
     user.position++;
-    moveUser();
+    moveUsers([user]);
     action(user.position);
 }
 
 function devAddPosition2() {
     user.position = +user.position + 2;
-    moveUser();
+    moveUsers([user]);
     action(user.position);
 }
 
@@ -360,4 +347,21 @@ function moveUsers(players) {
         currentCell.classList.add("with-user");
     });
 }
+
+const cells = document.querySelectorAll(".cell");
+cells[91 - 1].innerHTML = `
+    <span class="material-symbols-outlined fishka">
+         elderly
+    </span>
+    <span class="material-symbols-outlined fishka">
+  elderly_woman
+  </span>  
+  <span class="material-symbols-outlined fishka">
+  accessible
+  </span>
+  <span class="material-symbols-outlined fishka">
+  accessible_forward
+  </span>
+`;
+cells[90].classList.add("with-user");
 

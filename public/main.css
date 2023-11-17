@@ -147,10 +147,51 @@ aside {
     padding: 3px;
 }
 
-.with-user {
+/* .with-user {
     box-shadow: inset 0 0 39px #ff00c6;
     border: #ff0000 solid 2px;
+} */
+
+.with-user {
+    position: relative;
 }
+
+.with-user::before {
+    width: 70%;
+    height: 70%;
+    content: '';
+    background: #03cf69;
+    display: block;
+    border-radius: 100%;
+    left: 15%;
+    position: absolute;
+    top: 11%;
+    filter: blur(9px);
+
+    animation: mymove 3s infinite;
+
+}
+
+.empty-hole {
+    position: relative;
+}
+
+.empty-hole::before {
+    width: 70%;
+    height: 70%;
+    content: '';
+    background: #020000;
+    display: block;
+    border-radius: 100%;
+    left: 15%;
+    position: absolute;
+    top: 11%;
+    filter: blur(9px);
+
+    animation: mymove 6s infinite;
+
+}
+
 
 .dice {
     height: 69px;
@@ -247,25 +288,7 @@ aside {
     padding: 0.5rem;
 }
 
-.empty-hole {
-    position: relative;
-}
 
-.empty-hole::before {
-    width: 70%;
-    height: 70%;
-    content: '';
-    background: #020000;
-    display: block;
-    border-radius: 100%;
-    left: 15%;
-    position: absolute;
-    top: 11%;
-    filter: blur(9px);
-
-    animation: mymove 6s infinite;
-
-}
 
 @keyframes mymove {
     0% {
