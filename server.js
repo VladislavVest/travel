@@ -18,12 +18,14 @@ app.get("/", (req, res) => {
 //////////////////////////// SOCKET /////////////////////////
 const connectedSockets = {};
 let players = [];
+let winners = [];
 let gameInfo = {
   playerPointer: 0,
   isGameStarted: false,
   currentUserId: null,
   connectedUsers: [],
-  connectedPlayers: []
+  connectedPlayers: [],
+  winners: [] 
 };
 function getConnectedSockets() {
   return Object.entries(connectedSockets);

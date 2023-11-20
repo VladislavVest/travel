@@ -147,5 +147,5 @@ const cellsDescription = [
 { number: 91, effect: [{ name: 'minusMoral', n: 2 }, 'skip'], description: 'минус 2 морали, вас немного разорвали, теряете ход' },
 { number: 92, effect: [{ name: 'plusMoral1', n: 2 }, 'addStep'], description: 'У вас встаёт боевой дух, за вами гонится ... + ход' },
 { number: 93, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
-{ number: 94, effect: ['reverse'], description: 'кинь кубик и иди назад' },
+{ number: 94, effect: [{name: 'final'}], description: 'Вы победили!' },
 ]

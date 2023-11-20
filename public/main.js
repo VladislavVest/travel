@@ -36,10 +36,9 @@ socket.on('refresh-game-state', (gameInfo) => {
 }
 );
 
-render();
+render();  
 init();
 checkUsernameInMemory();
-
 
 
 

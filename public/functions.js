@@ -119,6 +119,7 @@ function run() {
 
     if (!stop) {
         user.position += number;
+        if (user.position > 94) user.position = 94;
         setTimeout(() => action(user.position), 1600);
     }
 }
@@ -175,7 +176,18 @@ function action(n) {
             if (ef.name == 'skip') {
                 if (user.armor > 0) user.armor--
                 else user.steps -= ef.n;
+            };
+            //
+            if (user.position < 5) {
+                user.position = 88;
             }
+            //
+            if (user.position > 94) user.position = 94;
+            if (ef.name == 'final') {
+                alert("Вы победили!!!");
+            }
+
+
         }
     });
     render();
