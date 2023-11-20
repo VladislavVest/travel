@@ -21,6 +21,8 @@ const user = {
 }
 
 socket.on('force-front-restart', () => location.reload());// restart all-fronts if restart back
+socket.on('rolling-all', () => rollingAnimation()); 
+socket.on('rolling-result-all', (number) => rollingResult(number));
 socket.on("refresh-users-list", (userList) => renderUserList(userList));
 socket.on('your-id',(id) => {localStorage.setItem('socket-id', id)});
 socket.on('refresh-game-state', (gameInfo) => {

@@ -73,33 +73,38 @@ function init() {
     });
 };
 
+function rollingAnimation() {
+    illustration.style.backgroundImage = "url(./images/dice2.gif)";
+}
+
+function rollingResult(number) {
+    switch (number) {
+        case 1:
+            illustration.style.backgroundImage = "url(./images/num1.jpg)";
+            break;
+        case 2:
+            illustration.style.backgroundImage = "url(./images/num2.jpg)";
+            break
+        case 3:
+            illustration.style.backgroundImage = "url(./images/num3.jpg)";
+            break;
+    }
+}
+
 
 function run() {
     audio.currentTime = 0;
     audio.play();
-    illustration.style.backgroundImage = "url(./images/dice2.gif)";
+    // illustration.style.backgroundImage = "url(./images/dice2.gif)";
     runButton.disabled = true;
     let number = Math.ceil(Math.random() * 3);
-    switch (number) {
-        case 1:
-            setTimeout(() => {
-                illustration.style.backgroundImage = "url(./images/num1.jpg)";
-                runButton.disabled = false;
-            }, 1500);
-            break;
-        case 2:
-            setTimeout(() => {
-                illustration.style.backgroundImage = "url(./images/num2.jpg)";
-                runButton.disabled = false;
-            }, 1500);
-            break
-        case 3:
-            setTimeout(() => {
-                illustration.style.backgroundImage = "url(./images/num3.jpg)";
-                runButton.disabled = false;
-            }, 1500);
-            break;
-    }
+    socket.emit('rolling');
+    setTimeout(() => {
+        socket.emit('rolling-result', number);
+        runButton.disabled = false;
+    }, 1500);
+
+
     const opisanie = getCellDescription(user.position);
     let stop = false;
     opisanie.effect.forEach((ef) => {
@@ -315,20 +320,7 @@ function reset() {
     socket.emit('reset')
 }
 
-// function moveUser() {
-//     const cells = document.querySelectorAll(".cell");
-//     cells.forEach((cell) => {
-//         cell.innerHTML = "";
-//         cell.classList.remove('with-user');
-//     })
-//     const currentCell = document.getElementById(user.position);
-//     currentCell.innerHTML += `
-//       <span class="material-symbols-outlined fishka">
-//       elderly
-//       </span>
-//       `
-//     currentCell.classList.add("with-user");
-// }
+
 
 function moveUsers(players) {
     const cells = document.querySelectorAll(".cell");
@@ -336,7 +328,7 @@ function moveUsers(players) {
         cell.innerHTML = "";
         cell.classList.remove('with-user');
     });
-    players.forEach((p,i) => {
+    players.forEach((p, i) => {
         log('final etap', p);
         const currentCell = document.getElementById(p.position);
         currentCell.innerHTML += chips[i]
@@ -344,21 +336,5 @@ function moveUsers(players) {
     });
 }
 
-// const cells = document.querySelectorAll(".cell");
-// cells[91 - 1].innerHTML = `
-//     <span class="material-symbols-outlined fishka">
-//          elderly
-//     </span>
-//     <span class="material-symbols-outlined fishka">
-//   elderly_woman
-//   </span>  
-//   <span class="material-symbols-outlined fishka">
-//   accessible
-//   </span>
-//   <span class="material-symbols-outlined fishka">
-//   accessible_forward
-//   </span>
-// `;
-// cells[90].classList.add("with-user");
 
 

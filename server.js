@@ -18,13 +18,13 @@ app.get("/", (req, res) => {
 //////////////////////////// SOCKET /////////////////////////
 const connectedSockets = {};
 let players = [];
-let gameInfo = { 
-  playerPointer: 0, 
-  isGameStarted: false, 
+let gameInfo = {
+  playerPointer: 0,
+  isGameStarted: false,
   currentUserId: null,
   connectedUsers: [],
   connectedPlayers: []
- };
+};
 function getConnectedSockets() {
   return Object.entries(connectedSockets);
 }
@@ -66,7 +66,7 @@ io.on("connection", (socket) => {
   socket.position = 0;
   gameInfo.connectedUsers = getConnectedUsers();
   connectedSockets[socket.id] = socket;
-  socket.emit('your-id',socket.id);
+  socket.emit('your-id', socket.id);
   changeConnections(socket, io);
   setTimeout(() => {
     if (!reloadFrontFlag) {
@@ -81,7 +81,7 @@ io.on("connection", (socket) => {
     delete connectedSockets[socket.id];
     changeConnections(socket, io);
   });
-  
+
   socket.on("set-username", (username) => {
     log(username);
     socket.username = username;
@@ -99,7 +99,7 @@ io.on("connection", (socket) => {
     players = getConnectedSockets();
     gameInfo.isGameStarted = true;
     gameInfo.connectedUsers = getConnectedUsers();
-    gameInfo.connectedPlayers =  getConnectedPlayers();
+    gameInfo.connectedPlayers = getConnectedPlayers();
     //open step for first user
     const playerId = players[gameInfo.playerPointer][0];
     const playerSocket = players[gameInfo.playerPointer][1];
@@ -121,7 +121,7 @@ io.on("connection", (socket) => {
 
   socket.on('reset', () => {
     io.emit('force-front-restart');
-    gameInfo = { 
+    gameInfo = {
       playerPointer: 0,
       isGameStarted: false,
       currentUserId: null,
@@ -129,12 +129,21 @@ io.on("connection", (socket) => {
       connectedPlayers: []
     };
   })
-  socket.on('new-user-position', (position) => { 
+  socket.on('new-user-position', (position) => {
     socket.position = position;
     gameInfo.connectedUsers = getConnectedUsers();
-    gameInfo.connectedPlayers =  getConnectedPlayers();
+    gameInfo.connectedPlayers = getConnectedPlayers();
     io.emit('refresh-game-state', gameInfo);
   });
+
+  socket.on('rolling', () => {
+    io.emit('rolling-all');
+
+  });
+  socket.on('rolling-result', (number) => {
+    io.emit('rolling-result-all',number);
+  });
+
 
 });
 

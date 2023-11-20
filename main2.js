@@ -26,3 +26,40 @@ button.addEventListener("click", function() {
 //   addSound('./audio/start.wav', 0.1);
 //   startButton.style.display = 'none';
 // }
+
+
+
+
+// const cells = document.querySelectorAll(".cell");
+// cells[91 - 1].innerHTML = `
+//     <span class="material-symbols-outlined fishka">
+//          elderly
+//     </span>
+//     <span class="material-symbols-outlined fishka">
+//   elderly_woman
+//   </span>  
+//   <span class="material-symbols-outlined fishka">
+//   accessible
+//   </span>
+//   <span class="material-symbols-outlined fishka">
+//   accessible_forward
+//   </span>
+// `;
+// cells[90].classList.add("with-user");
+
+
+
+// function moveUser() {
+//     const cells = document.querySelectorAll(".cell");
+//     cells.forEach((cell) => {
+//         cell.innerHTML = "";
+//         cell.classList.remove('with-user');
+//     })
+//     const currentCell = document.getElementById(user.position);
+//     currentCell.innerHTML += `
+//       <span class="material-symbols-outlined fishka">
+//       elderly
+//       </span>
+//       `
+//     currentCell.classList.add("with-user");
+// }
