@@ -183,16 +183,19 @@ function action(n) {
             }
             //
             if (user.position > 94) user.position = 94;
-            if (ef.name == 'final') {
-                alert("Вы победили!!!");
-            }
-
-
+            if (ef.name == 'final') final();
         }
     });
     render();
     //start timer to skip step
 }
+
+function final() {
+    alert("Вы победили!!!");
+    socket.emit('winner',user);
+}
+
+
 
 function devSetPosition() {
     const cell = document.querySelector('#set-position input').value;
@@ -347,6 +350,5 @@ function moveUsers(players) {
         currentCell.classList.add("with-user");
     });
 }
-
 
 

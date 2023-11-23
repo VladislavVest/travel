@@ -25,7 +25,7 @@ let gameInfo = {
   currentUserId: null,
   connectedUsers: [],
   connectedPlayers: [],
-  winners: [] 
+  winners: []
 };
 function getConnectedSockets() {
   return Object.entries(connectedSockets);
@@ -112,8 +112,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on('skip-step', () => {
+    log('skip-step');
     gameInfo.playerPointer++;
     if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0;
+    log(gameInfo.playerPointer,'gameinfoplayerpoinerrr');
+    log(players.length);
     const playerId = players[gameInfo.playerPointer][0];
     const playerSocket = players[gameInfo.playerPointer][1];
     gameInfo.currentUserId = playerId;
@@ -143,8 +146,21 @@ io.on("connection", (socket) => {
 
   });
   socket.on('rolling-result', (number) => {
-    io.emit('rolling-result-all',number);
+    io.emit('rolling-result-all', number);
   });
+  socket.on('winner', (user) => {
+    log('winner!!!');
+    winners.push(socket);
+    players = players.filter((p) => {
+      log(p[0],'PE IDDD');
+      log(socket.id, 'SOCKET IDDD');
+      return p[0] !== socket.id;
+    })
+    log(players.length);
+    gameInfo.connectedUsers = getConnectedUsers();
+    gameInfo.connectedPlayers = getConnectedPlayers();
+    io.emit('refresh-game-state', gameInfo);
+  })
 
 
 });
