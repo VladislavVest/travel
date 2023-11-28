@@ -14,18 +14,19 @@ function renderUserList(userList, gameInfo) {
     if (gameInfo) {
         log('gameInfo logic');
         asideUserList.innerHTML = '';
-        log('bagggggggggggggggggggggg', gameInfo);
         gameInfo.connectedUsers.forEach((user, i) => {
             const isActive = i == gameInfo.playerPointer;
             const isPlayer = gameInfo.connectedPlayers.some((p) => p.id == user.id);
+            const isWinner = gameInfo.winners.some((p) => p.id == user.id);
             const currentUser = localStorage.getItem('socket-id') == user.id;
             asideUserList.innerHTML += `
       <div class="user ${(isActive) ? 'active-step' : ''} ${(isPlayer) ? 'player' : ''}" id="x${user.id}">
-        <div class="avatar"></div>
-        <div class="username">
-        ${user.username}
-        ${currentUser ? '(Это ты)' : ''}
-        </div>
+           ${(isWinner) ? '<img class="winner" src="./images/final.jpg" alt="">' : ''} 
+           <div class="avatar"></div>
+           <div class="username">
+                ${user.username}
+                ${currentUser ? '(You)' : ''}
+           </div>
       </div>
     `;
         });
@@ -34,7 +35,6 @@ function renderUserList(userList, gameInfo) {
 };
 
 function setUserName() {
-    log('chek 1111');
     const nameUser = document.querySelector('#nameForm input').value;
     localStorage.setItem("username", nameUser);
     setUsernameScreen.style.display = 'none';
@@ -94,6 +94,7 @@ function rollingResult(number) {
 
 function run() {
     audio.currentTime = 0;
+    user.steps--;
     audio.play();
     // illustration.style.backgroundImage = "url(./images/dice2.gif)";
     runButton.disabled = true;
@@ -175,24 +176,33 @@ function action(n) {
             }
             if (ef.name == 'skip') {
                 if (user.armor > 0) user.armor--
-                else user.steps -= ef.n;
+                else user.steps--;
             };
-            //
-            if (user.position < 5) {
-                user.position = 88;
-            }
-            //
+
             if (user.position > 94) user.position = 94;
             if (ef.name == 'final') final();
+
+            if (ef.name == 'addStep') {
+                user.steps += ef.n;
+            }
         }
+        // if (user.position < 9) {
+        //     user.position = 88;
+        // }
     });
     render();
     //start timer to skip step
+    if (user.steps < 1) {
+        document.querySelector('#run').disabled = true;
+        gagarin(10,skip);
+    }
+
+
 }
 
 function final() {
     alert("Вы победили!!!");
-    socket.emit('winner',user);
+    socket.emit('winner', user);
 }
 
 
@@ -351,4 +361,16 @@ function moveUsers(players) {
     });
 }
 
-
+function gagarin(n,clb) {
+    const timerPlace = document.querySelector('.bottom-panel .illustration');
+    const setTimer = setInterval(() => {
+      n--;
+      timerPlace.innerHTML = `
+  <div class="timer">${n} </div>
+  `
+      if (n < 1) {
+        clearInterval(setTimer);
+        clb();
+      }
+    }, 1000);
+  };

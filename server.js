@@ -54,6 +54,18 @@ function getConnectedPlayers() {
   return userList;
 }
 
+
+function getWinners() {
+  const socketList = winners;
+  const userList = socketList.map((double) => {
+    return {
+      id: double[0],
+      username: double[1].username,
+    }
+  });
+  return userList;
+}
+
 function changeConnections(socket, io) {
   // socket.broadcast.emit('refresh-users-list', getConnectedUsers());
   // socket.emit('refresh-users-list', getConnectedUsers());
@@ -131,7 +143,8 @@ io.on("connection", (socket) => {
       isGameStarted: false,
       currentUserId: null,
       connectedUsers: [],
-      connectedPlayers: []
+      connectedPlayers: [],
+      winners: []
     };
   })
   socket.on('new-user-position', (position) => {
@@ -150,7 +163,7 @@ io.on("connection", (socket) => {
   });
   socket.on('winner', (user) => {
     log('winner!!!');
-    winners.push(socket);
+    winners.push([socket.id, socket]);
     players = players.filter((p) => {
       log(p[0],'PE IDDD');
       log(socket.id, 'SOCKET IDDD');
@@ -159,7 +172,10 @@ io.on("connection", (socket) => {
     log(players.length);
     gameInfo.connectedUsers = getConnectedUsers();
     gameInfo.connectedPlayers = getConnectedPlayers();
+    gameInfo.winners = getWinners();
     io.emit('refresh-game-state', gameInfo);
+
+
   })
 
 

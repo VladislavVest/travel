@@ -15,7 +15,7 @@ const user = {
   hitPoints: 30,
   moral: 10,
   armor: 0,
-  steps: 1,
+  steps: 0,
   weapon: 2,
   dice: 0,
 }
