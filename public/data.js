@@ -148,4 +148,15 @@ const cellsDescription = [
 { number: 92, effect: [{ name: 'plusMoral1', n: 2 }, 'addStep'], description: 'У вас встаёт боевой дух, за вами гонится ... + ход' },
 { number: 93, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
 { number: 94, effect: [{name: 'final'}], description: 'Вы победили!' },
-]
+];
+
+const bombs = [
+  {name: 'damage', n:1, title: '- 1 HP'},
+  {name: 'mega-damage', n:3, title: '- 3 HP'},
+  {name: 'skip', n:1},
+  {name: 'reverse'},
+  {name: 'slow', n:1},
+  {name: 'mega-skip', n:2},
+  {name: 'amoral', n:3},
+  {name: 'micro-amoral'},
+];

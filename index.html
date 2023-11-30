@@ -147,20 +147,26 @@
   </main>
 
   <div class="settings-menu">
-    <div class="settings-section">
+    <div class="menu-section">
       User name:&nbsp;&nbsp;
       <div id="settings-username"></div>
       <button id="settings-username-btn" onclick="editUsername()">Edit</button>
     </div>
     <hr>
-    <div class="settings-section">
+    <div class="menu-section">
       Example:
       <button>Edit</button>
     </div>
     <hr>
-    <div class="settings-section">
+    <div class="menu-section">
       Example:
       <button>Edit</button>
+    </div>
+    <hr>
+  </div>
+  <div class="staff-menu">
+    <div id='bomb-container' class="menu-section">
+
     </div>
     <hr>
   </div>
@@ -168,7 +174,7 @@
   <aside>
     <div class="aside-buttons">
       <button onclick="settingsToggle()" type="button" class="btn btn-primary btn-sm">Settings</button>
-      <button type="button" class="btn btn-primary btn-sm">Fuck off</button>
+      <button onclick="staffToggle()" type="button" class="btn btn-primary btn-sm">Staff</button>
       <button type="button" class="btn btn-primary btn-sm">Rules</button>
       <button type="button" class="btn btn-primary btn-sm">Donate</button>
 

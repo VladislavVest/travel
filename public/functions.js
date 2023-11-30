@@ -34,13 +34,6 @@ function renderUserList(userList, gameInfo) {
 
 };
 
-function setUserName() {
-    const nameUser = document.querySelector('#nameForm input').value;
-    localStorage.setItem("username", nameUser);
-    setUsernameScreen.style.display = 'none';
-    socket.emit('set-username', username);
-}
-
 function render() {
     const xp = document.querySelector("#xp");
     xp.innerHTML = user.hitPoints;
@@ -54,7 +47,32 @@ function render() {
     weapon.innerHTML = user.weapon;
     const dice = document.querySelector("#dice");
     dice.innerHTML = user.dice;
+
+    const bombContainer = document.querySelector('#bomb-container');
+    bombs.forEach((b)=>{
+        bombContainer.innerHTML+=`
+        <div class="menu-bomb">
+         <img src="./images/bomb.png" alt="anal destroyer">
+         <span> ${b.title} </span>
+        </div>
+        `
+    });
 }
+
+function updateTheInterface() {
+    const gi = window.gameInfo;
+    document.querySelector('#settings-username-btn').disabled = (gi.isGameStarted) ? true : false;
+}
+
+
+function setUserName() {
+    const nameUser = document.querySelector('#nameForm input').value;
+    localStorage.setItem("username", nameUser);
+    setUsernameScreen.style.display = 'none';
+    socket.emit('set-username', username);
+}
+
+
 
 function init() {
     gameField.forEach((row, i) => {
@@ -276,11 +294,16 @@ function sendChatMessage(event) {
 
 function settingsToggle() {
     const settingsMenu = document.querySelector('.settings-menu');
-    settingsMenu.classList.toggle('open-settings');
+    settingsMenu.classList.toggle('open-menu');
     const username = localStorage.getItem("username");
     const settingsUsername = document.querySelector('#settings-username');
     settingsUsername.innerHTML = username;
 }
+function staffToggle() {
+    const staffMenu = document.querySelector('.staff-menu');
+    staffMenu.classList.toggle('open-menu');
+}
+
 
 function editUsername() {
     const setUsernameScreen = document.querySelector('.set-username-screen');
@@ -302,10 +325,6 @@ function startGame() {
     startButton.style.backgroundSize = 'cover';
 }
 
-function updateTheInterface() {
-    const gi = window.gameInfo;
-    document.querySelector('#settings-username-btn').disabled = (gi.isGameStarted) ? true : false;
-}
 
 
 function skip() {
