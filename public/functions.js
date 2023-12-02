@@ -50,11 +50,13 @@ function render() {
 
     const bombContainer = document.querySelector('#bomb-container');
     bombContainer.innerHTML='';
-    userBombs.forEach((b)=>{
+    userBombs.forEach((b,i)=>{
         bombContainer.innerHTML+=`
         <div class="menu-bomb">
          <img src="./images/bomb.png" alt="anal destroyer">
          <span> ${b.title} </span>
+         <button type="button" class="btn btn-secondary btn-sm" onclick="setBombmOnCell(${i})">BOOM !!!</button>
+
         </div>
         `
     });
@@ -394,3 +396,9 @@ function gagarin(n,clb) {
       }
     }, 1000);
   };
+
+  function setBombmOnCell(i) {
+log('bobmaaaaaaaa', i);
+userBombs.splice(i,1);
+render();
+  }
