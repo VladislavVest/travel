@@ -49,7 +49,8 @@ function render() {
     dice.innerHTML = user.dice;
 
     const bombContainer = document.querySelector('#bomb-container');
-    bombs.forEach((b)=>{
+    bombContainer.innerHTML='';
+    userBombs.forEach((b)=>{
         bombContainer.innerHTML+=`
         <div class="menu-bomb">
          <img src="./images/bomb.png" alt="anal destroyer">

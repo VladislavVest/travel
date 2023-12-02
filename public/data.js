@@ -153,10 +153,12 @@ const cellsDescription = [
 const bombs = [
   {name: 'damage', n:1, title: '- 1 HP'},
   {name: 'mega-damage', n:3, title: '- 3 HP'},
-  {name: 'skip', n:1},
-  {name: 'reverse'},
-  {name: 'slow', n:1},
-  {name: 'mega-skip', n:2},
-  {name: 'amoral', n:3},
-  {name: 'micro-amoral'},
+  {name: 'skip', n:1, title: '3'},
+  {name: 'reverse', title: '4'},
+  {name: 'slow', n:1, title: '5'},
+  {name: 'mega-skip', n:2, title: '6'},
+  {name: 'amoral', n:3, title: '7'},
+  {name: 'micro-amoral', title: '8'},
 ];
+
+const userBombs = [];
