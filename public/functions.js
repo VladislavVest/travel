@@ -399,6 +399,7 @@ function gagarin(n,clb) {
 
   function setBombmOnCell(i) {
 log('bobmaaaaaaaa', i);
-userBombs.splice(i,1);
+const bomb = userBombs.splice(i,1)[0];
 render();
+socket.emit('set-bomb-on-cell',{bomb});
   }

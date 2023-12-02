@@ -25,7 +25,8 @@ let gameInfo = {
   currentUserId: null,
   connectedUsers: [],
   connectedPlayers: [],
-  winners: []
+  winners: [],
+  bombs: []
 };
 function getConnectedSockets() {
   return Object.entries(connectedSockets);
@@ -174,9 +175,12 @@ io.on("connection", (socket) => {
     gameInfo.connectedPlayers = getConnectedPlayers();
     gameInfo.winners = getWinners();
     io.emit('refresh-game-state', gameInfo);
-
-
   })
+  socket.on('set-bomb-on-cell',(data)=>{
+    data.position = socket.position;
+    gameInfo.bombs.push(data)
+    log(data);
+  });
 
 
 });
