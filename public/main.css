@@ -577,3 +577,22 @@ aside {
 .menu-bomb span {
 color: #908f8f;
 }
+
+.cell-bomb {
+    width: 5rem;
+    animation-name: puls-bomb;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes puls-bomb {
+    0% {
+        transform: scale(.7);    }
+
+    50% {
+        transform: scale(1.3);    }
+
+    100% {
+        transform: scale(.7);    }
+}

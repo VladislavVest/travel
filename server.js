@@ -19,15 +19,21 @@ app.get("/", (req, res) => {
 const connectedSockets = {};
 let players = [];
 let winners = [];
-let gameInfo = {
-  playerPointer: 0,
-  isGameStarted: false,
-  currentUserId: null,
-  connectedUsers: [],
-  connectedPlayers: [],
-  winners: [],
-  bombs: []
+let gameInfo = getInitialGameInfo();
+
+function getInitialGameInfo() {
+  return {
+    playerPointer: 0,
+    isGameStarted: false,
+    currentUserId: null,
+    connectedUsers: [],
+    connectedPlayers: [],
+    winners: [],
+    bombs: []
+  }
 };
+
+
 function getConnectedSockets() {
   return Object.entries(connectedSockets);
 }
@@ -128,7 +134,7 @@ io.on("connection", (socket) => {
     log('skip-step');
     gameInfo.playerPointer++;
     if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0;
-    log(gameInfo.playerPointer,'gameinfoplayerpoinerrr');
+    log(gameInfo.playerPointer, 'gameinfoplayerpoinerrr');
     log(players.length);
     const playerId = players[gameInfo.playerPointer][0];
     const playerSocket = players[gameInfo.playerPointer][1];
@@ -139,15 +145,9 @@ io.on("connection", (socket) => {
 
   socket.on('reset', () => {
     io.emit('force-front-restart');
-    gameInfo = {
-      playerPointer: 0,
-      isGameStarted: false,
-      currentUserId: null,
-      connectedUsers: [],
-      connectedPlayers: [],
-      winners: []
-    };
-  })
+    gameInfo = getInitialGameInfo();
+  });
+
   socket.on('new-user-position', (position) => {
     socket.position = position;
     gameInfo.connectedUsers = getConnectedUsers();
@@ -166,7 +166,7 @@ io.on("connection", (socket) => {
     log('winner!!!');
     winners.push([socket.id, socket]);
     players = players.filter((p) => {
-      log(p[0],'PE IDDD');
+      log(p[0], 'PE IDDD');
       log(socket.id, 'SOCKET IDDD');
       return p[0] !== socket.id;
     })
@@ -176,10 +176,11 @@ io.on("connection", (socket) => {
     gameInfo.winners = getWinners();
     io.emit('refresh-game-state', gameInfo);
   })
-  socket.on('set-bomb-on-cell',(data)=>{
-    data.position = socket.position;
-    gameInfo.bombs.push(data)
-    log(data);
+  socket.on('set-bomb-on-cell', (bomb) => {
+    bomb.position = socket.position;
+    gameInfo.bombs.push(bomb);
+    log(bomb);
+    io.emit('refresh-game-state', gameInfo);
   });
 
 

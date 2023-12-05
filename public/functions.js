@@ -49,23 +49,22 @@ function render() {
     dice.innerHTML = user.dice;
 
     const bombContainer = document.querySelector('#bomb-container');
-    bombContainer.innerHTML='';
-    userBombs.forEach((b,i)=>{
-        bombContainer.innerHTML+=`
+    bombContainer.innerHTML = '';
+    userBombs.forEach((b, i) => {
+        bombContainer.innerHTML += `
         <div class="menu-bomb">
          <img src="./images/bomb.png" alt="anal destroyer">
          <span> ${b.title} </span>
          <button type="button" class="btn btn-secondary btn-sm" onclick="setBombmOnCell(${i})">BOOM !!!</button>
-
         </div>
         `
     });
-}
+};
 
 function updateTheInterface() {
     const gi = window.gameInfo;
     document.querySelector('#settings-username-btn').disabled = (gi.isGameStarted) ? true : false;
-}
+};
 
 
 function setUserName() {
@@ -73,7 +72,7 @@ function setUserName() {
     localStorage.setItem("username", nameUser);
     setUsernameScreen.style.display = 'none';
     socket.emit('set-username', username);
-}
+};
 
 
 
@@ -215,7 +214,7 @@ function action(n) {
     //start timer to skip step
     if (user.steps < 1) {
         document.querySelector('#run').disabled = true;
-        gagarin(10,skip);
+        gagarin(10, skip);
     }
 
 
@@ -361,12 +360,19 @@ const party = () => {
         bigButton.classList.add('is-active');
         partyScreen.classList.add('is-active');
     }
-}
+};
 
 function reset() {
     socket.emit('reset')
-}
+};
 
+function rebuildGameField(gameInfo) {
+    log('1222222bomb',gameInfo);
+
+    moveUsers(gameInfo.connectedPlayers);
+    addItemsOnMap(gameInfo);
+
+};
 
 
 function moveUsers(players) {
@@ -378,28 +384,41 @@ function moveUsers(players) {
     players.forEach((p, i) => {
         log('final etap', p);
         const currentCell = document.getElementById(p.position);
-        currentCell.innerHTML += chips[i]
+        currentCell.innerHTML += chips[i];
         currentCell.classList.add("with-user");
     });
-}
+};
 
-function gagarin(n,clb) {
+
+function addItemsOnMap(gameInfo) {
+    log('111111111111111111bomb',gameInfo);
+    gameInfo.bombs.forEach((b)=>{
+   const currentCell = document.getElementById(b.position);
+   currentCell.innerHTML += `
+   <img src="./images/bomb.png" class="cell-bomb">
+   `
+    });
+
+};
+
+
+function gagarin(n, clb) {
     const timerPlace = document.querySelector('.bottom-panel .illustration');
     const setTimer = setInterval(() => {
-      n--;
-      timerPlace.innerHTML = `
+        n--;
+        timerPlace.innerHTML = `
   <div class="timer">${n} </div>
   `
-      if (n < 1) {
-        clearInterval(setTimer);
-        clb();
-      }
+        if (n < 1) {
+            clearInterval(setTimer);
+            clb();
+        }
     }, 1000);
-  };
+};
 
-  function setBombmOnCell(i) {
-log('bobmaaaaaaaa', i);
-const bomb = userBombs.splice(i,1)[0];
-render();
-socket.emit('set-bomb-on-cell',{bomb});
-  }
+function setBombmOnCell(i) {
+    log('bobmaaaaaaaa', i);
+    const bomb = userBombs.splice(i, 1)[0];
+    render();
+    socket.emit('set-bomb-on-cell', { bomb });
+}
