@@ -1,5 +1,4 @@
 function renderUserList(userList, gameInfo) {
-    log('10.11.2023', userList, gameInfo);
     if (userList) {
         asideUserList.innerHTML = '';
         userList.forEach((user) => {
@@ -12,7 +11,6 @@ function renderUserList(userList, gameInfo) {
         });
     };
     if (gameInfo) {
-        log('gameInfo logic');
         asideUserList.innerHTML = '';
         gameInfo.connectedUsers.forEach((user, i) => {
             const isActive = i == gameInfo.playerPointer;
@@ -152,7 +150,6 @@ function action(n) {
     const opisanie = getCellDescription(n);
     descr.innerHTML = opisanie.description;
     opisanie.effect.forEach((ef) => {
-        log(ef, typeof ef);
         if (typeof ef == 'string') {
         };
         if (typeof ef == 'object') {
@@ -250,7 +247,6 @@ function addSound(path, volume = 1) {
     let audio = new Audio(path);
     audio.volume = volume;
     audio.play().then(() => {
-        console.log('Audio played successfully');
     }).catch((error) => {
         console.error('Audio play failed:', error);
         // Здесь можно добавить логику восстановления или информировать пользователя
@@ -330,7 +326,7 @@ function startGame() {
 
 
 function skip() {
-    log('skip');
+    clearInterval(setTimer);
     socket.emit('skip-step');
     message('Ход завершён');
     document.querySelector('#run').disabled = true;
@@ -367,44 +363,57 @@ function reset() {
 };
 
 function rebuildGameField(gameInfo) {
-    log('1222222bomb',gameInfo);
-
     moveUsers(gameInfo.connectedPlayers);
     addItemsOnMap(gameInfo);
+};
+
+function clearCells() {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => {
+        cell.innerHTML = "";
+        cell.classList.remove('you');
+    });
 
 };
 
 
 function moveUsers(players) {
-    const cells = document.querySelectorAll(".cell");
-    cells.forEach((cell) => {
-        cell.innerHTML = "";
-        cell.classList.remove('with-user');
-    });
+    clearCells();
     players.forEach((p, i) => {
-        log('final etap', p);
         const currentCell = document.getElementById(p.position);
         currentCell.innerHTML += chips[i];
-        currentCell.classList.add("with-user");
+        // currentCell.classList.add("you");
     });
+    stickOutYou();
+};
+
+
+function stickOutYou() {
+    // clearCells();
+    log(user, 'stickOutYou');
+    const cell = document.getElementById(user.position);
+    log(cell);
+    cell.classList.add("you");
+
 };
 
 
 function addItemsOnMap(gameInfo) {
-    log('111111111111111111bomb',gameInfo);
-    gameInfo.bombs.forEach((b)=>{
-   const currentCell = document.getElementById(b.position);
-   currentCell.innerHTML += `
+    gameInfo.bombs.forEach((b) => {
+        const currentCell = document.getElementById(b.position);
+        currentCell.innerHTML += `
    <img src="./images/bomb.png" class="cell-bomb">
    `
     });
 
 };
 
+let setTimer;
 
 function gagarin(n, clb) {
+    clearInterval(setTimer);
     const timerPlace = document.querySelector('.bottom-panel .illustration');
-    const setTimer = setInterval(() => {
+     setTimer = setInterval(() => {
         n--;
         timerPlace.innerHTML = `
   <div class="timer">${n} </div>
@@ -417,7 +426,6 @@ function gagarin(n, clb) {
 };
 
 function setBombmOnCell(i) {
-    log('bobmaaaaaaaa', i);
     const bomb = userBombs.splice(i, 1)[0];
     render();
     socket.emit('set-bomb-on-cell', { bomb });
