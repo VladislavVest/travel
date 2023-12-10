@@ -147,6 +147,56 @@ function action(n) {
 
     // moveUser();
     socket.emit('new-user-position', user.position);
+
+    // { bomb: { name: 'damage', n: 1, title: '- 1 HP' }, position: 4 }
+    gameInfo.bombs.forEach((b) => {
+        if (user.position == b.position) {
+            if (b.bomb.name == 'damage') {
+                if (user.armor > 0) user.armor--
+                else user.hitPoints -= b.bomb.n;
+            };
+            if (b.bomb.name == 'mega-damage') {
+                if (user.armor > 0) user.armor--
+                else user.hitPoints -= b.bomb.n;
+            };
+            if (b.bomb.name == 'amoral') {
+                if (user.armor > 0) user.armor--
+                else user.moral -= b.bomb.n;
+            };
+            if (b.bomb.name == 'micro-amoral') {
+                if (user.armor > 0) user.armor--
+                else user.moral -= b.bomb.n;
+            };
+            if (b.bomb.name == 'skip') {
+                if (user.armor > 0) user.armor--
+                else user.steps -= b.bomb.n;
+            };
+            if (b.bomb.name == 'mega-skip') {
+                if (user.armor > 0) user.armor--
+                else user.steps -= b.bomb.n;
+            };
+            // if (b.bomb.name == 'slow') {
+            //     if (user.armor > 0) user.armor--
+            //     else user.steps -= b.bomb.n;
+            // };
+            if (b.bomb.name == 'reverse') {
+                if (user.armor > 0) user.armor--
+                else  setTimeout(() => {
+                    user.position -= b.bomb.n;
+                    if (user.position<1) user.position = 1;
+                    action(user.position)
+                }, 1600);                                            //проверить очередность кода после сет таймаута
+            };
+            
+
+        }
+
+        
+
+    })
+
+
+
     const opisanie = getCellDescription(n);
     descr.innerHTML = opisanie.description;
     opisanie.effect.forEach((ef) => {
@@ -413,7 +463,7 @@ let setTimer;
 function gagarin(n, clb) {
     clearInterval(setTimer);
     const timerPlace = document.querySelector('.bottom-panel .illustration');
-     setTimer = setInterval(() => {
+    setTimer = setInterval(() => {
         n--;
         timerPlace.innerHTML = `
   <div class="timer">${n} </div>

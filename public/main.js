@@ -18,14 +18,16 @@ const user = {
   steps: 0,
   weapon: 2,
   dice: 0,
-}
+};
+let gameInfo = {};
 
 socket.on('force-front-restart', () => location.reload());// restart all-fronts if restart back
 socket.on('rolling-all', () => rollingAnimation());
 socket.on('rolling-result-all', (number) => rollingResult(number));
 socket.on("refresh-users-list", (userList) => renderUserList(userList));
 socket.on('your-id', (id) => { localStorage.setItem('socket-id', id) });
-socket.on('refresh-game-state', (gameInfo) => {
+socket.on('refresh-game-state', (_gameInfo) => {
+  gameInfo = _gameInfo;
   renderUserList(null, gameInfo);
   log(gameInfo, gameInfo.isGameStarted);
   if (gameInfo.isGameStarted) {
