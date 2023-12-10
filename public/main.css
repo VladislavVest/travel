@@ -159,19 +159,19 @@ aside {
 }
 
 .you::before {
-    width: 70%;
-    height: 70%;
+    width: 95%;
+    height: 95%;
     content: '';
-    box-shadow: 3px 3px red, -1em 0 .4em olive;
+    border:  dashed 5px #00ff03;
+    /* box-shadow: 0px 0px 5px red, -1em 0 .4em olive; */
     /* box-shadow: #03cf69; */
     display: block;
     /* border-radius: 100%; */
-    left: 15%;
+    left: 2.5%;
     position: absolute;
-    top: 11%;
-    filter: blur(9px);
-
-    animation: puls-opacity 3s infinite;
+    top: 2.5%;
+    filter: blur(1px);
+    animation: puls-blur 3s infinite;
 
 }
 
@@ -291,7 +291,19 @@ aside {
     padding: 0.5rem;
 }
 
+@keyframes puls-blur {
+    0% {
+        filter: blur(0px)
+    }
 
+    50% {
+        filter: blur(5px)
+    }
+
+    100% {
+        filter: blur(0px)
+    }
+}
 
 @keyframes puls-opacity {
     0% {
