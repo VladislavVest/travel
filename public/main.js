@@ -43,6 +43,10 @@ render();
 init();
 checkUsernameInMemory();
 
+socket.on('bomb-exploaded-for-all',({exploadedBombs,user})=>{
+log('11111111111111111111111111111111111111', exploadedBombs, user);
+
+});
 
 
 

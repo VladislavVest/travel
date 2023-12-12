@@ -151,7 +151,7 @@ function action(n) {
     // { bomb: { name: 'damage', n: 1, title: '- 1 HP' }, position: 4 }
     gameInfo.bombs.forEach((b) => {
         if (user.position == b.position) {
-socket.emit('bomb-was-exploded', user.position);
+socket.emit('bomb-was-exploded', user);
 
             if (b.bomb.name == 'damage') {
                 if (user.armor > 0) user.armor--

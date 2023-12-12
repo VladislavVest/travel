@@ -182,13 +182,17 @@ io.on("connection", (socket) => {
     log(bomb);
     io.emit('refresh-game-state', gameInfo);
   });
-  socket.on('bomb-was-exploded', (position)=>{
+  socket.on('bomb-was-exploded', (user)=>{
     log('12.12. before', gameInfo.bombs);
+    const exploadedBombs =  gameInfo.bombs = gameInfo.bombs.filter((b) => {
+      return b.position == user.position;
+    });
     gameInfo.bombs = gameInfo.bombs.filter((b) => {
-      return b.position != position;
+      return b.position != user.position;
     });
     log('12.12.after', gameInfo.bombs);
     io.emit('refresh-game-state', gameInfo);
+    io.emit('bomb-exploaded-for-all',{exploadedBombs,user});
   });
 
 
