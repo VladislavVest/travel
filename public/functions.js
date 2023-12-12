@@ -151,6 +151,8 @@ function action(n) {
     // { bomb: { name: 'damage', n: 1, title: '- 1 HP' }, position: 4 }
     gameInfo.bombs.forEach((b) => {
         if (user.position == b.position) {
+socket.emit('bomb-was-exploded', user.position);
+
             if (b.bomb.name == 'damage') {
                 if (user.armor > 0) user.armor--
                 else user.hitPoints -= b.bomb.n;
@@ -185,7 +187,7 @@ function action(n) {
                     user.position -= b.bomb.n;
                     if (user.position<1) user.position = 1;
                     action(user.position)
-                }, 1600);                                            //проверить очередность кода после сет таймаута
+                }, 1600);                                            //проверить очередность кода после сет таймаута 
             };
             
 
@@ -193,7 +195,7 @@ function action(n) {
 
         
 
-    })
+    });
 
 
 
