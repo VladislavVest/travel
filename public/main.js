@@ -1,4 +1,10 @@
 const log = console.log;
+
+const pause = (time) => new Promise((resolve) => {
+  setTimeout(() => { resolve() }, time)
+})
+
+
 const socket = io(); // socket.emit("massage", "hellotest");
 const asideUserList = document.querySelector('.aside-userlist');
 const setUsernameScreen = document.querySelector('.set-username-screen');
@@ -43,8 +49,16 @@ render();
 init();
 checkUsernameInMemory();
 
-socket.on('bomb-exploaded-for-all',({exploadedBombs,user})=>{
-log('11111111111111111111111111111111111111', exploadedBombs, user);
+socket.on('bomb-exploaded-for-all', async ({ exploadedBombs, user }) => {
+  log('11111111111111111111111111111111111111', exploadedBombs, user);
+  const animationNode = document.querySelector('.animation-container');
+  const imageNode = animationNode.querySelector('img');
+  imageNode.src = './images/bombbefore.gif';
+  animationNode.style.display = 'flex';
+  await pause(3000);
+  imageNode.src = './images/bombafter.gif';
+  await pause(3500);
+  animationNode.style.display = 'none';
 
 });
 

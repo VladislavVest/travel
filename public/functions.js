@@ -141,7 +141,7 @@ function run() {
         if (user.position > 94) user.position = 94;
         setTimeout(() => action(user.position), 1600);
     }
-}
+};
 
 function action(n) {
 

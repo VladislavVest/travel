@@ -612,3 +612,17 @@ color: #908f8f;
         transform: scale(.7);  
       }
 }
+
+.animation-container {
+    position: fixed;
+    left: 0;        
+    top: 0;
+    width: 85vw;
+    height: 100vh;
+    z-index: 10000;
+    display: flex;   
+    justify-content: center;
+    align-items: center;
+    display: none;
+
+}
