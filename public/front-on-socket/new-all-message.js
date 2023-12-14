@@ -1,7 +1,7 @@
 socket.on('new-all-message', (message) => {
     const asideChat = document.querySelector('.aside-chat');
     asideChat.innerHTML += `
-    <div class="message">
+    <div class="message ${message.style}">
           <div class="author">
             <div class="avatar"></div>
             <div class="username">${message.username}</div>

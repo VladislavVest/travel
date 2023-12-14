@@ -98,20 +98,17 @@ io.on("connection", (socket) => {
 
 
   socket.on("disconnect", () => {
-    console.log("user disconnected");
     delete connectedSockets[socket.id];
     changeConnections(socket, io);
   });
 
   socket.on("set-username", (username) => {
-    log(username);
     socket.username = username;
     changeConnections(socket, io);
     // socket.emit("data", "+++++++++++good+++++++++");
   });
 
   socket.on('chat-message', (message) => {
-    log('vot ono', message);
     io.emit('new-all-message', { text: message, username: socket.username });
   });
 
@@ -182,9 +179,9 @@ io.on("connection", (socket) => {
     log(bomb);
     io.emit('refresh-game-state', gameInfo);
   });
-  socket.on('bomb-was-exploded', (user)=>{
+  socket.on('bomb-was-exploded', (user) => {
     log('12.12. before', gameInfo.bombs);
-    const exploadedBombs =  gameInfo.bombs = gameInfo.bombs.filter((b) => {
+    const exploadedBombs = gameInfo.bombs = gameInfo.bombs.filter((b) => {
       return b.position == user.position;
     });
     gameInfo.bombs = gameInfo.bombs.filter((b) => {
@@ -192,7 +189,13 @@ io.on("connection", (socket) => {
     });
     log('12.12.after', gameInfo.bombs);
     io.emit('refresh-game-state', gameInfo);
-    io.emit('bomb-exploaded-for-all',{exploadedBombs,user});
+    io.emit('bomb-exploaded-for-all', { exploadedBombs, user });
+
+    exploadedBombs.forEach((b) => {
+      const message = `У игрока ${socket.username} есть пробитие, негативный эффект: ${b.bomb.title}`;
+      io.emit('new-all-message', { text: message, username: 'Dungeon Master:', style: 'master-message'});
+
+    })
   });
 
 

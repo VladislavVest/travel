@@ -626,3 +626,8 @@ color: #908f8f;
     display: none;
 
 }
+
+.master-message {
+    color: #fc04b1;
+    background-color: black;
+}
