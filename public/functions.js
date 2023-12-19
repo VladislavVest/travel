@@ -114,8 +114,17 @@ function actionAnimation(ill) {
         case 'skip-1':
             illustration.style.backgroundImage = "url(./images/skip1.gif)";
             break;
+            case 'add-step-1':
+                illustration.style.backgroundImage = "url(./images/addstep1.jpg)";
+                break;
     }
+};
 
+function actionSound(sound) {
+switch(sound) {
+    case 'skip-1':
+    addSound('./audio/skip-1.wav', 0.5);
+}
 }
 
 
@@ -269,6 +278,7 @@ function action(n) {
             if (ef.ill) {
             await pause(2000);
             actionAnimation(ef.ill);};
+            actionSound(ef.sound);
         }
         // if (user.position < 9) {
         //     user.position = 88;

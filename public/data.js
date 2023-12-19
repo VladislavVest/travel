@@ -30,8 +30,8 @@ const chips = [
 
 const cellsDescription = [
   { number: 1, effect: [''], description: 'Старт' },
-  { number: 2, effect: [{name: 'skip', n: 1, ill: 'skip-1'}], description: 'пропуск хода' },
-  { number: 3, effect: [{name: 'addStep', n: 1}], description: 'плюс ход' },
+  { number: 2, effect: [{name: 'skip', n: 1, ill: 'skip-1', sound:'skip-1'}], description: 'пропуск хода' },
+  { number: 3, effect: [{name: 'addStep', n: 1, ill: 'add-step-1'}], description: 'плюс ход' },
   { number: 4, effect: [{ name: 'minusXp', n: 1 }], description: 'минус 1 хп' },
   { number: 5, effect: [{ name: 'minusXp', n: 1 }, {name:'skip', n:1}], description: 'минус 1 хп, минус ход' },
   { number: 6, effect: [{ name: 'plusXp', n: 1 }, 'addStep'], description: 'плюс ход' },
