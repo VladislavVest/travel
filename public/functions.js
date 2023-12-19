@@ -109,14 +109,24 @@ function rollingResult(number) {
     }
 }
 
+function actionAnimation(ill) {
+    switch (ill) {
+        case 'skip-1':
+            illustration.style.backgroundImage = "url(./images/skip1.gif)";
+            break;
+    }
 
-function run() {
+}
+
+
+function run(n) {
     audio.currentTime = 0;
     user.steps--;
     audio.play();
     // illustration.style.backgroundImage = "url(./images/dice2.gif)";
     runButton.disabled = true;
     let number = Math.ceil(Math.random() * 3);
+    if (n) number = n;
     socket.emit('rolling');
     setTimeout(() => {
         socket.emit('rolling-result', number);
@@ -151,7 +161,7 @@ function action(n) {
     // { bomb: { name: 'damage', n: 1, title: '- 1 HP' }, position: 4 }
     gameInfo.bombs.forEach((b) => {
         if (user.position == b.position) {
-socket.emit('bomb-was-exploded', user);
+            socket.emit('bomb-was-exploded', user);
 
             if (b.bomb.name == 'damage') {
                 if (user.armor > 0) user.armor--
@@ -183,17 +193,17 @@ socket.emit('bomb-was-exploded', user);
             // };
             if (b.bomb.name == 'reverse') {
                 if (user.armor > 0) user.armor--
-                else  setTimeout(() => {
+                else setTimeout(() => {
                     user.position -= b.bomb.n;
-                    if (user.position<1) user.position = 1;
+                    if (user.position < 1) user.position = 1;
                     action(user.position)
                 }, 1600);                                            //проверить очередность кода после сет таймаута 
             };
-            
+
 
         }
 
-        
+
 
     });
 
@@ -201,7 +211,7 @@ socket.emit('bomb-was-exploded', user);
 
     const opisanie = getCellDescription(n);
     descr.innerHTML = opisanie.description;
-    opisanie.effect.forEach((ef) => {
+    opisanie.effect.forEach(async(ef) => {
         if (typeof ef == 'string') {
         };
         if (typeof ef == 'object') {
@@ -246,6 +256,7 @@ socket.emit('bomb-was-exploded', user);
             if (ef.name == 'skip') {
                 if (user.armor > 0) user.armor--
                 else user.steps--;
+        
             };
 
             if (user.position > 94) user.position = 94;
@@ -253,7 +264,11 @@ socket.emit('bomb-was-exploded', user);
 
             if (ef.name == 'addStep') {
                 user.steps += ef.n;
-            }
+            };
+
+            if (ef.ill) {
+            await pause(2000);
+            actionAnimation(ef.ill);};
         }
         // if (user.position < 9) {
         //     user.position = 88;
