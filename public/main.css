@@ -206,7 +206,9 @@ aside {
     z-index: 10;
     left: 0;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.638);
+    background-color: rgb(7 49 16);
+    background-image: url(./images/backDescr.png);
+    background-size: 20%;
     width: 16%;
     height: 10%;
     border: black solid 3px;
@@ -285,11 +287,12 @@ aside {
 }
 
 .description {
-    background: #111d24;
+    /* background: #111d24; */
     color: #00fd0c;
     display: flex;
     height: 100%;
     padding: 0.5rem;
+    width: 100%;
 }
 
 @keyframes puls-blur {

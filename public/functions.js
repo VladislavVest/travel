@@ -123,10 +123,10 @@ function actionAnimation(ill) {
 function actionSound(sound) {
     switch (sound) {
         case 'skip-1':
-            addSound('./audio/skip-1.wav', 0.5);
+            addSound('./audio/skip-1.wav', 0.1);
             break;
         case 'add-step-1':
-            addSound('./audio/add-step-1.wav', 0.5);
+            addSound('./audio/add-step-1.wav', 0.1);
 
     }
 }
@@ -166,7 +166,7 @@ function run(n) {
     }
 };
 
-function action(n) {
+async function action(n) {
 
     // moveUser();
     socket.emit('new-user-position', user.position);
@@ -223,6 +223,10 @@ function action(n) {
 
 
     const opisanie = getCellDescription(n);
+    descr.innerHTML = '';
+    descr.style.backgroundImage = 'url(./images/glitch.gif)';
+    await pause(1000);
+    descr.style.backgroundImage = '';
     descr.innerHTML = opisanie.description;
     opisanie.effect.forEach(async (ef) => {
         if (typeof ef == 'string') {
