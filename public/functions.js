@@ -20,15 +20,18 @@ function renderUserList(userList, gameInfo) {
             asideUserList.innerHTML += `
       <div class="user ${(isActive) ? 'active-step' : ''} ${(isPlayer) ? 'player' : ''}" id="x${user.id}">
            ${(isWinner) ? '<img class="winner" src="./images/final.jpg" alt="">' : ''} 
-           <div class="avatar"></div>
            <div class="username">
                 ${user.username}
                 ${currentUser ? '(You)' : ''}
            </div>
+           <button onclick="fighting()" type="button" class="btn btn-secondary btn-sm">Fight</button>
+
+           
       </div>
     `;
         });
     }
+    //           <div class="avatar"></div> было  в шаблоне сверху
 
 };
 
@@ -212,8 +215,6 @@ async function action(n) {
                     action(user.position)
                 }, 1600);                                            //проверить очередность кода после сет таймаута 
             };
-
-
         }
 
 

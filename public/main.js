@@ -35,7 +35,7 @@ socket.on('your-id', (id) => { localStorage.setItem('socket-id', id) });
 socket.on('refresh-game-state', (_gameInfo) => {
   gameInfo = _gameInfo;
   renderUserList(null, gameInfo);
-  log(gameInfo, gameInfo.isGameStarted);
+  log('FOR FIGHTING!!!!', gameInfo, gameInfo.isGameStarted);
   if (gameInfo.isGameStarted) {
     const partyScreen = document.querySelector('.start-game-screen');
     partyScreen.style.display = 'none';

@@ -41,6 +41,7 @@ aside {
     color: #0bfff4;
     padding: 0.5rem;
     display: flex;
+    justify-content: space-between;
 }
 
 .user:hover {
