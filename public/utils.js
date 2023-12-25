@@ -3,3 +3,10 @@ function random(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+const log = console.log;
+
+const pause = (time) => new Promise((resolve) => {
+  setTimeout(() => { resolve() }, time)
+});
+

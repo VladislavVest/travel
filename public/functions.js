@@ -12,21 +12,30 @@ function renderUserList(userList, gameInfo) {
     };
     if (gameInfo) {
         asideUserList.innerHTML = '';
-        gameInfo.connectedUsers.forEach((user, i) => {
+
+        gameInfo.connectedUsers.forEach((u, i) => {
             const isActive = i == gameInfo.playerPointer;
-            const isPlayer = gameInfo.connectedPlayers.some((p) => p.id == user.id);
-            const isWinner = gameInfo.winners.some((p) => p.id == user.id);
-            const currentUser = localStorage.getItem('socket-id') == user.id;
+            const isPlayer = gameInfo.connectedPlayers.some((p) => p.id == u.id);
+            if (isPlayer) u.position = gameInfo.connectedPlayers.filter((p) => p.id == u.id)[0].position; // patch
+            const isWinner = gameInfo.winners.some((p) => p.id ==u.id);
+            const you = gameInfo.currentUserId ==u.id;
+            const currentUser = localStorage.getItem('socket-id') ==u.id;
+            const easilyAccessiblePlayer = (user.position == u.position ) && (u.id !== gameInfo.currentUserId)
+
+log('======u=======')            
+log((user.position == u.position ) && (u.id !== gameInfo.currentUserId), (user.position == u.position ),  (u.id !== gameInfo.currentUserId))
+log(user.position, u.position, u.id, gameInfo.currentUserId)
+
+
             asideUserList.innerHTML += `
-      <div class="user ${(isActive) ? 'active-step' : ''} ${(isPlayer) ? 'player' : ''}" id="x${user.id}">
+      <div class="user ${(isActive) ? 'active-step' : ''} ${(isPlayer) ? 'player' : ''}" id="x${u.id}">
            ${(isWinner) ? '<img class="winner" src="./images/final.jpg" alt="">' : ''} 
            <div class="username">
-                ${user.username}
+                ${u.username}
                 ${currentUser ? '(You)' : ''}
            </div>
-           <button onclick="fighting()" type="button" class="btn btn-secondary btn-sm">Fight</button>
-
-           
+           ${!you ?'<button onclick="fighting()" type="button" class="btn btn-secondary btn-sm">Fight</button>':''}
+           ${easilyAccessiblePlayer}
       </div>
     `;
         });

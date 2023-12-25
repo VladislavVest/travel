@@ -1,10 +1,3 @@
-const log = console.log;
-
-const pause = (time) => new Promise((resolve) => {
-  setTimeout(() => { resolve() }, time)
-})
-
-
 const socket = io(); // socket.emit("massage", "hellotest");
 const asideUserList = document.querySelector('.aside-userlist');
 const setUsernameScreen = document.querySelector('.set-username-screen');
