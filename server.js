@@ -156,9 +156,11 @@ io.on("connection", (socket) => {
     io.emit('rolling-all');
 
   });
+
   socket.on('rolling-result', (number) => {
     io.emit('rolling-result-all', number);
   });
+
   socket.on('winner', (user) => {
     log('winner!!!');
     winners.push([socket.id, socket]);
@@ -173,12 +175,14 @@ io.on("connection", (socket) => {
     gameInfo.winners = getWinners();
     io.emit('refresh-game-state', gameInfo);
   })
+
   socket.on('set-bomb-on-cell', (bomb) => {
     bomb.position = socket.position;
     gameInfo.bombs.push(bomb);
     log(bomb);
     io.emit('refresh-game-state', gameInfo);
   });
+
   socket.on('bomb-was-exploded', (user) => {
     log('12.12. before', gameInfo.bombs);
     const exploadedBombs = gameInfo.bombs = gameInfo.bombs.filter((b) => {
@@ -193,11 +197,11 @@ io.on("connection", (socket) => {
 
     exploadedBombs.forEach((b) => {
       const message = `У игрока ${socket.username} есть пробитие, негативный эффект: ${b.bomb.title}`;
-      io.emit('new-all-message', { text: message, username: 'Dungeon Master:', style: 'master-message'});
-
+      io.emit('new-all-message', { text: message, username: 'Dungeon Master:', style: 'master-message' });
     })
   });
-
+  
+    socket.on('fighting-start',()=>{});
 
 });
 

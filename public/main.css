@@ -569,14 +569,18 @@ aside {
 
 .fighting-screen {
     position: fixed;
-    width: 100vw;
+    width: 80vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.567);
     z-index: 997;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: none;
+    display: block;
+
+}
+.fighting-screen .container {
+    width: 90%;
+    height: 90%;
+    margin-top: 5%;
+    background: #e6b485;
 
 }
 

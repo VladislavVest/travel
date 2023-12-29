@@ -1,8 +1,8 @@
 function fighting() {
-const fightingScreen = document.querySelector('.fighting-screen');
-fightingScreen.style.display = 'flex';
-clearInterval(setTimer);
-
+    const fightingScreen = document.querySelector('.fighting-screen');
+    fightingScreen.style.display = 'flex';
+    clearInterval(setTimer);
+    socket.emit('fighting-start');
 };
 
 
