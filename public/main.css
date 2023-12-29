@@ -567,6 +567,19 @@ aside {
     /* display: none; */
 }
 
+.fighting-screen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.567);
+    z-index: 997;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+
+}
+
 .player {
     color: blue;
 }

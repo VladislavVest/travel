@@ -1,15 +1,16 @@
 function fighting() {
-    log('FIGHTING USER POS', user.position, gameInfo, user);
+const fightingScreen = document.querySelector('.fighting-screen');
+fightingScreen.style.display = 'flex';
+clearInterval(setTimer);
 
-    const otherPlayers = gameInfo.connectedPlayers.filter(fighter => gameInfo.currentUserId !== fighter.id);
-    log('OTHER PLAYERS', otherPlayers);
-    const easilyAccessiblePlayers = otherPlayers.filter(fighter => user.position == fighter.position);
-
-    log('FIGHTTTTTTTTTTTTTTTT', easilyAccessiblePlayers);
 };
 
 
-
+// log('FIGHTING USER POS', user.position, gameInfo, user);
+// const otherPlayers = gameInfo.connectedPlayers.filter(fighter => gameInfo.currentUserId !== fighter.id);
+// log('OTHER PLAYERS', otherPlayers);
+// const easilyAccessiblePlayers = otherPlayers.filter(fighter => user.position == fighter.position);
+// log('FIGHTTTTTTTTTTTTTTTT', easilyAccessiblePlayers);
 // gameInfo.currentUserId==fighter.id
 // user.position
 // {

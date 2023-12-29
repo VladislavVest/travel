@@ -17,14 +17,14 @@ function renderUserList(userList, gameInfo) {
             const isActive = i == gameInfo.playerPointer;
             const isPlayer = gameInfo.connectedPlayers.some((p) => p.id == u.id);
             if (isPlayer) u.position = gameInfo.connectedPlayers.filter((p) => p.id == u.id)[0].position; // patch
-            const isWinner = gameInfo.winners.some((p) => p.id ==u.id);
-            const you = gameInfo.currentUserId ==u.id;
-            const currentUser = localStorage.getItem('socket-id') ==u.id;
-            const easilyAccessiblePlayer = (user.position == u.position ) && (u.id !== gameInfo.currentUserId)
+            const isWinner = gameInfo.winners.some((p) => p.id == u.id);
+            const you = gameInfo.currentUserId == u.id;
+            const currentUser = localStorage.getItem('socket-id') == u.id;
+            const easilyAccessiblePlayer = (user.position == u.position) && (u.id !== gameInfo.currentUserId)
 
-log('======u=======')            
-log((user.position == u.position ) && (u.id !== gameInfo.currentUserId), (user.position == u.position ),  (u.id !== gameInfo.currentUserId))
-log(user.position, u.position, u.id, gameInfo.currentUserId)
+            log('======u=======')
+            log((user.position == u.position) && (u.id !== gameInfo.currentUserId), (user.position == u.position), (u.id !== gameInfo.currentUserId))
+            log(user.position, u.position, u.id, gameInfo.currentUserId)
 
 
             asideUserList.innerHTML += `
@@ -34,8 +34,7 @@ log(user.position, u.position, u.id, gameInfo.currentUserId)
                 ${u.username}
                 ${currentUser ? '(You)' : ''}
            </div>
-           ${!you ?'<button onclick="fighting()" type="button" class="btn btn-secondary btn-sm">Fight</button>':''}
-           ${easilyAccessiblePlayer}
+           ${(!you && easilyAccessiblePlayer) ? '<button onclick="fighting()" type="button" class="btn btn-secondary btn-sm">Fight</button>' : ''}
       </div>
     `;
         });
