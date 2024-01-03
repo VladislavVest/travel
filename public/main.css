@@ -163,7 +163,7 @@ aside {
     width: 95%;
     height: 95%;
     content: '';
-    border:  dashed 5px #00ff03;
+    border: dashed 5px #00ff03;
     /* box-shadow: 0px 0px 5px red, -1em 0 .4em olive; */
     /* box-shadow: #03cf69; */
     display: block;
@@ -576,13 +576,127 @@ aside {
     display: block;
 
 }
+
 .fighting-screen .container {
     width: 90%;
     height: 90%;
     margin-top: 5%;
     background: #e6b485;
+    padding: 0%;
+    display: flex;
+    flex-direction: column;
+}
+
+.fighting-screen .fight-top {
+    min-height: 2rem;
+    background: #000000;
+}
+
+.fighting-screen .fight-middle {
+    min-height: 2rem;
+    background: #888870;
+    height: 100%;
+    display: flex;
 
 }
+
+.fighting-screen .fight-bottom {
+    min-height: 2rem;
+    background: #000000;
+}
+
+.fighting-screen .left {
+    width: 60%;
+    background: #1d2333;
+
+}
+
+.fighting-screen .center {
+width: 100%;
+position: relative;
+/* background-image: url(./images/fight-phone.jpg); */
+background: black;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.fighting-screen .center:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    background-image: url(./images/fight-phone.jpg);
+    /* background-repeat: no-repeat; */
+    background-position: 50% 0;
+    /* background-size: cover; */
+  }
+  
+
+.fighting-screen .right {
+    width: 60%;
+    background: #1d2333;
+}
+
+.fighting-screen .left img {
+    width: 100%;
+    height: 37%;
+
+}
+
+.fighting-screen .right img {
+    width: 100%;
+    height: 37%;
+}
+
+
+.fighting-center-card {
+width: 70%; 
+height: 70%;
+background:#00000027;
+backdrop-filter:  blur(5px);
+border-radius: 1rem;
+border: 1px solid rgba(255, 255, 255, 0.144);
+display: flex;
+flex-direction: column;
+color:white;
+}
+
+.fighting-center-card .top {
+    height: 20%;
+    text-align: center;
+}
+
+.fighting-center-card .middle {
+    height: 60%;
+    display: flex;
+}
+
+.fighting-center-card .botton {
+    height: 20%;
+    text-align: center;
+
+}
+
+.fighting-center-card .middle fieldset{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 .player {
     color: blue;
@@ -610,7 +724,7 @@ aside {
 }
 
 .menu-bomb span {
-color: #908f8f;
+    color: #908f8f;
 }
 
 .cell-bomb {
@@ -623,26 +737,26 @@ color: #908f8f;
 
 @keyframes puls-bomb {
     0% {
-        transform: scale(.7); 
-       }
+        transform: scale(.7);
+    }
 
     50% {
-        transform: scale(1.3);   
-     }
+        transform: scale(1.3);
+    }
 
     100% {
-        transform: scale(.7);  
-      }
+        transform: scale(.7);
+    }
 }
 
 .animation-container {
     position: fixed;
-    left: 0;        
+    left: 0;
     top: 0;
     width: 85vw;
     height: 100vh;
     z-index: 10000;
-    display: flex;   
+    display: flex;
     justify-content: center;
     align-items: center;
     display: none;
