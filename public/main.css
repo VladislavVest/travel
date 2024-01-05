@@ -614,7 +614,7 @@ aside {
 .fight-middle > .left, .fight-middle > .right {
     font-size: xxx-large;
     color: red;
-    display:flex;   
+    display: flex;   
     flex-direction: column;
 }
 
@@ -698,7 +698,14 @@ color:white;
 
 
 
+.fighter-size  .ruler{
+height: 100%!important;
+width: 45%!important;
+/* border: 3px green solid; */
+}
 
+
+    
 
 
 
