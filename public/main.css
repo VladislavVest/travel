@@ -611,6 +611,14 @@ aside {
 
 }
 
+.fight-middle > .left, .fight-middle > .right {
+    font-size: xxx-large;
+    color: red;
+    display:flex;   
+    flex-direction: column;
+}
+
+
 .fighting-screen .center {
 width: 100%;
 position: relative;
@@ -685,6 +693,7 @@ color:white;
 .fighting-center-card .middle fieldset{
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 
