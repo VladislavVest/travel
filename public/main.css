@@ -611,22 +611,23 @@ aside {
 
 }
 
-.fight-middle > .left, .fight-middle > .right {
+.fight-middle>.left,
+.fight-middle>.right {
     font-size: xxx-large;
     color: red;
-    display: flex;   
+    display: flex;
     flex-direction: column;
 }
 
 
 .fighting-screen .center {
-width: 100%;
-position: relative;
-/* background-image: url(./images/fight-phone.jpg); */
-background: black;
-display: flex;
-justify-content: center;
-align-items: center;
+    width: 100%;
+    position: relative;
+    /* background-image: url(./images/fight-phone.jpg); */
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .fighting-screen .center:before {
@@ -642,8 +643,8 @@ align-items: center;
     /* background-repeat: no-repeat; */
     background-position: 50% 0;
     /* background-size: cover; */
-  }
-  
+}
+
 
 .fighting-screen .right {
     width: 60%;
@@ -663,15 +664,15 @@ align-items: center;
 
 
 .fighting-center-card {
-width: 70%; 
-height: 70%;
-background:#00000027;
-backdrop-filter:  blur(5px);
-border-radius: 1rem;
-border: 1px solid rgba(255, 255, 255, 0.144);
-display: flex;
-flex-direction: column;
-color:white;
+    width: 70%;
+    height: 70%;
+    background: #00000027;
+    backdrop-filter: blur(5px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.144);
+    display: flex;
+    flex-direction: column;
+    color: white;
 }
 
 .fighting-center-card .top {
@@ -690,23 +691,31 @@ color:white;
 
 }
 
-.fighting-center-card .middle fieldset{
+.fighting-center-card .middle fieldset {
     display: flex;
     flex-direction: column;
     text-align: center;
 }
 
-
-
-.fighter-size  .ruler{
-height: 100%!important;
-width: 45%!important;
-/* border: 3px green solid; */
+.fighter-size {
+    height: 50%;
+    display: flex;
+align-items: end;
 }
 
 
-    
+.fighter-size .ruler {
+    height: 79% !important;
+    width: 45% !important;
+    /* border: 3px green solid; */
+}
 
+
+.fighter-size .dick {
+    height: 85% !important;
+    width: 45% !important;
+    /* border: 3px green solid; */
+}
 
 
 
