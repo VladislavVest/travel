@@ -22,8 +22,8 @@ function fighting() {
 log( yourDickPower + "% !important",'yourDick.style.height!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 log( yourPartnerDickPower + "% !important",' yourPartnerDick.style.height!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
-        yourDick.style.height = yourDickPower + "% !important";
-        yourPartnerDick.style.height = yourPartnerDickPower + "% !important";
+        yourDick.style.transform = `scale(1,${yourDickPower/30}) translate(0rem, -5rem) `;
+        yourPartnerDick.style.transform = `scale(1,${yourPartnerDickPower/30}) translate(0rem, -5rem)`;
     }, 1000)
 
 

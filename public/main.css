@@ -710,10 +710,22 @@ align-items: end;
     /* border: 3px green solid; */
 }
 
-
-.fighter-size .dick {
-    height: 85% !important;
+.fighter-size .dick-box  {
+    height: 85% ;
     width: 45% !important;
+    transition: 1s;
+    position: relative;
+    bottom: -19rem;
+    /* height: 85% !important;
+    width: 45% !important; */
+    /* border: 3px green solid; */
+}
+.fighter-size .dick  {
+    height: 85% ;
+    width: 100% !important;
+    transition: 1s;
+    /* height: 85% !important;
+    width: 45% !important; */
     /* border: 3px green solid; */
 }
 
