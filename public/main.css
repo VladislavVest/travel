@@ -574,7 +574,7 @@ aside {
     background: rgba(0, 0, 0, 0.567);
     z-index: 997;
     display: block;
-
+    display: none; 
 }
 
 .fighting-screen .container {

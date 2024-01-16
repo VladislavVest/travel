@@ -203,6 +203,10 @@ io.on("connection", (socket) => {
   
     socket.on('fighting-start',()=>{});
 
+    socket.on('fighting-strike', (fightingData)=>{
+      log(fightingData);
+    });
+
 });
 
 server.listen(3000, () => {

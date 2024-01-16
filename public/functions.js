@@ -26,7 +26,7 @@ function renderUserList(userList, gameInfo) {
             log((user.position == u.position) && (u.id !== gameInfo.currentUserId), (user.position == u.position), (u.id !== gameInfo.currentUserId))
             log(user.position, u.position, u.id, gameInfo.currentUserId)
 
-
+const fightingBtn = `<button onclick="fighting('${u.id}')" type="button" class="btn btn-secondary btn-sm">Fight</button>`
             asideUserList.innerHTML += `
       <div class="user ${(isActive) ? 'active-step' : ''} ${(isPlayer) ? 'player' : ''}" id="x${u.id}">
            ${(isWinner) ? '<img class="winner" src="./images/final.jpg" alt="">' : ''} 
@@ -34,7 +34,7 @@ function renderUserList(userList, gameInfo) {
                 ${u.username}
                 ${currentUser ? '(You)' : ''}
            </div>
-           ${(!you && easilyAccessiblePlayer) ? '<button onclick="fighting()" type="button" class="btn btn-secondary btn-sm">Fight</button>' : ''}
+           ${(!you && easilyAccessiblePlayer) ? fightingBtn : ''}
       </div>
     `;
         });
