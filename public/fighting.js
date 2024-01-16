@@ -12,15 +12,15 @@ function fighting() {
     setInterval(() => {
         const rand1 = random(-50, 50);
         const rand2 = random(-50, 50);
-        log(rand1, 'DICKKKKKKKKKKKKKKKKKKKKKKK');
+        // log(rand1, 'DICKKKKKKKKKKKKKKKKKKKKKKK');
         yourDickPower += rand1;
         yourPartnerDickPower += rand2;
         if (yourDickPower < 10) yourDickPower = 10;
         if (yourPartnerDickPower < 10) yourPartnerDickPower = 10;
         if (yourDickPower > 100) yourDickPower = 100;
         if (yourPartnerDickPower > 100) yourPartnerDickPower = 100;
-log( yourDickPower + "% !important",'yourDick.style.height!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-log( yourPartnerDickPower + "% !important",' yourPartnerDick.style.height!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+// log( yourDickPower + "% !important",'yourDick.style.height!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+// log( yourPartnerDickPower + "% !important",' yourPartnerDick.style.height!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
         yourDick.style.transform = `scale(1,${yourDickPower/30}) translate(0rem, -5rem) `;
         yourPartnerDick.style.transform = `scale(1,${yourPartnerDickPower/30}) translate(0rem, -5rem)`;
@@ -42,5 +42,15 @@ fighting();
 //     "username": "13e3",
 //     "position": 0
 // }
+function combat() {
+    var radios = document.querySelectorAll('input[type=radio][name="drone"]');
+    var radios2 = document.querySelectorAll('input[type=radio][name="drone2"]');
 
+
+    const mortalStrike = getSelectedRadioValue(radios);
+    log(mortalStrike,'YDARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR');
+    const protection = getSelectedRadioValue(radios2);
+    log(protection,'DEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf');
+
+}
 

@@ -10,3 +10,10 @@ const pause = (time) => new Promise((resolve) => {
   setTimeout(() => { resolve() }, time)
 });
 
+function getSelectedRadioValue(radios) {
+  for (var i = 0; i < radios.length; i++) {
+      if (radios[i].checked) {
+          return radios[i].value;
+      }
+  }
+};
