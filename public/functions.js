@@ -1,4 +1,5 @@
 function renderUserList(userList, gameInfo) {
+    log('RUN RENDER LIST',gameInfo);
     if (userList) {
         asideUserList.innerHTML = '';
         userList.forEach((user) => {
@@ -20,11 +21,9 @@ function renderUserList(userList, gameInfo) {
             const isWinner = gameInfo.winners.some((p) => p.id == u.id);
             const you = gameInfo.currentUserId == u.id;
             const currentUser = localStorage.getItem('socket-id') == u.id;
-            const easilyAccessiblePlayer = (user.position == u.position) && (u.id !== gameInfo.currentUserId)
+            const easilyAccessiblePlayer = (user.position == u.position) && !currentUser
 
-            log('======u=======')
-            log((user.position == u.position) && (u.id !== gameInfo.currentUserId), (user.position == u.position), (u.id !== gameInfo.currentUserId))
-            log(user.position, u.position, u.id, gameInfo.currentUserId)
+         log('EASILYYYYYYY', easilyAccessiblePlayer);
 
 const fightingBtn = `<button onclick="fighting('${u.id}')" type="button" class="btn btn-secondary btn-sm">Fight</button>`
             asideUserList.innerHTML += `
@@ -306,7 +305,7 @@ async function action(n) {
     //start timer to skip step
     if (user.steps < 1) {
         document.querySelector('#run').disabled = true;
-        gagarin(10, skip);
+        // gagarin(10, skip);
     }
 
 
