@@ -29,7 +29,20 @@ function getInitialGameInfo() {
     connectedUsers: [],
     connectedPlayers: [],
     winners: [],
-    bombs: []
+    bombs: [],
+    fighting: {
+      isActive: false,
+      activPlayer: {
+        id: '', //id тот кто вызвал на бой
+        hitPoints: 30
+      },
+      
+      passivPlayer: {
+        id: '', //id тот кого вы..и
+        hitPoints: 30
+      }
+
+    }
   }
 };
 
@@ -200,12 +213,17 @@ io.on("connection", (socket) => {
       io.emit('new-all-message', { text: message, username: 'Dungeon Master:', style: 'master-message' });
     })
   });
-  
-    socket.on('fighting-start',()=>{});
 
-    socket.on('fighting-strike', (fightingData)=>{
-      log(fightingData);
-    });
+  socket.on('fighting-start', ({activPlayer,passivPlayer}) => {
+    gameInfo.fighting.isActive = true;
+    gameInfo.fighting.activPlayer = activPlayer;
+    gameInfo.fighting.passivPlayer = passivPlayer;
+io.emit('open-arena',gameInfo);
+   });
+
+  socket.on('fighting-strike', (fightingData) => {
+    log(fightingData);
+  });
 
 });
 

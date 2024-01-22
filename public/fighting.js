@@ -4,12 +4,9 @@ log(yourDick, yourPartnerDick);
 let yourDickPower = 50;
 let yourPartnerDickPower = 50;
 
-
-function fighting(partnerId) {
+function openArena() {
     const fightingScreen = document.querySelector('.fighting-screen');
     fightingScreen.style.display = 'flex';
-    clearInterval(setTimer);
-    socket.emit('fighting-start');
     setInterval(() => {
         const rand1 = random(-50, 50);
         const rand2 = random(-50, 50);
@@ -26,7 +23,18 @@ function fighting(partnerId) {
         yourDick.style.transform = `scale(1,${yourDickPower / 30}) translate(0rem, -5rem) `;
         yourPartnerDick.style.transform = `scale(1,${yourPartnerDickPower / 30}) translate(0rem, -5rem)`;
     }, 1000)
-    log(partnerId,'ID С КЕМ ФАЙТ');
+}
+
+
+function fighting(partnerId) {
+
+    clearInterval(setTimer);
+    socket.emit('fighting-start', {
+        activPlayer: localStorage.getItem('socket-id'),
+        passivPlayer: partnerId,
+    });
+   
+    log(partnerId, 'ID С КЕМ ФАЙТ');
 
 
 };
@@ -66,3 +74,6 @@ function combat() {
 
 }
 
+socket.on('open-arena', (gameInfo) => { 
+    openArena();
+})
