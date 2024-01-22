@@ -4,8 +4,21 @@ log(yourDick, yourPartnerDick);
 let yourDickPower = 50;
 let yourPartnerDickPower = 50;
 
-function openArena() {
+
+function openArena(gameInfo) {
+    const myId =  localStorage.getItem('socket-id');
+    const isSpectator = gameInfo.fighting.activPlayer.id != myId && gameInfo.fighting.passivPlayer.id != myId;
+    log('SPECTATOR', gameInfo.fighting.activPlayer.id != myId, gameInfo.fighting.passivPlayer.id != myId);
+    log('SPECTATOR', gameInfo.fighting.activPlayer.id, myId, gameInfo.fighting.passivPlayer.id , myId);
+
+    log(myId,gameInfo);
     const fightingScreen = document.querySelector('.fighting-screen');
+    const fightingScreenCard = document.querySelector('.fighting-center-card');
+    const fightingScreenCardSpectator = document.querySelector('.fighting-center-card-spectator');
+
+    if (isSpectator) fightingScreenCardSpectator.classList.add('spectator');
+
+    if (isSpectator) fightingScreenCard.classList.add('spectator');
     fightingScreen.style.display = 'flex';
     setInterval(() => {
         const rand1 = random(-50, 50);
@@ -75,5 +88,5 @@ function combat() {
 }
 
 socket.on('open-arena', (gameInfo) => { 
-    openArena();
+    openArena(gameInfo);
 })

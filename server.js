@@ -216,8 +216,8 @@ io.on("connection", (socket) => {
 
   socket.on('fighting-start', ({activPlayer,passivPlayer}) => {
     gameInfo.fighting.isActive = true;
-    gameInfo.fighting.activPlayer = activPlayer;
-    gameInfo.fighting.passivPlayer = passivPlayer;
+    gameInfo.fighting.activPlayer.id = activPlayer;
+    gameInfo.fighting.passivPlayer.id = passivPlayer;
 io.emit('open-arena',gameInfo);
    });
 

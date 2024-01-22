@@ -675,6 +675,34 @@ aside {
     color: white;
 }
 
+.fighting-center-card-spectator {
+    width: 70%;
+    height: 70%;
+    background: #00000027;
+    backdrop-filter: blur(5px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.144);
+    display: flex;
+    flex-direction: column;
+    color: white;
+    display: none;
+}
+
+.fighting-center-card-spectator.spectator {
+    display: flex;
+}
+
+.fighting-center-card-spectator img {
+    width: 100%;
+}
+
+
+
+.fighting-center-card.spectator {
+    display: none;
+}
+
+
 .fighting-center-card .top {
     height: 20%;
     text-align: center;
