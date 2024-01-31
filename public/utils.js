@@ -17,3 +17,8 @@ function getSelectedRadioValue(radios) {
       }
   }
 };
+
+function $(selector){
+  return document.querySelector(selector);
+};
+

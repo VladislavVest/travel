@@ -222,6 +222,7 @@ async function action(n) {
                     action(user.position)
                 }, 1600);                                            //проверить очередность кода после сет таймаута 
             };
+            
         }
 
 
@@ -308,7 +309,7 @@ async function action(n) {
         // gagarin(10, skip);
     }
 
-
+socket.emit('action-result',user);
 }
 
 function final() {

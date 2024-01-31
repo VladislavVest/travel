@@ -23,6 +23,7 @@ let gameInfo = getInitialGameInfo();
 
 function getInitialGameInfo() {
   return {
+    players:{},
     playerPointer: 0,
     isGameStarted: false,
     currentUserId: null,
@@ -36,7 +37,7 @@ function getInitialGameInfo() {
         id: '', //id тот кто вызвал на бой
         hitPoints: 30
       },
-      
+
       passivPlayer: {
         id: '', //id тот кого вы..и
         hitPoints: 30
@@ -214,15 +215,24 @@ io.on("connection", (socket) => {
     })
   });
 
-  socket.on('fighting-start', ({activPlayer,passivPlayer}) => {
+  socket.on('fighting-start', ({ activPlayer, passivPlayer }) => {
     gameInfo.fighting.isActive = true;
     gameInfo.fighting.activPlayer.id = activPlayer;
     gameInfo.fighting.passivPlayer.id = passivPlayer;
-io.emit('open-arena',gameInfo);
-   });
+    io.emit('open-arena', gameInfo);
+  });
 
   socket.on('fighting-strike', (fightingData) => {
     log(fightingData);
+  });
+  socket.on('action-result', (user) => {
+    gameInfo.players[socket.id] = user;
+    if (user.hitPoints < 1) { //.......................................................................................GAME OVER
+      socket.emit('game-over');
+      gameInfo.connectedPlayers = gameInfo.connectedPlayers.filter(p => p.id != socket.id);
+      io.emit('refresh-game-state',gameInfo);
+
+    }
   });
 
 });

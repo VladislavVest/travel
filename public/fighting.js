@@ -6,12 +6,20 @@ let yourPartnerDickPower = 50;
 
 
 function openArena(gameInfo) {
+
+    const firstFighterUserName = gameInfo.connectedPlayers.find((u)=>u.id == gameInfo.fighting.activPlayer.id).username;
+    const secondFighterUserName = gameInfo.connectedPlayers.find((u)=>u.id == gameInfo.fighting.passivPlayer.id).username;
+    $("#name-fighter-2").innerHTML = secondFighterUserName;
+    $("#name-fighter-1").innerHTML = firstFighterUserName;
+
+
+    log('JJJJJJJJJJJJJJJJJJJ', firstFighterUserName);
+
     const myId =  localStorage.getItem('socket-id');
     const isSpectator = gameInfo.fighting.activPlayer.id != myId && gameInfo.fighting.passivPlayer.id != myId;
-    log('SPECTATOR', gameInfo.fighting.activPlayer.id != myId, gameInfo.fighting.passivPlayer.id != myId);
-    log('SPECTATOR', gameInfo.fighting.activPlayer.id, myId, gameInfo.fighting.passivPlayer.id , myId);
-
-    log(myId,gameInfo);
+    // log('SPECTATOR', gameInfo.fighting.activPlayer.id != myId, gameInfo.fighting.passivPlayer.id != myId);
+    // log('SPECTATOR', gameInfo.fighting.activPlayer.id, myId, gameInfo.fighting.passivPlayer.id , myId);
+    // log(myId,gameInfo);
     const fightingScreen = document.querySelector('.fighting-screen');
     const fightingScreenCard = document.querySelector('.fighting-center-card');
     const fightingScreenCardSpectator = document.querySelector('.fighting-center-card-spectator');
@@ -71,9 +79,7 @@ function combat() {
 
 
     const mortalStrike = getSelectedRadioValue(radios);
-    log(mortalStrike, yourDickPower, 'YDARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR');
     const protection = getSelectedRadioValue(radios2);
-    log(protection, yourPartnerDickPower, 'DEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf');
 
     const fightingData = {
         mortalStrike,
@@ -89,4 +95,6 @@ function combat() {
 
 socket.on('open-arena', (gameInfo) => { 
     openArena(gameInfo);
+
+    log('EEEEEEEEEEEEEEEEEEEEEEEEEEEEE', gameInfo);
 })
