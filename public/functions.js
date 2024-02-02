@@ -17,7 +17,7 @@ function renderUserList(userList, gameInfo) {
         gameInfo.connectedUsers.forEach((u, i) => {
             const isActive = i == gameInfo.playerPointer;
             const isPlayer = gameInfo.connectedPlayers.some((p) => p.id == u.id);
-            if (isPlayer) u.position = gameInfo.connectedPlayers.filter((p) => p.id == u.id)[0].position; // patch
+            if (isPlayer) u = gameInfo.connectedPlayers.filter((p) => p.id == u.id)[0]; // patch
             const isWinner = gameInfo.winners.some((p) => p.id == u.id);
             const you = gameInfo.currentUserId == u.id;
             const currentUser = localStorage.getItem('socket-id') == u.id;
@@ -27,7 +27,7 @@ function renderUserList(userList, gameInfo) {
 
 const fightingBtn = `<button onclick="fighting('${u.id}')" type="button" class="btn btn-secondary btn-sm">Fight</button>`
             asideUserList.innerHTML += `
-      <div class="user ${(isActive) ? 'active-step' : ''} ${(isPlayer) ? 'player' : ''}" id="x${u.id}">
+      <div class="user ${(isActive) ? 'active-step' : ''} ${(isPlayer) ? 'player' : ''} ${u.dead ? 'dead':''}" id="x${u.id}">
            ${(isWinner) ? '<img class="winner" src="./images/final.jpg" alt="">' : ''} 
            <div class="username">
                 ${u.username}

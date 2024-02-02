@@ -832,3 +832,7 @@ align-items: end;
     color: #fc04b1;
     background-color: black;
 }
+
+.dead {
+    opacity: 0.5;
+}

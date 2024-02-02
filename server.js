@@ -23,7 +23,7 @@ let gameInfo = getInitialGameInfo();
 
 function getInitialGameInfo() {
   return {
-    players:{},
+    players: {},
     playerPointer: 0,
     isGameStarted: false,
     currentUserId: null,
@@ -47,6 +47,7 @@ function getInitialGameInfo() {
   }
 };
 
+function allDead(){log('All Dead')};
 
 function getConnectedSockets() {
   return Object.entries(connectedSockets);
@@ -66,10 +67,13 @@ function getConnectedUsers() {
 function getConnectedPlayers() {
   const socketList = players;
   const userList = socketList.map((double) => {
+    const socketId = double[0];
+    const socket = double[1];
     return {
-      id: double[0],
-      username: double[1].username,
-      position: double[1].position
+      id: socketId,
+      username: socket.username,
+      position: socket.position,
+      dead: socket.dead
     }
   });
   return userList;
@@ -143,12 +147,18 @@ io.on("connection", (socket) => {
 
   socket.on('skip-step', () => {
     log('skip-step');
-    gameInfo.playerPointer++;
-    if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0;
+    let playerSocket = {};
+    let condom = 0;
+    do {
+      playerSocket = players[gameInfo.playerPointer][1];
+      gameInfo.playerPointer++;
+      condom++;
+      if (condom > 100) return allDead()
+      if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0;
+    } while (playerSocket.dead == false);
     log(gameInfo.playerPointer, 'gameinfoplayerpoinerrr');
     log(players.length);
     const playerId = players[gameInfo.playerPointer][0];
-    const playerSocket = players[gameInfo.playerPointer][1];
     gameInfo.currentUserId = playerId;
     playerSocket.emit('open-step', gameInfo);
     io.emit('refresh-game-state', gameInfo);
@@ -226,11 +236,12 @@ io.on("connection", (socket) => {
     log(fightingData);
   });
   socket.on('action-result', (user) => {
-    gameInfo.players[socket.id] = user;
+    // gameInfo.players[socket.id] = user;
     if (user.hitPoints < 1) { //.......................................................................................GAME OVER
       socket.emit('game-over');
-      gameInfo.connectedPlayers = gameInfo.connectedPlayers.filter(p => p.id != socket.id);
-      io.emit('refresh-game-state',gameInfo);
+      // gameInfo.connectedPlayers = gameInfo.connectedPlayers.filter(p => p.id != socket.id);
+      io.emit('refresh-game-state', gameInfo);
+      socket.dead = true;
 
     }
   });
