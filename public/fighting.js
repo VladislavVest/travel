@@ -1,6 +1,6 @@
 const yourDick = document.querySelector('.left .dick');
 const yourPartnerDick = document.querySelector('.right .dick');
-log(yourDick, yourPartnerDick);
+// log(yourDick, yourPartnerDick);
 let yourDickPower = 50;
 let yourPartnerDickPower = 50;
 
@@ -13,7 +13,7 @@ function openArena(gameInfo) {
     $("#name-fighter-1").innerHTML = firstFighterUserName;
 
 
-    log('JJJJJJJJJJJJJJJJJJJ', firstFighterUserName);
+    // log('JJJJJJJJJJJJJJJJJJJ', firstFighterUserName);
 
     const myId =  localStorage.getItem('socket-id');
     const isSpectator = gameInfo.fighting.activPlayer.id != myId && gameInfo.fighting.passivPlayer.id != myId;
@@ -55,7 +55,7 @@ function fighting(partnerId) {
         passivPlayer: partnerId,
     });
    
-    log(partnerId, 'ID С КЕМ ФАЙТ');
+    // log(partnerId, 'ID С КЕМ ФАЙТ');
 
 
 };
@@ -96,5 +96,5 @@ function combat() {
 socket.on('open-arena', (gameInfo) => { 
     openArena(gameInfo);
 
-    log('EEEEEEEEEEEEEEEEEEEEEEEEEEEEE', gameInfo);
+    // log('EEEEEEEEEEEEEEEEEEEEEEEEEEEEE', gameInfo);
 })

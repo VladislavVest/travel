@@ -20,6 +20,7 @@ const user = {
 };
 let gameInfo = {};
 
+socket.on('game-over', () =>{alert("Game Over")});
 socket.on('force-front-restart', () => location.reload());// restart all-fronts if restart back
 socket.on('rolling-all', () => rollingAnimation());
 socket.on('rolling-result-all', (number) => rollingResult(number));
@@ -28,7 +29,7 @@ socket.on('your-id', (id) => { localStorage.setItem('socket-id', id) });
 socket.on('refresh-game-state', (_gameInfo) => {
   gameInfo = _gameInfo;
   renderUserList(null, gameInfo);
-  log('FOR FIGHTING!!!!', gameInfo, gameInfo.isGameStarted);
+  // log('FOR FIGHTING!!!!', gameInfo, gameInfo.isGameStarted);
   if (gameInfo.isGameStarted) {
     const partyScreen = document.querySelector('.start-game-screen');
     partyScreen.style.display = 'none';
@@ -43,7 +44,7 @@ init();
 checkUsernameInMemory();
 
 socket.on('bomb-exploaded-for-all', async ({ exploadedBombs, user }) => {
-  log('11111111111111111111111111111111111111', exploadedBombs, user);
+  // log('11111111111111111111111111111111111111', exploadedBombs, user);
   const animationNode = document.querySelector('.animation-container');
   const imageNode = animationNode.querySelector('img');
   imageNode.src = './images/bombbefore.gif';

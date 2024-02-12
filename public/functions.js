@@ -1,5 +1,17 @@
+function getMySelf(gameInfo) {
+    const myId = localStorage.getItem('socket-id');
+    let mySelf = null;
+    gameInfo.connectedPlayers.forEach((player) => {
+        if (player.id = myId) mySelf = player;
+    })
+    return mySelf
+}
+
+
+
+
 function renderUserList(userList, gameInfo) {
-    log('RUN RENDER LIST',gameInfo);
+    // log('RUN RENDER LIST',gameInfo);
     if (userList) {
         asideUserList.innerHTML = '';
         userList.forEach((user) => {
@@ -23,11 +35,11 @@ function renderUserList(userList, gameInfo) {
             const currentUser = localStorage.getItem('socket-id') == u.id;
             const easilyAccessiblePlayer = (user.position == u.position) && !currentUser
 
-         log('EASILYYYYYYY', easilyAccessiblePlayer);
+            //  log('EASILYYYYYYY', easilyAccessiblePlayer);
 
-const fightingBtn = `<button onclick="fighting('${u.id}')" type="button" class="btn btn-secondary btn-sm">Fight</button>`
+            const fightingBtn = `<button onclick="fighting('${u.id}')" type="button" class="btn btn-secondary btn-sm">Fight</button>`
             asideUserList.innerHTML += `
-      <div class="user ${(isActive) ? 'active-step' : ''} ${(isPlayer) ? 'player' : ''} ${u.dead ? 'dead':''}" id="x${u.id}">
+      <div class="user ${(isActive) ? 'active-step' : ''} ${(isPlayer) ? 'player' : ''} ${u.dead ? 'dead' : ''}" id="x${u.id}">
            ${(isWinner) ? '<img class="winner" src="./images/final.jpg" alt="">' : ''} 
            <div class="username">
                 ${u.username}
@@ -41,6 +53,7 @@ const fightingBtn = `<button onclick="fighting('${u.id}')" type="button" class="
     //           <div class="avatar"></div> было  в шаблоне сверху
 
 };
+
 
 function render() {
     const xp = document.querySelector("#xp");
@@ -222,7 +235,7 @@ async function action(n) {
                     action(user.position)
                 }, 1600);                                            //проверить очередность кода после сет таймаута 
             };
-            
+
         }
 
 
@@ -309,7 +322,7 @@ async function action(n) {
         // gagarin(10, skip);
     }
 
-socket.emit('action-result',user);
+    socket.emit('action-result', user);
 }
 
 function final() {
@@ -421,8 +434,8 @@ function startGame() {
 
 
 function skip() {
-    clearInterval(setTimer);
-    socket.emit('skip-step');
+    // clearInterval(setTimer);
+    socket.emit('skip-step', user);
     message('Ход завершён');
     document.querySelector('#run').disabled = true;
     document.querySelector('#skip').disabled = true;
@@ -485,9 +498,8 @@ function moveUsers(players) {
 
 function stickOutYou() {
     // clearCells();
-    log(user, 'stickOutYou');
     const cell = document.getElementById(user.position);
-    log(cell);
+    // log(cell);
     cell.classList.add("you");
 
 };

@@ -47,7 +47,7 @@ function getInitialGameInfo() {
   }
 };
 
-function allDead(){log('All Dead')};
+function allDead() { log('All Dead') };
 
 function getConnectedSockets() {
   return Object.entries(connectedSockets);
@@ -100,7 +100,7 @@ function changeConnections(socket, io) {
 let reloadFrontFlag = false;
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
+  // console.log("a user connected");
   socket.username = 'Anonymous';
   socket.position = 0;
   gameInfo.connectedUsers = getConnectedUsers();
@@ -140,27 +140,34 @@ io.on("connection", (socket) => {
     const playerId = players[gameInfo.playerPointer][0];
     const playerSocket = players[gameInfo.playerPointer][1];
     gameInfo.currentUserId = playerId;
-    socket.emit('open-step', gameInfo);
+    playerSocket.emit('open-step', gameInfo);
     //start game for all users
     io.emit('game-activation', gameInfo)
   });
 
-  socket.on('skip-step', () => {
-    log('skip-step');
-    let playerSocket = {};
-    let condom = 0;
-    do {
-      playerSocket = players[gameInfo.playerPointer][1];
-      gameInfo.playerPointer++;
-      condom++;
-      if (condom > 100) return allDead()
-      if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0;
-    } while (playerSocket.dead == false);
-    log(gameInfo.playerPointer, 'gameinfoplayerpoinerrr');
-    log(players.length);
+  socket.on('skip-step', (user) => {
+    const playerSocket = players[gameInfo.playerPointer][1];
+
+    if (user.hitPoints < 1) { //.......................................................................................GAME OVER
+      playerSocket.dead = true;
+      
+
+      playerSocket.emit('game-over');
+      // gameInfo.connectedPlayers = gameInfo.connectedPlayers.filter(p => p.id != socket.id);
+      io.emit('refresh-game-state', gameInfo);
+      io.emit('refresh-users-list', getConnectedUsers());
+
+    }
+    gameInfo.playerPointer++;
+    if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0;
+
+    const nextPlayerSocket = players[gameInfo.playerPointer][1];
+    log("плеер сокет кому ход выбор", nextPlayerSocket.id, gameInfo)
+   
+
     const playerId = players[gameInfo.playerPointer][0];
     gameInfo.currentUserId = playerId;
-    playerSocket.emit('open-step', gameInfo);
+    nextPlayerSocket.emit('open-step', gameInfo);
     io.emit('refresh-game-state', gameInfo);
   });
 
@@ -186,14 +193,14 @@ io.on("connection", (socket) => {
   });
 
   socket.on('winner', (user) => {
-    log('winner!!!');
+    // log('winner!!!');
     winners.push([socket.id, socket]);
     players = players.filter((p) => {
-      log(p[0], 'PE IDDD');
-      log(socket.id, 'SOCKET IDDD');
+      // log(p[0], 'PE IDDD');
+      // log(socket.id, 'SOCKET IDDD');
       return p[0] !== socket.id;
     })
-    log(players.length);
+    // log(players.length);
     gameInfo.connectedUsers = getConnectedUsers();
     gameInfo.connectedPlayers = getConnectedPlayers();
     gameInfo.winners = getWinners();
@@ -203,19 +210,19 @@ io.on("connection", (socket) => {
   socket.on('set-bomb-on-cell', (bomb) => {
     bomb.position = socket.position;
     gameInfo.bombs.push(bomb);
-    log(bomb);
+    // log(bomb);
     io.emit('refresh-game-state', gameInfo);
   });
 
   socket.on('bomb-was-exploded', (user) => {
-    log('12.12. before', gameInfo.bombs);
+    // log('12.12. before', gameInfo.bombs);
     const exploadedBombs = gameInfo.bombs = gameInfo.bombs.filter((b) => {
       return b.position == user.position;
     });
     gameInfo.bombs = gameInfo.bombs.filter((b) => {
       return b.position != user.position;
     });
-    log('12.12.after', gameInfo.bombs);
+    // log('12.12.after', gameInfo.bombs);
     io.emit('refresh-game-state', gameInfo);
     io.emit('bomb-exploaded-for-all', { exploadedBombs, user });
 
@@ -233,22 +240,18 @@ io.on("connection", (socket) => {
   });
 
   socket.on('fighting-strike', (fightingData) => {
-    log(fightingData);
+    // log(fightingData);
   });
   socket.on('action-result', (user) => {
+    // log('екшен резалт', user)
     // gameInfo.players[socket.id] = user;
-    if (user.hitPoints < 1) { //.......................................................................................GAME OVER
-      socket.emit('game-over');
-      // gameInfo.connectedPlayers = gameInfo.connectedPlayers.filter(p => p.id != socket.id);
-      io.emit('refresh-game-state', gameInfo);
-      socket.dead = true;
 
-    }
   });
 
 });
 
 server.listen(3000, () => {
-  console.log("server running at http://localhost:3000");
+  // console.log("server running at http://localhost:3000");
 });
 
+// дебаг степ
