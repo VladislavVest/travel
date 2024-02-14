@@ -2,7 +2,7 @@ function getMySelf(gameInfo) {
     const myId = localStorage.getItem('socket-id');
     let mySelf = null;
     gameInfo.connectedPlayers.forEach((player) => {
-        if (player.id = myId) mySelf = player;
+        if (player.id == myId) mySelf = player;
     })
     return mySelf
 }

@@ -1,12 +1,16 @@
 socket.on('open-step', (gameInfo) => {
 
-  const mySelf = getMySelf(gameInfo);
-  if (mySelf.dead) {
-    alert('autoskip');
-    skip();
-  }
-
   log('open-step', gameInfo);
+  const mySelf = getMySelf(gameInfo);
+  log(mySelf);
+  if (mySelf.dead) {
+    setTimeout(() => {
+      alert('autoskip');
+      skip();
+    }, 1500)
+
+  }///////////////////////////////////////////////////////////////////////ПРОЛОГИРОВАТЬ!!!!!!!!!!!!!!!!111 не работает возомжно ошибка в майселф
+
   const runBut = document.querySelector('#run');
   runBut.disabled = false;
   setTimeout(() => {
