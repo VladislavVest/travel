@@ -67,12 +67,12 @@ function getConnectedUsers() {
 function getConnectedPlayers() {
   const socketList = players;
   const userList = socketList.map((double) => {
-    const socketId = double[0];
     const socket = double[1];
     return {
       id: socket.id,
       username: socket.username,
       position: socket.frontUser.position,
+      frontUser: socket.frontUser,
       dead: socket.dead
     }
   });
@@ -145,7 +145,7 @@ io.on("connection", (socket) => {
     gameInfo.connectedUsers = getConnectedUsers();
     gameInfo.connectedPlayers = getConnectedPlayers();
     //open step for first user
-     players = getConnectedSockets();
+    players = getConnectedSockets();
     const playerId = players[gameInfo.playerPointer][0];
     const playerSocket = players[gameInfo.playerPointer][1];
     gameInfo.currentUserId = playerId;
@@ -159,7 +159,7 @@ io.on("connection", (socket) => {
 
     if (user.hitPoints < 1) { //.......................................................................................GAME OVER
       playerSocket.dead = true;
-      
+
 
       playerSocket.emit('game-over');
       // gameInfo.connectedPlayers = gameInfo.connectedPlayers.filter(p => p.id != socket.id);
@@ -172,7 +172,7 @@ io.on("connection", (socket) => {
 
     const nextPlayerSocket = players[gameInfo.playerPointer][1];
     log("плеер сокет кому ход выбор", nextPlayerSocket.id, getGameInfo())
-   
+
 
     const playerId = players[gameInfo.playerPointer][0];
     gameInfo.currentUserId = playerId;
@@ -187,6 +187,7 @@ io.on("connection", (socket) => {
 
   socket.on('new-user-position', (frontUser) => {
     // socket.position = frontUser.position;
+    log('frontUser',frontUser)
     socket.frontUser = frontUser;
     gameInfo.connectedUsers = getConnectedUsers();
     gameInfo.connectedPlayers = getConnectedPlayers();
@@ -214,7 +215,7 @@ io.on("connection", (socket) => {
     // gameInfo.connectedUsers = getConnectedUsers();
     // gameInfo.connectedPlayers = getConnectedPlayers();
     // gameInfo.winners = getWinners();                        //////////////////////////////////////////тут вынесли функцию гейминфо в отдельную гет гейм инфо
-    io.emit('refresh-game-state', getGameInfo()); 
+    io.emit('refresh-game-state', getGameInfo());
   })
 
   socket.on('set-bomb-on-cell', (bomb) => {

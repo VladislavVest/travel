@@ -34,8 +34,7 @@ function renderUserList(userList, gameInfo) {
             const you = gameInfo.currentUserId == u.id;
             const currentUser = localStorage.getItem('socket-id') == u.id;
             const easilyAccessiblePlayer = (user.position == u.position) && !currentUser
-
-            //  log('EASILYYYYYYY', easilyAccessiblePlayer);
+log('UUUUUUUUUUUUUU',u);
 
             const fightingBtn = `<button onclick="fighting('${u.id}')" type="button" class="btn btn-secondary btn-sm">Fight</button>`
             asideUserList.innerHTML += `
@@ -43,7 +42,8 @@ function renderUserList(userList, gameInfo) {
            ${(isWinner) ? '<img class="winner" src="./images/final.jpg" alt="">' : ''} 
            <div class="username">
                 ${u.username}
-                ${currentUser ? '(You)' : ''}
+                ${currentUser ? '(You)' : ''} 
+                ${u.frontUser?.hitPoints || 30} см
            </div>
            ${(!you && easilyAccessiblePlayer) ? fightingBtn : ''}
       </div>

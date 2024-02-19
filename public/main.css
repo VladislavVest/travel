@@ -509,15 +509,15 @@ aside {
 
 @keyframes activUser {
     0% {
-        background-color: rgba(255, 0, 0, 0.677);
+        background-color: rgba(0, 255, 13, 0.432);
     }
 
     50% {
-        background-color: rgba(185, 19, 119, 0.411);
+        background-color: rgba(19, 185, 107, 0.096);
     }
 
     100% {
-        background-color: rgba(255, 0, 0, 0.677);
+        background-color: rgba(0, 255, 13, 0.432);
     }
 
 }
@@ -791,7 +791,7 @@ aside {
 
 
 .player {
-    color: blue;
+    color: #8f8fd9;
 }
 
 .winner {
