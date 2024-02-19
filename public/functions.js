@@ -192,7 +192,7 @@ function run(n) {
 async function action(n) {
 
     // moveUser();
-    socket.emit('new-user-position', user.position);
+    socket.emit('new-user-position', user);
 
     // { bomb: { name: 'damage', n: 1, title: '- 1 HP' }, position: 4 }
     gameInfo.bombs.forEach((b) => {

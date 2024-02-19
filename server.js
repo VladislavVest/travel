@@ -72,7 +72,7 @@ function getConnectedPlayers() {
     return {
       id: socket.id,
       username: socket.username,
-      position: socket.position,
+      position: socket.frontUser.position,
       dead: socket.dead
     }
   });
@@ -110,7 +110,8 @@ let reloadFrontFlag = false;
 io.on("connection", (socket) => {
   // console.log("a user connected");
   socket.username = 'Anonymous';
-  socket.position = 0;
+  socket.frontUser = {};
+  socket.frontUser.position = 0;
   gameInfo.connectedUsers = getConnectedUsers();
   connectedSockets[socket.id] = socket;
   socket.emit('your-id', socket.id);
@@ -184,8 +185,9 @@ io.on("connection", (socket) => {
     gameInfo = getInitialGameInfo();
   });
 
-  socket.on('new-user-position', (position) => {
-    socket.position = position;
+  socket.on('new-user-position', (frontUser) => {
+    // socket.position = frontUser.position;
+    socket.frontUser = frontUser;
     gameInfo.connectedUsers = getConnectedUsers();
     gameInfo.connectedPlayers = getConnectedPlayers();
     io.emit('refresh-game-state', getGameInfo());
