@@ -104,6 +104,8 @@ aside {
     background: #01333f;
     color: white;
     font-weight: 100;
+    resize: none;
+
 
 
 }
@@ -863,3 +865,37 @@ aside {
 .dead {
     opacity: 0.5;
 }
+
+
+/* Для всего скроллбара */
+::-webkit-scrollbar {
+    width: 12px; /* ширина скроллбара */
+  }
+  
+  /* Для трека (дорожки) скроллбара */
+  ::-webkit-scrollbar-track {
+    background: #012344; /* цвет фона */
+  }
+  
+  /* Для ручки скроллбара (той части, которую можно перетаскивать) */
+  ::-webkit-scrollbar-thumb {
+    background: #05248a; /* цвет ручки */
+  }
+  
+  /* Когда наводим курсор на ручку скроллбара */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0634cc; /* цвет ручки при наведении */
+  }
+/* Для трека (дорожки) скроллбара */
+html {
+    scrollbar-width: thin; /* "auto" или "thin" */
+    scrollbar-color: #05248a #012344; /* цвет ручки и цвет трека */
+    background: #000000;
+  }
+  ::-webkit-scrollbar-corner {
+    background-color: transparent; /* Попробуйте сделать прозрачным */
+  }
+  textarea {
+    resize: none;
+  }
+  
