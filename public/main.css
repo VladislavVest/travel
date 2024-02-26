@@ -905,7 +905,7 @@ html {
     position: relative;
     z-index: 2;
     display: flex;
-    width: 5rem;;
+    width: 100%;
     height: 4rem;
     background-color: #000;
     border-radius: 7px;
@@ -927,6 +927,11 @@ html {
     z-index: 2;
     
   }
+  .button-group > button:hover > img {
+    filter: invert(1) !important;
+
+  }
+  
   .button-group > button:before {
     content: "";
     display: block;
@@ -955,9 +960,9 @@ html {
     filter: blur(0px);
     box-shadow: -75px 0 0px 0px rgba(179,225,255,0.3), 74px 0 0px 0px rgba(179,225,255,0.35);
   }
-  .button-group > button svg {
-    height: 2em;
-    width: 2em;
+  .button-group > button svg, .button-group > button img {
+    max-height: 85%;
+    max-width: 85%;
     position: relative;
     display: block;
     fill: #181818;
@@ -1016,7 +1021,7 @@ html {
   } 
 
 
-  .button-group > button.active svg {
+  .button-group > button.active svg, .button-group > button.active img{
     fill: url("#active");
     filter: drop-shadow(0 1px 1px rgba(255,255,255,0));
   }
