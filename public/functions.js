@@ -76,7 +76,7 @@ function render() {
         <div class="menu-bomb">
          <img src="./images/bomb.png" alt="anal destroyer">
          <span> ${b.title} </span>
-         <button type="button" class="btn btn-secondary btn-sm" onclick="setBombmOnCell(${i})">BOOM !!!</button>
+         <div class="button-group"><button type="button" class="active" onclick="setBombmOnCell(${i})"> <img src="./images/trap.svg" alt=""></button></div>
         </div>
         `
     });

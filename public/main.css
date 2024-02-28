@@ -811,15 +811,23 @@ aside {
     display: flex;
     justify-content: space-between;
     margin-top: 0.5rem;
+    align-items: center;
+
 }
 
+.menu-bomb .button-group {
+    width: 10rem;
+}
 .menu-bomb img {
-    width: 2rem;
+    width: 3rem;
 }
 
 .menu-bomb span {
-    color: #908f8f;
+    color: #a5a3a3;
+    width: 100%;
+    padding: 0 1rem;
 }
+
 
 .cell-bomb {
     width: 5rem;
