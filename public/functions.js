@@ -507,7 +507,8 @@ function stickOutYou() {
 
 function addItemsOnMap(gameInfo) {
     gameInfo.bombs.forEach((b) => {
-        const currentCell = document.getElementById(b.position);
+        log('fix bomb',b)
+        const currentCell = document.getElementById(b.position); ///////////////////setbomb on cell
         currentCell.innerHTML += `
    <img src="./images/bomb.png" class="cell-bomb">
    `

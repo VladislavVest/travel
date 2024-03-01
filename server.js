@@ -186,8 +186,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on('new-user-position', (frontUser) => {
-    // socket.position = frontUser.position;
-    log('frontUser',frontUser)
+    socket.position = frontUser.position;
+    log('frontUser', frontUser)
     socket.frontUser = frontUser;
     gameInfo.connectedUsers = getConnectedUsers();
     gameInfo.connectedPlayers = getConnectedPlayers();
@@ -220,6 +220,7 @@ io.on("connection", (socket) => {
 
   socket.on('set-bomb-on-cell', (bomb) => {
     bomb.position = socket.position;
+    log('TODAY',socket.position);
     gameInfo.bombs.push(bomb);
     // log(bomb);
     io.emit('refresh-game-state', getGameInfo());
