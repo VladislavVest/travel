@@ -10,9 +10,9 @@ const gameField = [
   [16, 15, 14, 13, 12, 11, 10, 9, 0, 0],
   [1, 2, 3, 4, 5, 6, 7, 8, 0, 0]
 ]
-
+// не забыть доабвить еще чипсов чтобы не было ошибки больше 4 игроков!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const chips = [
-  `<span class="material-symbols-outlined fishka">
+  `<span class="material-symbols-outlined fishka"> 
               elderly
   </span>`,
   `<span class="material-symbols-outlined fishka">

@@ -29,20 +29,26 @@ function renderUserList(userList, gameInfo) {
         gameInfo.connectedUsers.forEach((u, i) => {
             const isActive = i == gameInfo.playerPointer;
             const isPlayer = gameInfo.connectedPlayers.some((p) => p.id == u.id);
+            const playersIndexed = gameInfo.connectedPlayers.map((p,i)=>{
+                p.index = i;
+                return p;
+            })
+            const player = playersIndexed.find((p) => p.id == u.id);
+
             if (isPlayer) u = gameInfo.connectedPlayers.filter((p) => p.id == u.id)[0]; // patch
             const isWinner = gameInfo.winners.some((p) => p.id == u.id);
             const you = gameInfo.currentUserId == u.id;
             const currentUser = localStorage.getItem('socket-id') == u.id;
             const easilyAccessiblePlayer = (user.position == u.position) && !currentUser
-log('UUUUUUUUUUUUUU',u);
 
             const fightingBtn = `<button onclick="fighting('${u.id}')" type="button" class="btn btn-secondary btn-sm">Fight</button>`
             asideUserList.innerHTML += `
-      <div class="user ${(isActive) ? 'active-step' : ''} ${(isPlayer) ? 'player' : ''} ${u.dead ? 'dead' : ''}" id="x${u.id}">
+      <div class="user ${(currentUser) ? 'you-in-list' : ''} ${(isPlayer) ? 'player' : ''} ${u.dead ? 'dead' : ''}" id="x${u.id}">
            ${(isWinner) ? '<img class="winner" src="./images/final.jpg" alt="">' : ''} 
            <div class="username">
+           ${player.position}
+           ${chips[player.index]}
                 ${u.username}
-                ${currentUser ? '(You)' : ''} 
                 ${u.frontUser?.hitPoints || 30} см
            </div>
            ${(!you && easilyAccessiblePlayer) ? fightingBtn : ''}
@@ -507,7 +513,7 @@ function stickOutYou() {
 
 function addItemsOnMap(gameInfo) {
     gameInfo.bombs.forEach((b) => {
-        log('fix bomb',b)
+        log('fix bomb', b)
         const currentCell = document.getElementById(b.position); ///////////////////setbomb on cell
         currentCell.innerHTML += `
    <img src="./images/bomb.png" class="cell-bomb">
