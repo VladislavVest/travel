@@ -29,7 +29,7 @@ function renderUserList(userList, gameInfo) {
         gameInfo.connectedUsers.forEach((u, i) => {
             const isActive = i == gameInfo.playerPointer;
             const isPlayer = gameInfo.connectedPlayers.some((p) => p.id == u.id);
-            const playersIndexed = gameInfo.connectedPlayers.map((p,i)=>{
+            const playersIndexed = gameInfo.connectedPlayers.map((p, i) => {
                 p.index = i;
                 return p;
             })
@@ -46,11 +46,11 @@ function renderUserList(userList, gameInfo) {
       <div class="user ${(currentUser) ? 'you-in-list' : ''} ${(isPlayer) ? 'player' : ''} ${u.dead ? 'dead' : ''}" id="x${u.id}">
            ${(isWinner) ? '<img class="winner" src="./images/final.jpg" alt="">' : ''} 
            <div class="username">
-           ${player?.position}
+           ${player ? player.position : ''} &nbsp; 
            
-           ${player ? chips[player.index]: ''}
-                ${u.username}
-                ${u.frontUser?.hitPoints || 30} см
+           ${player ? chips[player.index] : ''}&nbsp; &nbsp; 
+                ${u.username} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
+                 ${u.frontUser?.hitPoints || 30} см
            </div>
            ${(!you && easilyAccessiblePlayer) ? fightingBtn : ''}
       </div>
@@ -406,6 +406,7 @@ function sendChatMessage(event) {
 }
 
 function settingsToggle() {
+    closeAllMenu('settings-menu');
     const settingsMenu = document.querySelector('.settings-menu');
     settingsMenu.classList.toggle('open-menu');
     const username = localStorage.getItem("username");
@@ -413,10 +414,18 @@ function settingsToggle() {
     settingsUsername.innerHTML = username;
 }
 function staffToggle() {
+    closeAllMenu('staff-menu');
     const staffMenu = document.querySelector('.staff-menu');
     staffMenu.classList.toggle('open-menu');
 }
+function closeAllMenu(dontTouch){
+    const settingsMenu = document.querySelector('.settings-menu');
+    const staffMenu = document.querySelector('.staff-menu');
+    if (dontTouch != 'settings-menu') settingsMenu.classList.remove('open-menu');
+    if (dontTouch != 'staff-menu')staffMenu.classList.remove('open-menu');
 
+
+}
 
 function editUsername() {
     const setUsernameScreen = document.querySelector('.set-username-screen');
