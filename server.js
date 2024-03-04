@@ -74,6 +74,7 @@ function getConnectedPlayers() {
       position: socket.frontUser.position,
       frontUser: socket.frontUser,
       dead: socket.dead
+      
     }
   });
   return userList;

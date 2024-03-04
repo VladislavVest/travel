@@ -46,8 +46,9 @@ function renderUserList(userList, gameInfo) {
       <div class="user ${(currentUser) ? 'you-in-list' : ''} ${(isPlayer) ? 'player' : ''} ${u.dead ? 'dead' : ''}" id="x${u.id}">
            ${(isWinner) ? '<img class="winner" src="./images/final.jpg" alt="">' : ''} 
            <div class="username">
-           ${player.position}
-           ${chips[player.index]}
+           ${player?.position}
+           
+           ${player ? chips[player.index]: ''}
                 ${u.username}
                 ${u.frontUser?.hitPoints || 30} см
            </div>
