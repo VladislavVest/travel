@@ -1,6 +1,8 @@
 main {
     width: 80%;
     position: relative;
+    height: 100vh;
+
 }
 
 aside {
@@ -120,7 +122,10 @@ aside {
 
 .game-field {
     height: 100vh;
-    width: 100%;
+    width: 80%;
+    position: fixed;
+    left: 0;
+    top: 0;
 
 }
 
@@ -239,6 +244,17 @@ aside {
     border: black solid 6px;
     box-sizing: content-box;
 }
+
+.top-panel .description {
+
+    text-align: center;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
 
 .bottom-panel {
     border-radius: 1rem;
@@ -1050,4 +1066,13 @@ textarea {
 .button-group>button.active img {
     fill: url("#active");
     filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0));
+}
+
+
+.kode-mono {
+    font-family: "Kode Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 1.2rem;
 }
