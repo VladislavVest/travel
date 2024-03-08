@@ -189,7 +189,8 @@ aside {
     width: 95%;
     height: 95%;
     content: '';
-    border: dashed 5px #00ff03;
+    border: dotted  5px #00ff03;
+    border-radius: 0.5rem;
     /* box-shadow: 0px 0px 5px red, -1em 0 .4em olive; */
     /* box-shadow: #03cf69; */
     display: block;
@@ -198,7 +199,7 @@ aside {
     position: absolute;
     top: 2.5%;
     filter: blur(1px);
-    animation: puls-blur 3s infinite;
+    animation: puls-opacity 5s infinite;
 
 }
 
@@ -288,9 +289,20 @@ aside {
 .bottom-panel .item{
     display: flex;
     align-items: center;
+    justify-content: space-around;
+    margin-top: 0.35rem;
 
 }
 
+.bottom-panel  .left{
+    width: 50%;
+    padding: 0 3%;
+
+}
+.bottom-panel  .right{
+    padding: 0 3%;
+width: 50%;
+}
 
 
 
@@ -317,7 +329,7 @@ aside {
     margin: 0.2rem;
 }
 
-.right {
+.bottom-panel .right-main {
     position: relative;
     width: 50%;
     display: flex;
