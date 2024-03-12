@@ -1098,3 +1098,7 @@ textarea {
     font-style: normal;
     font-size: 1.2rem;
 }
+
+.hide {
+    display: none!important;
+}

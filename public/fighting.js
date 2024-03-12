@@ -98,3 +98,6 @@ socket.on('open-arena', (gameInfo) => {
 
     // log('EEEEEEEEEEEEEEEEEEEEEEEEEEEEE', gameInfo);
 })
+socket.on('open-arena-hit-button',()=>{
+   document.querySelector('#arena-hit-buttton').classList.remove ('hide');
+});

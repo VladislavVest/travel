@@ -246,10 +246,13 @@ io.on("connection", (socket) => {
   });
 
   socket.on('fighting-start', ({ activPlayer, passivPlayer }) => {
+    //   вызов на бой
     gameInfo.fighting.isActive = true;
     gameInfo.fighting.activPlayer.id = activPlayer;
     gameInfo.fighting.passivPlayer.id = passivPlayer;
     io.emit('open-arena', getGameInfo());
+    setTimeout(()=>{io.emit('open-arena-hit-button')},2000)
+
   });
 
   socket.on('fighting-strike', (fightingData) => {
