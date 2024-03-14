@@ -7,15 +7,15 @@ let yourPartnerDickPower = 50;
 
 function openArena(gameInfo) {
 
-    const firstFighterUserName = gameInfo.connectedPlayers.find((u)=>u.id == gameInfo.fighting.activPlayer.id).username;
-    const secondFighterUserName = gameInfo.connectedPlayers.find((u)=>u.id == gameInfo.fighting.passivPlayer.id).username;
+    const firstFighterUserName = gameInfo.connectedPlayers.find((u) => u.id == gameInfo.fighting.activPlayer.id).username;
+    const secondFighterUserName = gameInfo.connectedPlayers.find((u) => u.id == gameInfo.fighting.passivPlayer.id).username;
     $("#name-fighter-2").innerHTML = secondFighterUserName;
     $("#name-fighter-1").innerHTML = firstFighterUserName;
 
 
     // log('JJJJJJJJJJJJJJJJJJJ', firstFighterUserName);
 
-    const myId =  localStorage.getItem('socket-id');
+    const myId = localStorage.getItem('socket-id');
     const isSpectator = gameInfo.fighting.activPlayer.id != myId && gameInfo.fighting.passivPlayer.id != myId;
     // log('SPECTATOR', gameInfo.fighting.activPlayer.id != myId, gameInfo.fighting.passivPlayer.id != myId);
     // log('SPECTATOR', gameInfo.fighting.activPlayer.id, myId, gameInfo.fighting.passivPlayer.id , myId);
@@ -54,7 +54,7 @@ function fighting(partnerId) {
         activPlayer: localStorage.getItem('socket-id'),
         passivPlayer: partnerId,
     });
-   
+
     // log(partnerId, 'ID С КЕМ ФАЙТ');
 
 
@@ -92,32 +92,39 @@ function getFightingResult() {
 
 
 function combat() {
-     
 
-    const fightingData =  getFightingResult();
+
+    const fightingData = getFightingResult();
 
 
     socket.emit('fighting-strike', fightingData);
 
 }
 
-socket.on('open-arena', (gameInfo) => { 
+socket.on('open-arena', (gameInfo) => {
     openArena(gameInfo);
 
 })
-socket.on('open-arena-hit-button',()=>{
-   document.querySelector('#arena-hit-buttton').classList.remove ('hide');
+socket.on('open-arena-hit-button', () => {
+    document.querySelector('#arena-hit-buttton').classList.remove('hide');
 });
 
-socket.on('get-fighting-data',(clb)=>{
+socket.on('get-fighting-data', (clb) => {
     log('get-fighting-data')
-    const fightingData =  getFightingResult();
+    const fightingData = getFightingResult();
 
-clb(fightingData);
+    clb(fightingData);
 
 
 
 })
 
-socket.on('round-done',()=>{alert('Round done')});
+socket.on('round-done', () => {
+    const roundScreenNode = document.querySelector('.round-screen');
+    roundScreenNode.classList.remove('hide');
+        setTimeout(() => {
+            roundScreenNode.classList.add('hide');
+ }, 3000)
+
+});
 
