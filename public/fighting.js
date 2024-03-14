@@ -116,6 +116,8 @@ socket.on('get-fighting-data',(clb)=>{
 clb(fightingData);
 
 
+
 })
 
+socket.on('round-done',()=>{alert('Round done')});
 

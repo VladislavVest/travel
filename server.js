@@ -9,7 +9,7 @@ const server = createServer(app);
 const io = new Server(server);
 var path = require('path');
 
-const {random} = require("./server-logic/utils.js")
+const { random } = require("./server-logic/utils.js")
 
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -76,7 +76,7 @@ function getConnectedPlayers() {
       position: socket.frontUser.position,
       frontUser: socket.frontUser,
       dead: socket.dead
-      
+
     }
   });
   return userList;
@@ -223,7 +223,7 @@ io.on("connection", (socket) => {
 
   socket.on('set-bomb-on-cell', (bomb) => {
     bomb.position = socket.position;
-    log('TODAY',socket.position);
+    log('TODAY', socket.position);
     gameInfo.bombs.push(bomb);
     // log(bomb);
     io.emit('refresh-game-state', getGameInfo());
@@ -253,20 +253,29 @@ io.on("connection", (socket) => {
     gameInfo.fighting.activPlayer.id = activPlayer;
     gameInfo.fighting.passivPlayer.id = passivPlayer;
     io.emit('open-arena', getGameInfo());
-    const randomNumb = random(1000,5500);
+    const randomNumb = random(1000, 5500);
     log('randomnumb', randomNumb);
-    setTimeout(()=>{io.emit('open-arena-hit-button')},randomNumb);
+    setTimeout(() => { io.emit('open-arena-hit-button') }, randomNumb);
 
   });
 
   socket.on('fighting-strike', (fightingData) => {
-// log(fightingData);
-const otherFighterId = (socket.id == gameInfo.fighting.activPlayer.id) ?  gameInfo.fighting.passivPlayer.id : gameInfo.fighting.activPlayer.id = activPlayer 
-log (otherFighterId,socket.id,'4444444444444');
-const otherSocket = connectedSockets[otherFighterId];
-otherSocket.emit('get-fighting-data', (result)=>{log(result)});
+    if (!gameInfo.fighting.isActive) return;
+    gameInfo.fighting.isActive = false;
+    // log(fightingData);
+    const otherFighterId = (socket.id == gameInfo.fighting.activPlayer.id) ? gameInfo.fighting.passivPlayer.id : gameInfo.fighting.activPlayer.id = activPlayer
+    log(otherFighterId, socket.id, '4444444444444');
+    const otherSocket = connectedSockets[otherFighterId];
+    otherSocket.emit('get-fighting-data', (result) => { 
+      log(result, fightingData,'11111eeeeeeerr')
+    io.emit('round-done');
+      // result
+      // fightingData
 
- 
+    });
+
+
+
 
 
 
