@@ -73,7 +73,7 @@ function fighting(partnerId) {
 //     "username": "13e3",
 //     "position": 0
 // }
-function combat() {
+function getFightingResult() {
     var radios = document.querySelectorAll('input[type=radio][name="drone"]');
     var radios2 = document.querySelectorAll('input[type=radio][name="drone2"]');
 
@@ -87,6 +87,14 @@ function combat() {
         yourDickPower,
         yourPartnerDickPower
     }
+    return fightingData;
+}
+
+
+function combat() {
+     
+
+    const fightingData =  getFightingResult();
 
 
     socket.emit('fighting-strike', fightingData);
@@ -96,8 +104,18 @@ function combat() {
 socket.on('open-arena', (gameInfo) => { 
     openArena(gameInfo);
 
-    // log('EEEEEEEEEEEEEEEEEEEEEEEEEEEEE', gameInfo);
 })
 socket.on('open-arena-hit-button',()=>{
    document.querySelector('#arena-hit-buttton').classList.remove ('hide');
 });
+
+socket.on('get-fighting-data',(clb)=>{
+    log('get-fighting-data')
+    const fightingData =  getFightingResult();
+
+clb(fightingData);
+
+
+})
+
+

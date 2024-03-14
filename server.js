@@ -4,11 +4,13 @@ const express = require("express");
 const { createServer, get } = require("node:http");
 const { join } = require("node:path");
 const { Server } = require("socket.io");
-
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
 var path = require('path');
+
+const {random} = require("./server-logic/utils.js")
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.get("/", (req, res) => {
@@ -251,12 +253,23 @@ io.on("connection", (socket) => {
     gameInfo.fighting.activPlayer.id = activPlayer;
     gameInfo.fighting.passivPlayer.id = passivPlayer;
     io.emit('open-arena', getGameInfo());
-    setTimeout(()=>{io.emit('open-arena-hit-button')},2000)
+    const randomNumb = random(1000,5500);
+    log('randomnumb', randomNumb);
+    setTimeout(()=>{io.emit('open-arena-hit-button')},randomNumb);
 
   });
 
   socket.on('fighting-strike', (fightingData) => {
-    // log(fightingData);
+// log(fightingData);
+const otherFighterId = (socket.id == gameInfo.fighting.activPlayer.id) ?  gameInfo.fighting.passivPlayer.id : gameInfo.fighting.activPlayer.id = activPlayer 
+log (otherFighterId,socket.id,'4444444444444');
+const otherSocket = connectedSockets[otherFighterId];
+otherSocket.emit('get-fighting-data', (result)=>{log(result)});
+
+ 
+
+
+
   });
   socket.on('action-result', (user) => {
     // log('екшен резалт', user)
