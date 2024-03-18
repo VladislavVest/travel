@@ -119,12 +119,20 @@ socket.on('get-fighting-data', (clb) => {
 
 })
 
-socket.on('round-done', () => {
+socket.on('round-done', (roundResult) => {
+    log(roundResult, 'ROUND RESULTTTT');
+    const xpFighterNode = document.querySelector('#xp-fighter');
+    const xpFighter2Node = document.querySelector('#xp-fighter-2');
+    const xpFighter = +xpFighterNode.innerHTML;
+    const xpFighter2 = +xpFighter2Node.innerHTML;
+
+    log('XPPPP', xpFighter, xpFighter2);
+
     const roundScreenNode = document.querySelector('.round-screen');
     roundScreenNode.classList.remove('hide');
-        setTimeout(() => {
-            roundScreenNode.classList.add('hide');
- }, 3000)
+    setTimeout(() => {
+        roundScreenNode.classList.add('hide');
+    }, 3000)
 
 });
 

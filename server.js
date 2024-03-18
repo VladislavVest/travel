@@ -259,22 +259,46 @@ io.on("connection", (socket) => {
 
   });
 
-  socket.on('fighting-strike', (fightingData) => {
+  socket.on('fighting-strike', (firstFightingData) => {
     if (!gameInfo.fighting.isActive) return;
     gameInfo.fighting.isActive = false;
     // log(fightingData);
     const otherFighterId = (socket.id == gameInfo.fighting.activPlayer.id) ? gameInfo.fighting.passivPlayer.id : gameInfo.fighting.activPlayer.id = activPlayer
     log(otherFighterId, socket.id, '4444444444444');
     const otherSocket = connectedSockets[otherFighterId];
-    otherSocket.emit('get-fighting-data', (result) => { 
-      log(result, fightingData,'11111eeeeeeerr')
-    io.emit('round-done');
+    otherSocket.emit('get-fighting-data', (secondFightingData) => {
+      log(secondFightingData, firstFightingData, '11111eeeeeeerr');
+      const isFirstGetDamage = firstFightingData.protection != secondFightingData.mortalStrike;
+      const isSecondGetDamage = secondFightingData.protection != firstFightingData.mortalStrike;
+      log('процесс боя', isFirstGetDamage, isSecondGetDamage);
+      const firstPlayerPowerAttack = Math.round(firstFightingData.yourDickPower / 6);
+      const secondPlayerPowerAttack = Math.round(secondFightingData.yourDickPower / 6);
+      const roundResult = [
+        { id: otherSocket.id, damage: firstPlayerPowerAttack, isDamege:isSecondGetDamage },
+        { id: socket.id, damage: secondPlayerPowerAttack, isDamage: isFirstGetDamage }]
+
+
+
+
+
+
+      io.emit('round-done', roundResult);
       // result
       // fightingData
 
     });
 
-
+    // {
+    //   mortalStrike: 'headshot',
+    //   protection: 'headshot',
+    //   yourDickPower: 65,
+    //   yourPartnerDickPower: 41
+    // } {
+    //   mortalStrike: 'headshot',
+    //   protection: 'headshot',
+    //   yourDickPower: 10,
+    //   yourPartnerDickPower: 73
+    // } 
 
 
 
