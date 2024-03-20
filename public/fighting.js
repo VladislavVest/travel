@@ -3,14 +3,19 @@ const yourPartnerDick = document.querySelector('.right .dick');
 // log(yourDick, yourPartnerDick);
 let yourDickPower = 50;
 let yourPartnerDickPower = 50;
+let fighter1 = {}
+let fighter2 = {}
+
 
 
 function openArena(gameInfo) {
 
-    const firstFighterUserName = gameInfo.connectedPlayers.find((u) => u.id == gameInfo.fighting.activPlayer.id).username;
-    const secondFighterUserName = gameInfo.connectedPlayers.find((u) => u.id == gameInfo.fighting.passivPlayer.id).username;
-    $("#name-fighter-2").innerHTML = secondFighterUserName;
-    $("#name-fighter-1").innerHTML = firstFighterUserName;
+    fighter1 = gameInfo.connectedPlayers.find((u) => u.id == gameInfo.fighting.activPlayer.id);
+    fighter2 = gameInfo.connectedPlayers.find((u) => u.id == gameInfo.fighting.passivPlayer.id);
+
+
+    $("#name-fighter-1").innerHTML = fighter1.username;
+    $("#name-fighter-2").innerHTML = fighter2.username;
 
 
     // log('JJJJJJJJJJJJJJJJJJJ', firstFighterUserName);
@@ -118,15 +123,34 @@ socket.on('get-fighting-data', (clb) => {
 
 
 })
+addSound('./audio/hit.wav', 0.1);
 
 socket.on('round-done', (roundResult) => {
     log(roundResult, 'ROUND RESULTTTT');
-    const xpFighterNode = document.querySelector('#xp-fighter');
+    const xpFighter1Node = document.querySelector('#xp-fighter');
     const xpFighter2Node = document.querySelector('#xp-fighter-2');
-    const xpFighter = +xpFighterNode.innerHTML;
+    const xpFighter1 = +xpFighter1Node.innerHTML;
     const xpFighter2 = +xpFighter2Node.innerHTML;
 
-    log('XPPPP', xpFighter, xpFighter2);
+    
+    roundResult.forEach(fighter => {
+        
+        if (fighter.id == fighter1.id &&  fighter.isDamage) {
+            const newXpFighter1 = xpFighter1 - fighter.damage;
+            xpFighter1Node.innerHTML = newXpFighter1;
+            addSound('./audio/hit.wav', 0.1);
+
+        }
+        if (fighter.id == fighter2.id && fighter.isDamage ) {
+            const newXpFighter2 = xpFighter2 - fighter.damage;
+            xpFighter2Node.innerHTML = newXpFighter2;
+            addSound('./audio/hit.wav', 0.1);
+
+        }
+        
+
+    });
+    log('XPPPP', xpFighter1, xpFighter2);
 
     const roundScreenNode = document.querySelector('.round-screen');
     roundScreenNode.classList.remove('hide');

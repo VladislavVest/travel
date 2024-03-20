@@ -247,11 +247,16 @@ io.on("connection", (socket) => {
     })
   });
 
-  socket.on('fighting-start', ({ activPlayer, passivPlayer }) => {
+
+  let activPlayerId;
+  let passivPlayerId;
+  socket.on('fighting-start', ({ _activPlayerId, _passivPlayerId }) => {
+    activePlayerId = _activPlayerId;
+    passivPlayerId = _passivPlayerId;
     //   вызов на бой
     gameInfo.fighting.isActive = true;
-    gameInfo.fighting.activPlayer.id = activPlayer;
-    gameInfo.fighting.passivPlayer.id = passivPlayer;
+    gameInfo.fighting.activPlayer.id = activPlayerId;
+    gameInfo.fighting.passivPlayer.id = passivPlayerId;
     io.emit('open-arena', getGameInfo());
     const randomNumb = random(1000, 5500);
     log('randomnumb', randomNumb);
@@ -263,7 +268,7 @@ io.on("connection", (socket) => {
     if (!gameInfo.fighting.isActive) return;
     gameInfo.fighting.isActive = false;
     // log(fightingData);
-    const otherFighterId = (socket.id == gameInfo.fighting.activPlayer.id) ? gameInfo.fighting.passivPlayer.id : gameInfo.fighting.activPlayer.id = activPlayer
+    const otherFighterId = (socket.id == gameInfo.fighting.activPlayer.id) ? gameInfo.fighting.passivPlayer.id : gameInfo.fighting.activPlayer.id = activPlayerId
     log(otherFighterId, socket.id, '4444444444444');
     const otherSocket = connectedSockets[otherFighterId];
     otherSocket.emit('get-fighting-data', (secondFightingData) => {
@@ -274,7 +279,7 @@ io.on("connection", (socket) => {
       const firstPlayerPowerAttack = Math.round(firstFightingData.yourDickPower / 6);
       const secondPlayerPowerAttack = Math.round(secondFightingData.yourDickPower / 6);
       const roundResult = [
-        { id: otherSocket.id, damage: firstPlayerPowerAttack, isDamege:isSecondGetDamage },
+        { id: otherSocket.id, damage: firstPlayerPowerAttack, isDamege: isSecondGetDamage },
         { id: socket.id, damage: secondPlayerPowerAttack, isDamage: isFirstGetDamage }]
 
 
