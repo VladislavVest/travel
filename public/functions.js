@@ -333,8 +333,15 @@ async function action(n) {
 }
 
 function final() {
-    alert("Вы победили!!!");
+
+    // alert("Вы победили!!!");
     socket.emit('winner', user);
+    const winnerScreenNode = document.querySelector('.final-screen');
+    winnerScreenNode.classList.remove("hide");
+    setTimeout(() => {
+        winnerScreenNode.classList.add("hide");
+    }, 10000);
+
 }
 
 
@@ -418,11 +425,11 @@ function staffToggle() {
     const staffMenu = document.querySelector('.staff-menu');
     staffMenu.classList.toggle('open-menu');
 }
-function closeAllMenu(dontTouch){
+function closeAllMenu(dontTouch) {
     const settingsMenu = document.querySelector('.settings-menu');
     const staffMenu = document.querySelector('.staff-menu');
     if (dontTouch != 'settings-menu') settingsMenu.classList.remove('open-menu');
-    if (dontTouch != 'staff-menu')staffMenu.classList.remove('open-menu');
+    if (dontTouch != 'staff-menu') staffMenu.classList.remove('open-menu');
 
 
 }
