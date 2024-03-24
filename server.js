@@ -160,7 +160,7 @@ io.on("connection", (socket) => {
   socket.on('skip-step', (user) => {
     const playerSocket = players[gameInfo.playerPointer][1];
 
-    if (user.hitPoints < 1) { //.......................................................................................GAME OVER
+    if (user.hitPoints < 1 && !playerSocket.dead) { //.......................................................................................GAME OVER
       playerSocket.dead = true;
 
 

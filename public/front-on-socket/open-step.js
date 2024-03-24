@@ -5,7 +5,7 @@ socket.on('open-step', (gameInfo) => {
   log(mySelf);
   if (mySelf.dead) {
     setTimeout(() => {
-      alert('autoskip');
+      // alert('autoskip');
       skip();
     }, 1500)
 
