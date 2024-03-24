@@ -75,7 +75,8 @@ function getConnectedPlayers() {
       username: socket.username,
       position: socket.frontUser.position,
       frontUser: socket.frontUser,
-      dead: socket.dead
+      dead: socket.dead,
+      winner: socket.winner
 
     }
   });
@@ -208,6 +209,7 @@ io.on("connection", (socket) => {
 
   socket.on('winner', (user) => {
     // log('winner!!!');
+    socket.winner = true;
     winners.push([socket.id, socket]);
     players = players.filter((p) => {
       // log(p[0], 'PE IDDD');

@@ -3,7 +3,7 @@ socket.on('open-step', (gameInfo) => {
   log('open-step', gameInfo);
   const mySelf = getMySelf(gameInfo);
   log(mySelf);
-  if (mySelf.dead) {
+  if (mySelf.dead || mySelf.winner) {
     setTimeout(() => {
       // alert('autoskip');
       skip();
