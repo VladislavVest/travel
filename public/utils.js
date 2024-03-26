@@ -22,3 +22,7 @@ function $(selector){
   return document.querySelector(selector);
 };
 
+function getUserName() {
+  const username = localStorage.getItem("username");
+  return username;
+}

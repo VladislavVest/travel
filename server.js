@@ -231,6 +231,17 @@ io.on("connection", (socket) => {
     io.emit('refresh-game-state', getGameInfo());
   });
 
+  socket.on('master-message',(message)=>{
+    masterMassage(message)
+  });
+
+
+
+function masterMassage(message) {
+  io.emit('new-all-message', { text: message, username: 'Dungeon Master:', style: 'master-message' });
+}
+
+
   socket.on('bomb-was-exploded', (user) => {
     // log('12.12. before', gameInfo.bombs);
     const exploadedBombs = gameInfo.bombs = gameInfo.bombs.filter((b) => {
@@ -244,8 +255,8 @@ io.on("connection", (socket) => {
     io.emit('bomb-exploaded-for-all', { exploadedBombs, user });
 
     exploadedBombs.forEach((b) => {
-      const message = `У игрока ${socket.username} есть пробитие, негативный эффект: ${b.bomb.title}`;
-      io.emit('new-all-message', { text: message, username: 'Dungeon Master:', style: 'master-message' });
+      const massage = `У игрока ${socket.username} есть пробитие, негативный эффект: ${b.bomb.title}`;
+      masterMassage(massage);
     })
   });
 

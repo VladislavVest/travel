@@ -257,6 +257,11 @@ async function action(n) {
     await pause(1000);
     descr.style.backgroundImage = '';
     descr.innerHTML = opisanie.description;
+    if (user.aids) {
+        user.hitPoints--;
+        const message = `${getUserName()} Заражен СПИДОМ, теряет 1 сантиметр`
+        socket.emit('master-message', message);
+    }
     opisanie.effect.forEach(async (ef) => {
         if (typeof ef == 'string') {
         };
@@ -312,9 +317,13 @@ async function action(n) {
                 user.steps += ef.n;
             };
 
+            if (ef.name == 'AIDS') {
+                user.aids = true;
+            };
+
             if (ef.ill) {
                 await pause(2000);
-                actionAnimation(ef.ill);
+                actionAnimation(ef.ill); // картинка гифка при попадании на клетку
             };
             actionSound(ef.sound);
         }

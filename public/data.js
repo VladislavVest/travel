@@ -118,9 +118,9 @@ const cellsDescription = [
 { number: 65, effect: [{ name: 'minusXp', n: 1 }], description: '- 1 хп' },
 { number: 66, effect: ['reverse'], description: 'кинь кубик и иди назад' },
 //
-{ number: 67, effect: [{ name: 'plusXp', n: 1 }], description: 'Портной, +1хп вас зашили, отпустили' },
+{ number: 67, effect: ['addStep'], description: 'плюс ход' },
 { number: 68, effect: [{ name: 'fall', to: 14 }], description: 'падаете вниз' },
-{ number: 69, effect: ['addStep'], description: 'плюс ход' },
+{ number: 69, effect: [{ name: 'AIDS', n: 1 }], description: 'Вас заразили СПИДОМ' },
 { number: 70, effect: [{ name: 'minusXp', n: 2 }], description: 'минус 2 хп' },
 { number: 71, effect: [{ name: 'minusMoral', n: 2 }, 'skip'], description: 'минус 2 морали, вас немного разорвали, теряете ход' },
 { number: 72, effect: [{ name: 'plusMoral1', n: 2 }, 'addStep'], description: 'У вас встаёт боевой дух, за вами гонится ... + ход' },
