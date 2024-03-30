@@ -132,17 +132,22 @@ socket.on('round-done', (roundResult) => {
 
 
     roundResult.forEach(fighter => {
-
         if (fighter.id == fighter1.id && fighter.isDamage) {
             const newXpFighter1 = xpFighter1 - fighter.damage;
             xpFighter1Node.innerHTML = newXpFighter1;
             addSound('./audio/hit.wav', 0.1);
-
+            const fighterObject = gameInfo.connectedUsers.find((p)=>p.id = fighter.id);
+            const message = `${fighterObject.username} Есть Пробитие, теряет ${fighter.damage} сантиметров`
+            socket.emit('master-message', message);
         }
         if (fighter.id == fighter2.id && fighter.isDamage) {
             const newXpFighter2 = xpFighter2 - fighter.damage;
             xpFighter2Node.innerHTML = newXpFighter2;
             addSound('./audio/hit.wav', 0.1);
+            const fighterObject = gameInfo.connectedUsers.find((p)=>p.id = fighter.id);
+            const message = `${fighterObject.username} Есть Пробитие, теряет ${fighter.damage} сантиметров`
+            socket.emit('master-message', message);
+
 
         }
 

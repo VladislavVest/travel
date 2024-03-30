@@ -11,6 +11,7 @@ function getMySelf(gameInfo) {
 
 
 function renderUserList(userList, gameInfo) {
+    window.gameInfo = gameInfo;
     // log('RUN RENDER LIST',gameInfo);
     if (userList) {
         asideUserList.innerHTML = '';
