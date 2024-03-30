@@ -261,15 +261,16 @@ function masterMassage(message) {
   });
 
 
-  let activPlayerId;
-  let passivPlayerId;
-  socket.on('fighting-start', ({ _activPlayerId, _passivPlayerId }) => {
-    activePlayerId = _activPlayerId;
-    passivPlayerId = _passivPlayerId;
+  let _activPlayerId;
+  let _passivPlayerId;
+  socket.on('fighting-start', ({ activPlayerId, passivPlayerId }) => {
+    _activPlayerId = activPlayerId;
+    _passivPlayerId = passivPlayerId;
+    log(activPlayerId,passivPlayerId,'problem id fight')
     //   вызов на бой
     gameInfo.fighting.isActive = true;
-    gameInfo.fighting.activPlayer.id = activPlayerId;
-    gameInfo.fighting.passivPlayer.id = passivPlayerId;
+    gameInfo.fighting.activPlayer.id = _activPlayerId;
+    gameInfo.fighting.passivPlayer.id = _passivPlayerId;
     io.emit('open-arena', getGameInfo());
     const randomNumb = random(1000, 5500);
     log('randomnumb', randomNumb);

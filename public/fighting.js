@@ -5,14 +5,12 @@ let yourDickPower = 50;
 let yourPartnerDickPower = 50;
 let fighter1 = {}
 let fighter2 = {}
-
-
-
 function openArena(gameInfo) {
+    log(gameInfo, 'problem');
 
     fighter1 = gameInfo.connectedPlayers.find((u) => u.id == gameInfo.fighting.activPlayer.id);
     fighter2 = gameInfo.connectedPlayers.find((u) => u.id == gameInfo.fighting.passivPlayer.id);
-
+    log(fighter1, fighter2);
 
     $("#name-fighter-1").innerHTML = fighter1.username;
     $("#name-fighter-2").innerHTML = fighter2.username;
@@ -56,8 +54,8 @@ function fighting(partnerId) {
 
     clearInterval(setTimer);
     socket.emit('fighting-start', {
-        activPlayer: localStorage.getItem('socket-id'),
-        passivPlayer: partnerId,
+        activPlayerId: localStorage.getItem('socket-id'),
+        passivPlayerId: partnerId,
     });
 
     // log(partnerId, 'ID С КЕМ ФАЙТ');
@@ -132,22 +130,22 @@ socket.on('round-done', (roundResult) => {
     const xpFighter1 = +xpFighter1Node.innerHTML;
     const xpFighter2 = +xpFighter2Node.innerHTML;
 
-    
+
     roundResult.forEach(fighter => {
-        
-        if (fighter.id == fighter1.id &&  fighter.isDamage) {
+
+        if (fighter.id == fighter1.id && fighter.isDamage) {
             const newXpFighter1 = xpFighter1 - fighter.damage;
             xpFighter1Node.innerHTML = newXpFighter1;
             addSound('./audio/hit.wav', 0.1);
 
         }
-        if (fighter.id == fighter2.id && fighter.isDamage ) {
+        if (fighter.id == fighter2.id && fighter.isDamage) {
             const newXpFighter2 = xpFighter2 - fighter.damage;
             xpFighter2Node.innerHTML = newXpFighter2;
             addSound('./audio/hit.wav', 0.1);
 
         }
-        
+
 
     });
     log('XPPPP', xpFighter1, xpFighter2);
