@@ -39,12 +39,10 @@ function getInitialGameInfo() {
         id: '', //id тот кто вызвал на бой
         hitPoints: 30
       },
-
       passivPlayer: {
         id: '', //id тот кого вы..и
         hitPoints: 30
       }
-
     }
   }
 };
@@ -231,15 +229,15 @@ io.on("connection", (socket) => {
     io.emit('refresh-game-state', getGameInfo());
   });
 
-  socket.on('master-message',(message)=>{
+  socket.on('master-message', (message) => {
     masterMassage(message)
   });
 
 
 
-function masterMassage(message) {
-  io.emit('new-all-message', { text: message, username: 'Dungeon Master:', style: 'master-message' });
-}
+  function masterMassage(message) {
+    io.emit('new-all-message', { text: message, username: 'Dungeon Master:', style: 'master-message' });
+  }
 
 
   socket.on('bomb-was-exploded', (user) => {
@@ -266,7 +264,7 @@ function masterMassage(message) {
   socket.on('fighting-start', ({ activPlayerId, passivPlayerId }) => {
     _activPlayerId = activPlayerId;
     _passivPlayerId = passivPlayerId;
-    log(activPlayerId,passivPlayerId,'problem id fight')
+    log(activPlayerId, passivPlayerId, 'problem id fight')
     //   вызов на бой
     gameInfo.fighting.isActive = true;
     gameInfo.fighting.activPlayer.id = _activPlayerId;
@@ -279,12 +277,16 @@ function masterMassage(message) {
   });
 
   socket.on('fighting-strike', (firstFightingData) => {
-    if (!gameInfo.fighting.isActive) return;
-    gameInfo.fighting.isActive = false;
-    // log(fightingData);
-    const otherFighterId = (socket.id == gameInfo.fighting.activPlayer.id) ? gameInfo.fighting.passivPlayer.id : gameInfo.fighting.activPlayer.id = activPlayerId
-    log(otherFighterId, socket.id, '4444444444444');
+
+    if (!gameInfo.fighting.isActive) return; //не пропускаем если удар нанесен
+    gameInfo.fighting.isActive = false; //закрываем файтинг после первого удара
+
+    // определить айди другого бойца
+    const otherFighterId = (socket.id == gameInfo.fighting.activPlayer.id) ? gameInfo.fighting.passivPlayer.id : gameInfo.fighting.activPlayer.id = _activPlayerId
+
     const otherSocket = connectedSockets[otherFighterId];
+    log(otherFighterId, socket.id, '4444444444444');
+
     otherSocket.emit('get-fighting-data', (secondFightingData) => {
       log(secondFightingData, firstFightingData, '11111eeeeeeerr');
       const isFirstGetDamage = firstFightingData.protection != secondFightingData.mortalStrike;
@@ -292,20 +294,29 @@ function masterMassage(message) {
       log('процесс боя', isFirstGetDamage, isSecondGetDamage);
       const firstPlayerPowerAttack = Math.round(firstFightingData.yourDickPower / 6);
       const secondPlayerPowerAttack = Math.round(secondFightingData.yourDickPower / 6);
+
+      // взять их 30 хп из объекта на сервере а потом на фронт отослать 
+
+
       const roundResult = [
         { id: otherSocket.id, damage: firstPlayerPowerAttack, isDamege: isSecondGetDamage },
         { id: socket.id, damage: secondPlayerPowerAttack, isDamage: isFirstGetDamage }]
 
-
-
-
-
-
       io.emit('round-done', roundResult);
-      // result
-      // fightingData
 
     });
+
+    // fighting: {
+    //   isActive: false,
+    //   activPlayer: {
+    //     id: '', //id тот кто вызвал на бой
+    //     hitPoints: 30
+    //   },
+    //   passivPlayer: {
+    //     id: '', //id тот кого вы..и
+    //     hitPoints: 30
+    //   }
+    // }
 
     // {
     //   mortalStrike: 'headshot',
@@ -323,6 +334,13 @@ function masterMassage(message) {
 
 
   });
+
+
+  socket.on('round-result', (result) => {
+    gameInfo.fighting.isActive = true;
+    socket.emit('start-new-round');
+  });
+
   socket.on('action-result', (user) => {
     // log('екшен резалт', user)
     // gameInfo.players[socket.id] = user;
@@ -330,6 +348,8 @@ function masterMassage(message) {
   });
 
 });
+
+
 
 server.listen(3000, () => {
   // console.log("server running at http://localhost:3000");

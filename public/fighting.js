@@ -10,10 +10,12 @@ function openArena(gameInfo) {
 
     fighter1 = gameInfo.connectedPlayers.find((u) => u.id == gameInfo.fighting.activPlayer.id);
     fighter2 = gameInfo.connectedPlayers.find((u) => u.id == gameInfo.fighting.passivPlayer.id);
-    log(fighter1, fighter2);
+    log(fighter1, fighter2,'open arenaaaaaaaa');
 
     $("#name-fighter-1").innerHTML = fighter1.username;
     $("#name-fighter-2").innerHTML = fighter2.username;
+    $("#id-fighter-1").innerHTML = fighter1.id;
+    $("#id-fighter-2").innerHTML = fighter2.id;
 
 
     // log('JJJJJJJJJJJJJJJJJJJ', firstFighterUserName);
@@ -136,23 +138,29 @@ socket.on('round-done', (roundResult) => {
             const newXpFighter1 = xpFighter1 - fighter.damage;
             xpFighter1Node.innerHTML = newXpFighter1;
             addSound('./audio/hit.wav', 0.1);
-            const fighterObject = gameInfo.connectedUsers.find((p)=>p.id = fighter.id);
+            const fighterObject = gameInfo.connectedUsers.find((p) => p.id = fighter.id);
             const message = `${fighterObject.username} Есть Пробитие, теряет ${fighter.damage} сантиметров`
-            socket.emit('master-message', message);
+            // socket.emit('master-message', message);
+          
+            socket.emit('round-result', {xpFighter1,xpFighter2});
+
         }
         if (fighter.id == fighter2.id && fighter.isDamage) {
             const newXpFighter2 = xpFighter2 - fighter.damage;
             xpFighter2Node.innerHTML = newXpFighter2;
             addSound('./audio/hit.wav', 0.1);
-            const fighterObject = gameInfo.connectedUsers.find((p)=>p.id = fighter.id);
+            const fighterObject = gameInfo.connectedUsers.find((p) => p.id = fighter.id);
             const message = `${fighterObject.username} Есть Пробитие, теряет ${fighter.damage} сантиметров`
-            socket.emit('master-message', message);
+            // socket.emit('master-message', message);
 
+            socket.emit('round-result', {xpFighter1,xpFighter2});
 
         }
 
 
     });
+
+
     log('XPPPP', xpFighter1, xpFighter2);
 
     const roundScreenNode = document.querySelector('.round-screen');
@@ -162,4 +170,17 @@ socket.on('round-done', (roundResult) => {
     }, 3000)
 
 });
+socket.on('start-new-round',()=>{
+    var radios = document.querySelector("#huey");
+    var radios2 = document.querySelector("#huey3");
+    radios.checked = true;
+    radios2.checked = true;
+
+// radios.click();
+// radios2.click();
+
+})
+
+
+
 
