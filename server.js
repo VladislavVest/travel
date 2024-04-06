@@ -109,6 +109,8 @@ function getGameInfo() {
 
 let reloadFrontFlag = false;
 
+const usedMsgId = []; // это идентификаторы использованных соообщений чтобы не пропускать их повторно
+
 io.on("connection", (socket) => {
   // console.log("a user connected");
   socket.username = 'Anonymous';
@@ -231,7 +233,23 @@ io.on("connection", (socket) => {
 
   socket.on('master-message', (message) => {
     masterMassage(message)
+
   });
+
+  socket.on('master-message-once', ({ message, roundId }) => {
+    log(message, roundId, '06/04 messsageeeeeeeeeeeeeee');
+    log(usedMsgId, 'cостояние юзед мсг');
+
+    const isUsed = usedMsgId.find((id) => id == roundId)
+    log(isUsed, 'isuseddddddddddddd')
+    if (isUsed) return;
+    usedMsgId.push(roundId);
+    log(usedMsgId, 'cостояние юзед мсг');
+
+    masterMassage(message)
+
+  });
+
 
 
 
@@ -276,10 +294,12 @@ io.on("connection", (socket) => {
 
   });
 
+  let roundId;
   socket.on('fighting-strike', (firstFightingData) => {
 
     if (!gameInfo.fighting.isActive) return; //не пропускаем если удар нанесен
     gameInfo.fighting.isActive = false; //закрываем файтинг после первого удара
+    roundId = Math.random();
 
     // определить айди другого бойца
     const otherFighterId = (socket.id == gameInfo.fighting.activPlayer.id) ? gameInfo.fighting.passivPlayer.id : gameInfo.fighting.activPlayer.id = _activPlayerId
@@ -302,7 +322,7 @@ io.on("connection", (socket) => {
         { id: otherSocket.id, damage: firstPlayerPowerAttack, isDamege: isSecondGetDamage },
         { id: socket.id, damage: secondPlayerPowerAttack, isDamage: isFirstGetDamage }]
 
-      io.emit('round-done', roundResult);
+      io.emit('round-done', {roundResult,roundId});
 
     });
 

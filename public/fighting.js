@@ -125,13 +125,12 @@ socket.on('get-fighting-data', (clb) => {
 })
 addSound('./audio/hit.wav', 0.1);
 
-socket.on('round-done', (roundResult) => {
+socket.on('round-done', ({roundResult,roundId}) => {
     log(roundResult, 'ROUND RESULTTTT');
     const xpFighter1Node = document.querySelector('#xp-fighter');
     const xpFighter2Node = document.querySelector('#xp-fighter-2');
     const xpFighter1 = +xpFighter1Node.innerHTML;
     const xpFighter2 = +xpFighter2Node.innerHTML;
-
 
     roundResult.forEach(fighter => {
         if (fighter.id == fighter1.id && fighter.isDamage) {
@@ -140,7 +139,7 @@ socket.on('round-done', (roundResult) => {
             addSound('./audio/hit.wav', 0.1);
             const fighterObject = gameInfo.connectedUsers.find((p) => p.id = fighter.id);
             const message = `${fighterObject.username} Есть Пробитие, теряет ${fighter.damage} сантиметров`
-            // socket.emit('master-message', message);
+            socket.emit('master-message-once', {message, roundId});
           
             socket.emit('round-result', {xpFighter1,xpFighter2});
 
@@ -151,7 +150,7 @@ socket.on('round-done', (roundResult) => {
             addSound('./audio/hit.wav', 0.1);
             const fighterObject = gameInfo.connectedUsers.find((p) => p.id = fighter.id);
             const message = `${fighterObject.username} Есть Пробитие, теряет ${fighter.damage} сантиметров`
-            // socket.emit('master-message', message);
+            socket.emit('master-message-once', {message, roundId});
 
             socket.emit('round-result', {xpFighter1,xpFighter2});
 
