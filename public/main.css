@@ -1143,3 +1143,11 @@ textarea {
     
     
 }
+
+.hidden {
+    display: none;
+}
+
+.fighter-data {
+    padding: 1rem;
+}
