@@ -302,11 +302,11 @@ io.on("connection", (socket) => {
     roundId = Math.random();
 
     // определить айди другого бойца
-    const otherFighterId = (socket.id == gameInfo.fighting.activPlayer.id) ? gameInfo.fighting.passivPlayer.id : gameInfo.fighting.activPlayer.id = _activPlayerId
+    const otherFighterId = (socket.id == gameInfo.fighting.activPlayer.id) ? gameInfo.fighting.passivPlayer.id : gameInfo.fighting.activPlayer.id 
 
     const otherSocket = connectedSockets[otherFighterId];
     log(otherFighterId, socket.id, '4444444444444');
-
+if (otherSocket) {
     otherSocket.emit('get-fighting-data', (secondFightingData) => {
       log(secondFightingData, firstFightingData, '11111eeeeeeerr');
       const isFirstGetDamage = firstFightingData.protection != secondFightingData.mortalStrike;
@@ -324,7 +324,10 @@ io.on("connection", (socket) => {
 
       io.emit('round-done', {roundResult,roundId});
 
-    });
+    });} else {
+      masterMassage('other socket dont find',otherFighterId)
+    }
+    
 
     // fighting: {
     //   isActive: false,
