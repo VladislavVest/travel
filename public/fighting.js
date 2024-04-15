@@ -164,10 +164,10 @@ socket.on('round-done', ({ roundResult, roundId }) => {
                 }
             }
 
-            //  else{
-            //     const messageNull= `${fighterObject1.username}  Увернулся от pro-boy`
-            //     socket.emit('master-message-once', { messageNull, roundId });
-            // }
+             else{
+                const message= `${fighterObject1.username}  - по усам текло а в рот не попало`
+                socket.emit('master-message-once', { message, roundId:roundId+ '-5' });
+            }
         }
 
         //данніе по второму игроку
@@ -180,7 +180,7 @@ socket.on('round-done', ({ roundResult, roundId }) => {
                 xpFighter1Node.innerHTML = newXpFighter1;
                 addSound('./audio/hit.wav', 0.1);
                 const message = `${fighterObject1.username} Есть Пробитие, теряет ${fighter.damage} сантиметров`
-                socket.emit('master-message-once', { message, roundId });
+                socket.emit('master-message-once', { message, roundId: roundId+ '-3' });
                 socket.emit('round-result', { xpFighter1, xpFighter2 });
 
                 if (newXpFighter1 <= 0) {
@@ -193,10 +193,10 @@ socket.on('round-done', ({ roundResult, roundId }) => {
 
             }
 
-            // else{
-            //     const messageNull= `${fighterObject2.username}  Увернулся от pro-boy`
-            //     socket.emit('master-message-once', { messageNull, roundId });
-            // }
+            else{
+                const message= `${fighterObject2.username}  по усам текло а в рот не попало`
+                socket.emit('master-message-once', { message, roundId:roundId+ '-4' });
+            }
         }
     });
 
