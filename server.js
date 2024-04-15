@@ -319,7 +319,7 @@ if (otherSocket) {
 
 
       const roundResult = [
-        { id: otherSocket.id, damage: firstPlayerPowerAttack, isDamege: isSecondGetDamage },
+        { id: otherSocket.id, damage: firstPlayerPowerAttack, isDamage: isSecondGetDamage },
         { id: socket.id, damage: secondPlayerPowerAttack, isDamage: isFirstGetDamage }]
 
       io.emit('round-done', {roundResult,roundId});
