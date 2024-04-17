@@ -302,32 +302,33 @@ io.on("connection", (socket) => {
     roundId = Math.random();
 
     // определить айди другого бойца
-    const otherFighterId = (socket.id == gameInfo.fighting.activPlayer.id) ? gameInfo.fighting.passivPlayer.id : gameInfo.fighting.activPlayer.id 
+    const otherFighterId = (socket.id == gameInfo.fighting.activPlayer.id) ? gameInfo.fighting.passivPlayer.id : gameInfo.fighting.activPlayer.id
 
     const otherSocket = connectedSockets[otherFighterId];
     log(otherFighterId, socket.id, '4444444444444');
-if (otherSocket) {
-    otherSocket.emit('get-fighting-data', (secondFightingData) => {
-      log(secondFightingData, firstFightingData, '11111eeeeeeerr');
-      const isFirstGetDamage = firstFightingData.protection != secondFightingData.mortalStrike;
-      const isSecondGetDamage = secondFightingData.protection != firstFightingData.mortalStrike;
-      log('процесс боя', isFirstGetDamage, isSecondGetDamage);
-      const firstPlayerPowerAttack = Math.round(firstFightingData.yourDickPower / 6);
-      const secondPlayerPowerAttack = Math.round(secondFightingData.yourDickPower / 6);
+    if (otherSocket) {
+      otherSocket.emit('get-fighting-data', (secondFightingData) => {
+        log(secondFightingData, firstFightingData, '11111eeeeeeerr');
+        const isFirstGetDamage = firstFightingData.protection != secondFightingData.mortalStrike;
+        const isSecondGetDamage = secondFightingData.protection != firstFightingData.mortalStrike;
+        log('процесс боя', isFirstGetDamage, isSecondGetDamage);
+        const firstPlayerPowerAttack = Math.round(firstFightingData.yourDickPower / 6);
+        const secondPlayerPowerAttack = Math.round(secondFightingData.yourDickPower / 6);
 
-      // взять их 30 хп из объекта на сервере а потом на фронт отослать 
+        // взять их 30 хп из объекта на сервере а потом на фронт отослать 
 
 
-      const roundResult = [
-        { id: otherSocket.id, damage: firstPlayerPowerAttack, isDamage: isSecondGetDamage },
-        { id: socket.id, damage: secondPlayerPowerAttack, isDamage: isFirstGetDamage }]
+        const roundResult = [
+          { id: otherSocket.id, damage: firstPlayerPowerAttack, isDamage: isSecondGetDamage },
+          { id: socket.id, damage: secondPlayerPowerAttack, isDamage: isFirstGetDamage }]
 
-      io.emit('round-done', {roundResult,roundId});
+        io.emit('round-done', { roundResult, roundId });
 
-    });} else {
-      masterMassage('other socket dont find',otherFighterId)
+      });
+    } else {
+      masterMassage('other socket dont find', otherFighterId)
     }
-    
+
 
     // fighting: {
     //   isActive: false,
@@ -364,13 +365,31 @@ if (otherSocket) {
     socket.emit('start-new-round');
   });
 
-  socket.on('action-result', (user) => {
-    // log('екшен резалт', user)
-    // gameInfo.players[socket.id] = user;
+  socket.on('action-result', (userParams) => {
+    log('екшен резалт!!!!!!!!!!!!!!!!!!!!', userParams)
+    // екшен резалт!!!!!!!!!!!!!!!!!!!! {
+    //   position: 5,
+    //   hitPoints: 29,
+    //   moral: 10,
+    //   armor: 0,
+    //   steps: -3,
+    //   weapon: 2,
+    //   dice: 0
+    // }
+     gameInfo.players[socket.id].params = userParams;
+   
 
   });
 
-});
+
+  socket.on('end-boy', ({ newXpFighter1, newXpFighter2, fighterObject1, fighterObject2 }) => {
+    log('конец боя', newXpFighter1, newXpFighter2, fighterObject1, fighterObject2);
+
+    log("gameInfo.players", gameInfo.players)
+
+  });
+
+}); 
 
 
 
