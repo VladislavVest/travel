@@ -365,8 +365,8 @@ io.on("connection", (socket) => {
     socket.emit('start-new-round');
   });
 
-  socket.on('action-result', (userParams) => {
-    log('екшен резалт!!!!!!!!!!!!!!!!!!!!', userParams)
+  socket.on('action-result', (frontUser) => {
+    log('екшен резалт!!!!!!!!!!!!!!!!!!!!', frontUser)
     // екшен резалт!!!!!!!!!!!!!!!!!!!! {
     //   position: 5,
     //   hitPoints: 29,
@@ -376,8 +376,9 @@ io.on("connection", (socket) => {
     //   weapon: 2,
     //   dice: 0
     // }
-     gameInfo.players[socket.id].params = userParams;
-   
+    //  gameInfo.players[socket.id].params = userParams;
+    socket.frontUser = frontUser;
+    log('gameinfoooooooo', gameInfo)
 
   });
 
@@ -385,11 +386,29 @@ io.on("connection", (socket) => {
   socket.on('end-boy', ({ newXpFighter1, newXpFighter2, fighterObject1, fighterObject2 }) => {
     log('конец боя', newXpFighter1, newXpFighter2, fighterObject1, fighterObject2);
 
-    log("gameInfo.players", gameInfo.players)
+    log("gameInfo.players", gameInfo.players, socket.frontUser)
+    const fighter1Socket = connectedSockets[fighterObject1.id];
+    const fighter2Socket = connectedSockets[fighterObject2.id];
+    if (newXpFighter1 < 1 && newXpFighter2 < 1) {
+      //Ничья
+    } else {
+
+      if (newXpFighter1 < 1) {
+        fighter1Socket.frontUser.hitPoints = fighter1Socket.frontUser.hitPoints - 2
+      } else {
+        fighter1Socket.frontUser.hitPoints = fighter1Socket.frontUser.hitPoints = 2
+      }
+      if (newXpFighter2 < 1) {
+        fighter2Socket.frontUser.hitPoints = fighter2Socket.frontUser.hitPoints - 2
+      } else {
+        fighter2Socket.frontUser.hitPoints = fighter2Socket.frontUser.hitPoints = 2
+      }
+    }
+    io.emit('refresh-game-state', getGameInfo());
 
   });
 
-}); 
+});
 
 
 
