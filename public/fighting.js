@@ -219,3 +219,14 @@ socket.on('start-new-round', () => {
 
 
 
+
+
+
+
+socket.on('end-of-the-fight', () => { 
+const fightingScreen = document.querySelector('.fighting-screen');
+fightingScreen.style.display = 'none';}
+);
+
+
+

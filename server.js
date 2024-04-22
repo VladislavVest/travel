@@ -394,19 +394,19 @@ io.on("connection", (socket) => {
     } else {
 
       if (newXpFighter1 < 1) {
-        fighter1Socket.frontUser.hitPoints = fighter1Socket.frontUser.hitPoints - 2
+        fighter1Socket.frontUser.hitPoints = fighter1Socket.frontUser.hitPoints - 1
       } else {
-        fighter1Socket.frontUser.hitPoints = fighter1Socket.frontUser.hitPoints = 2
+        fighter1Socket.frontUser.hitPoints = fighter1Socket.frontUser.hitPoints + 1
       }
       if (newXpFighter2 < 1) {
-        fighter2Socket.frontUser.hitPoints = fighter2Socket.frontUser.hitPoints - 2
+        fighter2Socket.frontUser.hitPoints = fighter2Socket.frontUser.hitPoints - 1
       } else {
-        fighter2Socket.frontUser.hitPoints = fighter2Socket.frontUser.hitPoints = 2
+        fighter2Socket.frontUser.hitPoints = fighter2Socket.frontUser.hitPoints + 1
       }
     }
     io.emit('refresh-game-state', getGameInfo());
-
-  });
+io.emit('end-of-the-fight');
+  }); 
 
 });
 

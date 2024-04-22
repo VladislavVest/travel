@@ -20,7 +20,7 @@ const user = {
 };
 let gameInfo = {};
 
-socket.on('game-over', () =>{alert("Game Over")});
+socket.on('game-over', () => { alert("Game Over") });
 socket.on('force-front-restart', () => location.reload());// restart all-fronts if restart back
 socket.on('rolling-all', () => rollingAnimation());
 socket.on('rolling-result-all', (number) => rollingResult(number));
@@ -29,6 +29,15 @@ socket.on('your-id', (id) => { localStorage.setItem('socket-id', id) });
 socket.on('refresh-game-state', (_gameInfo) => {
   gameInfo = _gameInfo;
   renderUserList(null, gameInfo);
+  log('9999999999999999',gameInfo,localStorage.getItem('socket-id'))
+  const currentUser = gameInfo.connectedPlayers.find((u) =>  u.id == localStorage.getItem('socket-id') )
+  log('KURRRRRRRRRRrrnet USER)', currentUser);
+  if (currentUser) {
+    user.hitPoints = currentUser.frontUser.hitPoints;// ПРодолжить!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  
+  }
+  render();
   // log('FOR FIGHTING!!!!', gameInfo, gameInfo.isGameStarted);
   if (gameInfo.isGameStarted) {
     const partyScreen = document.querySelector('.start-game-screen');
