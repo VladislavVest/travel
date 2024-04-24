@@ -4,7 +4,9 @@ function random(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const log = console.log;
+const log = ()=>{};
+const log2 = console.log;
+
 
 const pause = (time) => new Promise((resolve) => {
   setTimeout(() => { resolve() }, time)

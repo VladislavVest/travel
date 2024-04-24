@@ -32,7 +32,7 @@ socket.on('refresh-game-state', (_gameInfo) => {
   log('9999999999999999',gameInfo,localStorage.getItem('socket-id'))
   const currentUser = gameInfo.connectedPlayers.find((u) =>  u.id == localStorage.getItem('socket-id') )
   log('KURRRRRRRRRRrrnet USER)', currentUser);
-  if (currentUser) {
+  if (currentUser && currentUser.frontUser.hitPoints) {
     user.hitPoints = currentUser.frontUser.hitPoints;// ПРодолжить!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   

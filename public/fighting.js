@@ -139,13 +139,13 @@ socket.on('round-done', ({ roundResult, roundId }) => {
 
 
     roundResult.forEach(fighter => {
-        log(fighter1, fighter2, fighter, 'файтер фикс');
+        log2(fighter1, fighter2, fighter, 'файтер фикс');
 
         //данні по первому игроку
         if (fighter.id == fighter1.id) {
-            log('первый  иф', fighter.isDamage)
+            log2('первый  иф', fighter.isDamage)
             if (fighter.isDamage) {
-                log('первый пробитие иф')
+                log2('первый пробитие иф')
                 newXpFighter2 = xpFighter2 - fighter.damage;
                 xpFighter2Node.innerHTML = newXpFighter2;
                 addSound('./audio/hit.wav', 0.1);
@@ -168,9 +168,9 @@ socket.on('round-done', ({ roundResult, roundId }) => {
 
         //данніе по второму игроку
         if (fighter.id == fighter2.id) {
-            log('второй иф')
+            log2('второй иф', fighter.isDamage)
             if (fighter.isDamage) {
-                log('второй пробитие иф', fighter.isDamage)
+                log2('второй пробитие иф')
                 newXpFighter1 = xpFighter1 - fighter.damage;
                 xpFighter1Node.innerHTML = newXpFighter1;
                 addSound('./audio/hit.wav', 0.1);

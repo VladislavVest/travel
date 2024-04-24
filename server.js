@@ -1,4 +1,5 @@
-const log = console.log;
+const log = ()=>{}
+const log2 = console.log;
 
 const express = require("express");
 const { createServer, get } = require("node:http");
@@ -310,7 +311,10 @@ io.on("connection", (socket) => {
       otherSocket.emit('get-fighting-data', (secondFightingData) => {
         log(secondFightingData, firstFightingData, '11111eeeeeeerr');
         const isFirstGetDamage = firstFightingData.protection != secondFightingData.mortalStrike;
+        log2('изферст гет демейд;',firstFightingData.protection,secondFightingData.mortalStrike)
         const isSecondGetDamage = secondFightingData.protection != firstFightingData.mortalStrike;
+        log2('cекнод гет демейдж;',secondFightingData.protection, firstFightingData.mortalStrike)
+
         log('процесс боя', isFirstGetDamage, isSecondGetDamage);
         const firstPlayerPowerAttack = Math.round(firstFightingData.yourDickPower / 6);
         const secondPlayerPowerAttack = Math.round(secondFightingData.yourDickPower / 6);
@@ -321,7 +325,7 @@ io.on("connection", (socket) => {
         const roundResult = [
           { id: otherSocket.id, damage: firstPlayerPowerAttack, isDamage: isSecondGetDamage },
           { id: socket.id, damage: secondPlayerPowerAttack, isDamage: isFirstGetDamage }]
-
+log2(roundResult,'раунд зезальтттттт')
         io.emit('round-done', { roundResult, roundId });
 
       });
@@ -392,7 +396,7 @@ io.on("connection", (socket) => {
     if (newXpFighter1 < 1 && newXpFighter2 < 1) {
       //Ничья
     } else {
-
+log('пересчет после бояяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяя')
       if (newXpFighter1 < 1) {
         fighter1Socket.frontUser.hitPoints = fighter1Socket.frontUser.hitPoints - 1
       } else {
