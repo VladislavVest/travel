@@ -131,8 +131,8 @@ socket.on('round-done', ({ roundResult, roundId }) => {
     const xpFighter2Node = document.querySelector('#xp-fighter-2');
     const xpFighter1 = +xpFighter1Node.innerHTML;
     const xpFighter2 = +xpFighter2Node.innerHTML;
-    let newXpFighter1 = 0;
-    let newXpFighter2 = 0;
+    let newXpFighter1 = 30;
+    let newXpFighter2 = 30;
     let fighterObject1 = gameInfo.connectedUsers.find((p) => p.id == fighter1.id);
     let fighterObject2 = gameInfo.connectedUsers.find((p) => p.id == fighter2.id);
     log(fighterObject1, fighterObject2, 'cоощение имяяяяяяяяяяяяяяя')
@@ -146,12 +146,11 @@ socket.on('round-done', ({ roundResult, roundId }) => {
             log2('первый  иф', fighter.isDamage)
             if (fighter.isDamage) {
                 log2('первый пробитие иф')
-                newXpFighter2 = xpFighter2 - fighter.damage;
-                xpFighter2Node.innerHTML = newXpFighter2;
+                newXpFighter1 = xpFighter1 - fighter.damage;
+                xpFighter1Node.innerHTML = newXpFighter1;
                 addSound('./audio/hit.wav', 0.1);
                 const message = `${fighterObject2.username} Есть Пробитие, теряет ${fighter.damage} сантиметров`
                 socket.emit('master-message-once', { message, roundId });
-                socket.emit('round-result', { xpFighter1, xpFighter2 });
                 if (newXpFighter2 <= 0) {
                     const message = `${fighterObject2.username} достойно принял кончину`
                     log('kon4ina')
@@ -161,9 +160,9 @@ socket.on('round-done', ({ roundResult, roundId }) => {
             else {
                 const message = `${fighterObject1.username}  - по усам текло а в рот не попало`
                 socket.emit('master-message-once', { message, roundId: roundId + '-5' });
-
-
             }
+            socket.emit('round-result', { xpFighter1, xpFighter2 });
+
         }
 
         //данніе по второму игроку
@@ -171,12 +170,11 @@ socket.on('round-done', ({ roundResult, roundId }) => {
             log2('второй иф', fighter.isDamage)
             if (fighter.isDamage) {
                 log2('второй пробитие иф')
-                newXpFighter1 = xpFighter1 - fighter.damage;
-                xpFighter1Node.innerHTML = newXpFighter1;
+                newXpFighter2 = xpFighter2 - fighter.damage;
+                xpFighter2Node.innerHTML = newXpFighter2;
                 addSound('./audio/hit.wav', 0.1);
                 const message = `${fighterObject1.username} Есть Пробитие, теряет ${fighter.damage} сантиметров`
                 socket.emit('master-message-once', { message, roundId: roundId + '-3' });
-                socket.emit('round-result', { xpFighter1, xpFighter2 });
                 if (newXpFighter1 <= 0) {
                     const message = `${fighterObject1.username} достойно принял кончину`
                     log('kon4ina')
@@ -188,11 +186,15 @@ socket.on('round-done', ({ roundResult, roundId }) => {
                 const message = `${fighterObject2.username}  по усам текло а в рот не попало`
                 socket.emit('master-message-once', { message, roundId: roundId + '-4' });
             }
+            socket.emit('round-result', { xpFighter1, xpFighter2 });
+
+
         }
     });
 
     if (newXpFighter1 <= 0 || newXpFighter2 <= 0) {
         socket.emit('end-boy', { newXpFighter1, newXpFighter2, fighterObject1, fighterObject2 })
+        log2('происходит закрытие так не надо',newXpFighter1,newXpFighter2)
     };
 
 
@@ -206,10 +208,10 @@ socket.on('round-done', ({ roundResult, roundId }) => {
 
 });
 socket.on('start-new-round', () => {
-    var radios = document.querySelector("#huey");
-    var radios2 = document.querySelector("#huey3");
-    radios.checked = true;
-    radios2.checked = true;
+    // var radios = document.querySelector("#huey");
+    // var radios2 = document.querySelector("#huey3");
+    // radios.checked = true;
+    // radios2.checked = true;
 
     // radios.click();
     // radios2.click();
