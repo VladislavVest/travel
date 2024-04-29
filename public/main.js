@@ -17,6 +17,7 @@ const user = {
   steps: 0,
   weapon: 2,
   dice: 0,
+  fightingStepFlag: false
 };
 let gameInfo = {};
 
@@ -29,13 +30,13 @@ socket.on('your-id', (id) => { localStorage.setItem('socket-id', id) });
 socket.on('refresh-game-state', (_gameInfo) => {
   gameInfo = _gameInfo;
   renderUserList(null, gameInfo);
-  log('9999999999999999',gameInfo,localStorage.getItem('socket-id'))
-  const currentUser = gameInfo.connectedPlayers.find((u) =>  u.id == localStorage.getItem('socket-id') )
+  log('9999999999999999', gameInfo, localStorage.getItem('socket-id'))
+  const currentUser = gameInfo.connectedPlayers.find((u) => u.id == localStorage.getItem('socket-id'))
   log('KURRRRRRRRRRrrnet USER)', currentUser);
   if (currentUser && currentUser.frontUser.hitPoints) {
     user.hitPoints = currentUser.frontUser.hitPoints;// ПРодолжить!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-  
+
   }
   render();
   // log('FOR FIGHTING!!!!', gameInfo, gameInfo.isGameStarted);

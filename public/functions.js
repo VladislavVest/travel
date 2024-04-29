@@ -53,7 +53,7 @@ function renderUserList(userList, gameInfo) {
                 ${u.username} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
                  ${u.frontUser?.hitPoints || 30} см
            </div>
-           ${(!you && easilyAccessiblePlayer) ? fightingBtn : ''}
+           ${(!you && easilyAccessiblePlayer && !user.fightingStepFlag) ? fightingBtn : ''}
       </div>
     `;
         });
@@ -468,6 +468,7 @@ function startGame() {
 
 function skip() {
     // clearInterval(setTimer);
+    user.fightingStepFlag = false;
     socket.emit('skip-step', user);
     message('Ход завершён');
     document.querySelector('#run').disabled = true;

@@ -16,8 +16,8 @@ function openArena(gameInfo) {
 
     $("#name-fighter-1").innerHTML = fighter1.username;
     $("#name-fighter-2").innerHTML = fighter2.username;
-    $("#id-fighter-1").innerHTML = fighter1.id;
-    $("#id-fighter-2").innerHTML = fighter2.id;
+    // $("#id-fighter-1").innerHTML = fighter1.id;
+    // $("#id-fighter-2").innerHTML = fighter2.id;
 
 
     // log('JJJJJJJJJJJJJJJJJJJ', firstFighterUserName);
@@ -55,7 +55,7 @@ function openArena(gameInfo) {
 
 
 function fighting(partnerId) {
-
+    user.fightingStepFlag = true;
     clearInterval(setTimer);
     socket.emit('fighting-start', {
         activPlayerId: localStorage.getItem('socket-id'),
