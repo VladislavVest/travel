@@ -9,6 +9,10 @@ let fighter1 = {}
 let fighter2 = {}
 function openArena(gameInfo) {
     log(gameInfo, 'problem');
+    const xpFighter1Node = document.querySelector('#xp-fighter');
+    const xpFighter2Node = document.querySelector('#xp-fighter-2');
+    xpFighter1Node.innerHTML = 30;
+    xpFighter2Node.innerHTML = 30;
 
     fighter1 = gameInfo.connectedPlayers.find((u) => u.id == gameInfo.fighting.activPlayer.id);
     fighter2 = gameInfo.connectedPlayers.find((u) => u.id == gameInfo.fighting.passivPlayer.id);
@@ -194,7 +198,7 @@ socket.on('round-done', ({ roundResult, roundId }) => {
 
     if (newXpFighter1 <= 0 || newXpFighter2 <= 0) {
         socket.emit('end-boy', { newXpFighter1, newXpFighter2, fighterObject1, fighterObject2 })
-        log2('происходит закрытие так не надо',newXpFighter1,newXpFighter2)
+        log2('происходит закрытие так не надо', newXpFighter1, newXpFighter2)
     };
 
 
@@ -225,9 +229,10 @@ socket.on('start-new-round', () => {
 
 
 
-socket.on('end-of-the-fight', () => { 
-const fightingScreen = document.querySelector('.fighting-screen');
-fightingScreen.style.display = 'none';}
+socket.on('end-of-the-fight', () => {
+    const fightingScreen = document.querySelector('.fighting-screen');
+    fightingScreen.style.display = 'none';
+}
 );
 
 
