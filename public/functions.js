@@ -12,7 +12,7 @@ function getMySelf(gameInfo) {
 
 function renderUserList(userList, gameInfo) {
     window.gameInfo = gameInfo;
-    log('RUN RENDER LIST11111111111111111111111111111111111',gameInfo);
+    log('RUN RENDER LIST11111111111111111111111111111111111', gameInfo);
     if (userList) {
         asideUserList.innerHTML = '';
         userList.forEach((user) => {
@@ -42,7 +42,11 @@ function renderUserList(userList, gameInfo) {
             const currentUser = localStorage.getItem('socket-id') == u.id;
             const easilyAccessiblePlayer = (user.position == u.position) && !currentUser
 
-            const fightingBtn = `<button onclick="fighting('${u.id}')" type="button" class="btn btn-secondary btn-sm">Fight</button>`
+            const fightingBtn = `      <div class="button-group" style="width: 6rem">
+            <button onclick="fighting('${u.id}')" type="button" class="btn btn-secondary btn-sm"> <img src="./images/fightButton.svg"
+            alt=""> </button>
+            </div>
+            `
             asideUserList.innerHTML += `
       <div class="user ${(currentUser) ? 'you-in-list' : ''} ${(isPlayer) ? 'player' : ''} ${u.dead ? 'dead' : ''}" id="x${u.id}">
            ${(isWinner) ? '<img class="winner" src="./images/final.jpg" alt="">' : ''} 
