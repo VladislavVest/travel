@@ -635,6 +635,7 @@ width: 50%;
 
 .fighting-screen {
     position: fixed;
+    
     width: 80vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.567);
@@ -651,6 +652,9 @@ width: 50%;
     padding: 0%;
     display: flex;
     flex-direction: column;
+    border-radius: 2rem;
+    overflow: hidden;
+    border: 3px solid black;
 }
 
 .fighting-screen .fight-top {
@@ -680,7 +684,7 @@ width: 50%;
 .fight-middle>.left,
 .fight-middle>.right {
     font-size: xxx-large;
-    color: red;
+    color: rgb(240, 0, 248);
     display: flex;
     flex-direction: column;
 }
@@ -720,12 +724,15 @@ width: 50%;
 .fighting-screen .left img {
     width: 100%;
     height: 37%;
+    border-top-right-radius: 2rem;
+
 
 }
 
 .fighting-screen .right img {
     width: 100%;
     height: 37%;
+    border-top-right-radius: 2rem;
 }
 
 

@@ -44,7 +44,7 @@ function renderUserList(userList, gameInfo) {
 
             const fightingBtn = `      <div class="button-group" style="width: 6rem">
             <button onclick="fighting('${u.id}')" type="button" class="btn btn-secondary btn-sm"> <img src="./images/fightButton.svg"
-            alt=""> </button>
+            title="Вызвать на boy" > </button>
             </div>
             `
             asideUserList.innerHTML += `
