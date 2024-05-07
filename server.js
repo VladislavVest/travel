@@ -1,4 +1,4 @@
-const log = ()=>{}
+const log = () => { }
 const log2 = console.log;
 
 const express = require("express");
@@ -160,11 +160,15 @@ io.on("connection", (socket) => {
   });
 
   socket.on('skip-step', (user) => {
+    log2('ошибка с гейм овер', gameInfo.playerPointer, players.length);
+    if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0;
     const playerSocket = players[gameInfo.playerPointer][1];
 
     if (user.hitPoints < 1 && !playerSocket.dead) { //.......................................................................................GAME OVER
       playerSocket.dead = true;
-
+      players = players.filter((p) => {
+        return p[0] !== playerSocket.id;
+      });
 
       playerSocket.emit('game-over');
       // gameInfo.connectedPlayers = gameInfo.connectedPlayers.filter(p => p.id != socket.id);
@@ -174,6 +178,7 @@ io.on("connection", (socket) => {
     }
     gameInfo.playerPointer++;
     if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0;
+    log2('ошибка 2 с гейм овер', gameInfo.playerPointer, players.length);
 
     const nextPlayerSocket = players[gameInfo.playerPointer][1];
     log("плеер сокет кому ход выбор", nextPlayerSocket.id, getGameInfo())
@@ -213,8 +218,6 @@ io.on("connection", (socket) => {
     socket.winner = true;
     winners.push([socket.id, socket]);
     players = players.filter((p) => {
-      // log(p[0], 'PE IDDD');
-      // log(socket.id, 'SOCKET IDDD');
       return p[0] !== socket.id;
     })
     // log(players.length);
@@ -311,9 +314,9 @@ io.on("connection", (socket) => {
       otherSocket.emit('get-fighting-data', (secondFightingData) => {
         log(secondFightingData, firstFightingData, '11111eeeeeeerr');
         const isFirstGetDamage = firstFightingData.protection != secondFightingData.mortalStrike;
-        log2('изферст гет демейд;',firstFightingData.protection,secondFightingData.mortalStrike)
+        log2('изферст гет демейд;', firstFightingData.protection, secondFightingData.mortalStrike)
         const isSecondGetDamage = secondFightingData.protection != firstFightingData.mortalStrike;
-        log2('cекнод гет демейдж;',secondFightingData.protection, firstFightingData.mortalStrike)
+        log2('cекнод гет демейдж;', secondFightingData.protection, firstFightingData.mortalStrike)
 
         log('процесс боя', isFirstGetDamage, isSecondGetDamage);
         const firstPlayerPowerAttack = Math.round(firstFightingData.yourDickPower / 6);
@@ -325,7 +328,7 @@ io.on("connection", (socket) => {
         const roundResult = [
           { id: otherSocket.id, damage: firstPlayerPowerAttack, isDamage: isSecondGetDamage },
           { id: socket.id, damage: secondPlayerPowerAttack, isDamage: isFirstGetDamage }]
-log2(roundResult,'раунд зезальтттттт')
+        log2(roundResult, 'раунд зезальтттттт')
         io.emit('round-done', { roundResult, roundId });
 
       });
@@ -396,7 +399,7 @@ log2(roundResult,'раунд зезальтттттт')
     if (newXpFighter1 < 1 && newXpFighter2 < 1) {
       //Ничья
     } else {
-log('пересчет после бояяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяя')
+      log('пересчет после бояяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяя')
       if (newXpFighter1 < 1) {
         fighter1Socket.frontUser.hitPoints = fighter1Socket.frontUser.hitPoints - 1
       } else {
@@ -409,8 +412,8 @@ log('пересчет после бояяяяяяяяяяяяяяяяяяяяя�
       }
     }
     io.emit('refresh-game-state', getGameInfo());
-io.emit('end-of-the-fight');
-  }); 
+    io.emit('end-of-the-fight');
+  });
 
 });
 
