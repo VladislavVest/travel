@@ -575,4 +575,5 @@ function setBombmOnCell(i) {
     const bomb = userBombs.splice(i, 1)[0];
     render();
     socket.emit('set-bomb-on-cell', { bomb });
-}
+};
+

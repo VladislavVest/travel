@@ -108,6 +108,22 @@ function getGameInfo() {
   return gameInfo
 }
 
+function gameOver() {
+  io.emit('game-over');
+  masterMassage('Бой О КОНЧЕН')
+  setTimeout(reset, 10000);
+}
+
+function reset() {
+  io.emit('force-front-restart');
+  gameInfo = getInitialGameInfo();
+}
+
+
+function masterMassage(message) {
+  io.emit('new-all-message', { text: message, username: 'Dungeon Master:', style: 'master-message' });
+}
+
 let reloadFrontFlag = false;
 
 const usedMsgId = []; // это идентификаторы использованных соообщений чтобы не пропускать их повторно
@@ -178,6 +194,9 @@ io.on("connection", (socket) => {
     }
     gameInfo.playerPointer++;
     if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0;
+    if (players.length == 0 ) return gameOver();
+
+    //если пллер лентс сокет 0.............придумать конец игры .....................................................07.05
     log2('ошибка 2 с гейм овер', gameInfo.playerPointer, players.length);
 
     const nextPlayerSocket = players[gameInfo.playerPointer][1];
@@ -190,10 +209,7 @@ io.on("connection", (socket) => {
     io.emit('refresh-game-state', getGameInfo());
   });
 
-  socket.on('reset', () => {
-    io.emit('force-front-restart');
-    gameInfo = getInitialGameInfo();
-  });
+  socket.on('reset', reset);
 
   socket.on('new-user-position', (frontUser) => {
     socket.position = frontUser.position;
@@ -257,9 +273,6 @@ io.on("connection", (socket) => {
 
 
 
-  function masterMassage(message) {
-    io.emit('new-all-message', { text: message, username: 'Dungeon Master:', style: 'master-message' });
-  }
 
 
   socket.on('bomb-was-exploded', (user) => {
