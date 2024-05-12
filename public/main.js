@@ -32,7 +32,7 @@ socket.on('game-over', () => {
   overScreenNode.classList.remove("hide");
   setTimeout(() => {
     overScreenNode.classList.add("hide");
-  }, 100000);
+  }, 4000);
 
 });
 

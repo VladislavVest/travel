@@ -111,7 +111,7 @@ function getGameInfo() {
 function gameOver() {
   io.emit('game-over');
   masterMassage('Бой О КОНЧЕН')
-  setTimeout(reset, 10000);
+  // setTimeout(reset, 10000);
 }
 
 function reset() {
@@ -193,8 +193,12 @@ io.on("connection", (socket) => {
 
     }
     gameInfo.playerPointer++;
-    if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0;
-    if (players.length == 0 ) return gameOver();
+    if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0; //12.05 Ошибка с вызовом резета пробелма  споинтерами.
+    if (players.length == 0) {
+      log2("шляпа с гейм овер")
+      gameOver();
+      return
+    }
 
     //если пллер лентс сокет 0.............придумать конец игры .....................................................07.05
     log2('ошибка 2 с гейм овер', gameInfo.playerPointer, players.length);

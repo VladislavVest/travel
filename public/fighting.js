@@ -153,11 +153,11 @@ socket.on('round-done', ({ roundResult, roundId }) => {
                 newXpFighter1 = xpFighter1 - fighter.damage;
                 xpFighter1Node.innerHTML = newXpFighter1;
                 addSound('./audio/hit.wav', 0.1);
-                const message = `${fighterObject2.username} Есть Пробитие, теряет ${fighter.damage} сантиметров`
+                const message = `${fighterObject1.username} Есть Пробитие, теряет ${fighter.damage} сантиметров`
                 socket.emit('master-message-once', { message, roundId });
-                if (newXpFighter2 <= 0) {
-                    const message = `${fighterObject2.username} достойно принял кончину`
-                    log('kon4ina')
+                if (newXpFighter1 <= 0) {
+                    const message = `${fighterObject1.username} достойно принял кончину`
+                    log2('kon4ina')
                     socket.emit('master-message-once', { message, roundId: roundId + '-1' });
                 }
             }
@@ -177,11 +177,11 @@ socket.on('round-done', ({ roundResult, roundId }) => {
                 newXpFighter2 = xpFighter2 - fighter.damage;
                 xpFighter2Node.innerHTML = newXpFighter2;
                 addSound('./audio/hit.wav', 0.1);
-                const message = `${fighterObject1.username} Есть Пробитие, теряет ${fighter.damage} сантиметров`
+                const message = `${fighterObject2.username} Есть Пробитие, теряет ${fighter.damage} сантиметров`
                 socket.emit('master-message-once', { message, roundId: roundId + '-3' });
-                if (newXpFighter1 <= 0) {
-                    const message = `${fighterObject1.username} достойно принял кончину`
-                    log('kon4ina')
+                if (newXpFighter2 <= 0) {
+                    const message = `${fighterObject2.username} достойно принял кончину`
+                    log2('kon4ina');
                     socket.emit('master-message-once', { message, roundId: roundId + '-2' });
                 }
 
@@ -232,6 +232,12 @@ socket.on('start-new-round', () => {
 socket.on('end-of-the-fight', () => {
     const fightingScreen = document.querySelector('.fighting-screen');
     fightingScreen.style.display = 'none';
+    if (user.hitPoints <= 0) {
+        user.steps = -300;
+        setTimeout(() => {
+            skip();
+        }, 3000);
+    }
 }
 );
 
