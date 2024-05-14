@@ -176,29 +176,50 @@ io.on("connection", (socket) => {
   });
 
   socket.on('skip-step', (user) => {
-    log2('ошибка с гейм овер', gameInfo.playerPointer, players.length);
+    log2('__________________________________________________________skip step  by user______________________________________________________________')
+    log2(user);
+    //1 работа с сыгравшим игроком  ((__))*((__))((((__))*((__))((__))*((__))((__))*((__))__))*((__))((__))*((__))((__))*((__))((__))*((__))((__))*((__))((__))*((__))
+
     if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0;
-    const playerSocket = players[gameInfo.playerPointer][1];
+    // const playerSocket = players[gameInfo.playerPointer][1];
 
-    if (user.hitPoints < 1 && !playerSocket.dead) { //.......................................................................................GAME OVER
-      playerSocket.dead = true;
+    if (user.hitPoints < 1 && !socket.dead) { //.......................................................................................GAME OVER
+      socket.dead = true;
+      log2(players.length, 'было игроков')
       players = players.filter((p) => {
-        return p[0] !== playerSocket.id;
+        return p[0] !== socket.id;
       });
+      log2(players.length, 'стало игроков')
 
-      playerSocket.emit('game-over');
+
+
+      // socket.winner = true;
+      // winners.push([socket.id, socket]);
+      // players = players.filter((p) => {
+      //   return p[0] !== socket.id;
+
+
+
+
+
+
+
+
+      socket.emit('game-over');
       // gameInfo.connectedPlayers = gameInfo.connectedPlayers.filter(p => p.id != socket.id);
       io.emit('refresh-game-state', getGameInfo());
       io.emit('refresh-users-list', getConnectedUsers());
-
     }
-    gameInfo.playerPointer++;
-    if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0; //12.05 Ошибка с вызовом резета пробелма  споинтерами.
+
     if (players.length == 0) {
-      log2("шляпа с гейм овер")
+      log2(players.length, "плеер ленгдж шляпа с гейм овер")
       gameOver();
       return
     }
+    //2 работа со следующим игроком  ((__))*((__))((((__))*((__))((__))*((__))((__))*((__))__))*((__))((__))*((__))((__))*((__))((__))*((__))((__))*((__))((__))*((__))
+    gameInfo.playerPointer++;
+    if (gameInfo.playerPointer > players.length - 1) gameInfo.playerPointer = 0; //12.05 Ошибка с вызовом резета пробелма  споинтерами.
+
 
     //если пллер лентс сокет 0.............придумать конец игры .....................................................07.05
     log2('ошибка 2 с гейм овер', gameInfo.playerPointer, players.length);
