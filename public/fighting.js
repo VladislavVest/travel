@@ -102,8 +102,12 @@ function getFightingResult() {
 }
 
 
-function combat() {
+function combat(element) {
+    element.style.display = 'none';
+    setTimeout(() => {
+        element.style.display = 'block';
 
+    }, Math.round(Math.random() * 4000 + 3000));
 
     const fightingData = getFightingResult();
 

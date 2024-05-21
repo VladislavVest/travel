@@ -206,7 +206,9 @@ io.on("connection", (socket) => {
 
 
 
-      socket.emit('game-over');
+      socket.emit('game-over-for-one');
+      masterMassage('Личная обильная кончина настигла игрока ' + socket.username)
+
       // gameInfo.connectedPlayers = gameInfo.connectedPlayers.filter(p => p.id != socket.id);
       io.emit('refresh-game-state', getGameInfo());
       io.emit('refresh-users-list', getConnectedUsers());
