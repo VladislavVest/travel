@@ -1188,6 +1188,15 @@ textarea {
     width: 100%; 
 }
 
+.game-over button {
+    position: absolute;
+    font-size: 3rem;
+    background: #2222c1c4;
+    color: #e1b157;
+    padding: 0.5rem 2rem;
+    border-radius: 1rem;
+}
+
 .hidden {
     display: none;
 }

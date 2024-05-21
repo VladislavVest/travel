@@ -112,6 +112,7 @@ function gameOver() {
   io.emit('game-over');
   masterMassage('Бой О КОНЧЕН')
   // setTimeout(reset, 10000);
+  
 }
 
 function reset() {

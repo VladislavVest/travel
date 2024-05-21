@@ -30,9 +30,11 @@ socket.on('game-over', () => {
   log2('финальная заставка')
   const overScreenNode = document.querySelector('.game-over');
   overScreenNode.classList.remove("hide");
-  setTimeout(() => {
-    overScreenNode.classList.add("hide");
-  }, 4000);
+  // setTimeout(() => {
+  //   overScreenNode.classList.add("hide");
+  // }, 4000);
+
+  
 
 });
 

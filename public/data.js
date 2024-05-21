@@ -35,7 +35,7 @@ const cellsDescription = [
   { number: 4, effect: [{ name: 'minusXp', n: 29 }], description: 'минус 31 хп' },
   { number: 5, effect: [{ name: 'minusXp', n: 1 }, {name:'skip', n:1}], description: 'минус 1 хп, минус ход' },
   { number: 6, effect: [{ name: 'plusXp', n: 1 }, 'addStep'], description: 'плюс хp' },
-  { number: 7, effect: [{name: 'skip', n: 1}], description: 'пропускхода' },
+  { number: 7, effect: [{ name: 'minusXp', n: 30}], description: '-30 xp' },
   { number: 8, effect: [{ name: 'minusXp', n: 30 }], description: 'минус 30 хп' },
   //
   { number: 9, effect: [{ name: 'minusXp', n: 2 }, 'skip'], description: 'минус 2 хп, минус ход' },
