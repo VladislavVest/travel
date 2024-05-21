@@ -1197,6 +1197,39 @@ textarea {
     border-radius: 1rem;
 }
 
+
+
+.game-over-for-one {
+    position: fixed;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.603);
+    width: 80vw;
+    height: 80vh;
+    left:10vw;
+    top: 10vh;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+}
+.game-over-for-one video {
+    border-radius: 1rem;
+    width: 100%; 
+}
+
+/* .game-over button {
+    position: absolute;
+    font-size: 3rem;
+    background: #2222c1c4;
+    color: #e1b157;
+    padding: 0.5rem 2rem;
+    border-radius: 1rem;
+} */
+
+
+
 .hidden {
     display: none;
 }

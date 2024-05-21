@@ -33,10 +33,15 @@ socket.on('game-over', () => {
   // setTimeout(() => {
   //   overScreenNode.classList.add("hide");
   // }, 4000);
-
-  
-
 });
+
+socket.on('game-over-for-one',()=>{
+  const overOne = document.querySelector('.game-over-for-one');
+  overOne.classList.remove("hide");
+})
+
+
+
 
 socket.on('refresh-game-state', (_gameInfo) => {
   gameInfo = _gameInfo;
