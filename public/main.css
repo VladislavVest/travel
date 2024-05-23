@@ -1212,11 +1212,8 @@ textarea {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-
-}
-.game-over-for-one video {
-    border-radius: 1rem;
-    width: 100%; 
+background-image: url(./images/overcum2.gif);
+background-size: cover;
 }
 
 /* .game-over button {

@@ -35,9 +35,18 @@ socket.on('game-over', () => {
   // }, 4000);
 });
 
-socket.on('game-over-for-one',()=>{
+socket.on('game-over-for-one',async()=>{
   const overOne = document.querySelector('.game-over-for-one');
   overOne.classList.remove("hide");
+  overOne.style.backgroundImage = "url(./images/overcum2.gif)"; //струя
+  addSound('./audio/over1.mp3', 0.5);
+  await pause(8000);
+  overOne.style.backgroundImage = "url(./images/overcum3.gif)";
+  await pause(5000);
+  overOne.style.backgroundImage = "url(./images/overcum4.gif)";
+  await pause(15000);
+    overOne.classList.add("hide");
+
 })
 
 
