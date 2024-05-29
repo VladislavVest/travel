@@ -110,23 +110,21 @@ function setUserName() {
 
 
 function init() {
-    const grid = document.querySelector('.grid');
-    if (grid) {
-      gameField.forEach((row, i) => {
+    gameField.forEach((row, i) => {
         row.forEach((cell, ii) => {
-          const description = getCellDescription(cell);
-          let classes = 'cell';
-          description.effect.forEach((ef) => {
-            if (ef.name === 'emptyHole') classes += ' empty-hole';
-            if (ef.name === 'armor') classes += ' armor';
-          });
-          grid.innerHTML += `
-            <div id="${cell}" class="${classes}" title="${description.description}"></div>
-          `;
-        });
-      });
-    }
-  }
+            // const opisanie = cellsDescription.find(cdo => cdo.number == cell) || { description: '', effect: [] };
+            const opisanie = getCellDescription(cell);
+            let classes = 'cell';
+            opisanie.effect.forEach((ef) => {
+                if (ef.name == 'emptyHole') classes += ' empty-hole';
+                if (ef.name == 'armor') classes += ' armor';
+            });
+            grid.innerHTML += `
+        <div id="${cell}" class="${classes}" title="${opisanie.description}"></div>
+        `
+        })
+    });
+};
 
 function rollingAnimation() {
     illustration.style.backgroundImage = "url(./images/dice2.gif)";
@@ -510,11 +508,10 @@ function reset() {
     socket.emit('reset')
 };
 
-  
 function rebuildGameField(gameInfo) {
     moveUsers(gameInfo.connectedPlayers);
     addItemsOnMap(gameInfo);
-  }
+};
 
 function clearCells() {
     const cells = document.querySelectorAll(".cell");
@@ -529,13 +526,12 @@ function clearCells() {
 function moveUsers(players) {
     clearCells();
     players.forEach((p, i) => {
-      const currentCell = document.getElementById(p.position);
-      if (currentCell) {
+        const currentCell = document.getElementById(p.position);
         currentCell.innerHTML += chips[i];
-        stickOutYou();
-      }
+        // currentCell.classList.add("you");
     });
-  }
+    stickOutYou();
+};
 
 
 function stickOutYou() {
@@ -585,9 +581,3 @@ function setBombmOnCell(i) {
 
 // Добавление проверки наличия элемента перед использованием innerHTML
 
-
-  
-
-
-
-  
