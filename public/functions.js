@@ -1,15 +1,10 @@
+// Получение текущего пользователя
 function getMySelf(gameInfo) {
     const myId = localStorage.getItem('socket-id');
-    let mySelf = null;
-    gameInfo.connectedPlayers.forEach((player) => {
-        if (player.id == myId) mySelf = player;
-    })
-    return mySelf
+    return gameInfo.connectedPlayers.find(player => player.id === myId) || null;
 }
 
-
-
-
+// Рендер списка пользователей
 function renderUserList(userList, gameInfo) {
     window.gameInfo = gameInfo;
     log('RUN RENDER LIST11111111111111111111111111111111111', gameInfo);
@@ -67,113 +62,107 @@ function renderUserList(userList, gameInfo) {
 };
 
 
+
+// Рендер текущего состояния пользователя
 function render() {
-    const xp = document.querySelector("#xp");
-    xp.innerHTML = user.hitPoints;
-    const moral = document.querySelector("#moral");
-    moral.innerHTML = user.moral;
-    const armor = document.querySelector("#armor");
-    armor.innerHTML = user.armor;
-    const steps = document.querySelector("#steps");
-    steps.innerHTML = user.steps;
-    const weapon = document.querySelector("#weapon");
-    weapon.innerHTML = user.weapon;
-    const dice = document.querySelector("#dice");
-    dice.innerHTML = user.dice;
+    document.querySelector("#xp").innerHTML = user.hitPoints;
+    document.querySelector("#moral").innerHTML = user.moral;
+    document.querySelector("#armor").innerHTML = user.armor;
+    document.querySelector("#steps").innerHTML = user.steps;
+    document.querySelector("#weapon").innerHTML = user.weapon;
+    document.querySelector("#dice").innerHTML = user.dice;
 
     const bombContainer = document.querySelector('#bomb-container');
     bombContainer.innerHTML = '';
     userBombs.forEach((b, i) => {
         bombContainer.innerHTML += `
-        <div class="menu-bomb">
-         <img src="./images/bomb.png" alt="anal destroyer">
-         <span> ${b.title} </span>
-         <div class="button-group"><button type="button" class="active" onclick="setBombmOnCell(${i})"> <img src="./images/trap.svg" alt=""></button></div>
-        </div>
-        `
+            <div class="menu-bomb">
+                <img src="./images/bomb.png" alt="anal destroyer">
+                <span>${b.title}</span>
+                <div class="button-group">
+                    <button type="button" class="active" onclick="setBombmOnCell(${i})">
+                        <img src="./images/trap.svg" alt="">
+                    </button>
+                </div>
+            </div>
+        `;
     });
-};
+}
 
+// Обновление интерфейса
 function updateTheInterface() {
     const gi = window.gameInfo;
-    document.querySelector('#settings-username-btn').disabled = (gi.isGameStarted) ? true : false;
-};
+    document.querySelector('#settings-username-btn').disabled = gi.isGameStarted;
+}
 
-
+// Установка имени пользователя
 function setUserName() {
     const nameUser = document.querySelector('#nameForm input').value;
     localStorage.setItem("username", nameUser);
     setUsernameScreen.style.display = 'none';
-    socket.emit('set-username', username);
-};
+    socket.emit('set-username', nameUser);
+}
 
-
-
+// Инициализация поля
 function init() {
     const grid = document.querySelector('.grid');
     if (grid) {
-      gameField.forEach((row, i) => {
-        row.forEach((cell, ii) => {
-          const description = getCellDescription(cell);
-          let classes = 'cell';
-          description.effect.forEach((ef) => {
-            if (ef.name === 'emptyHole') classes += ' empty-hole';
-            if (ef.name === 'armor') classes += ' armor';
-          });
-          grid.innerHTML += `
-            <div id="${cell}" class="${classes}" title="${description.description}"></div>
-          `;
+        gameField.forEach(row => {
+            row.forEach(cell => {
+                const description = getCellDescription(cell);
+                let classes = 'cell';
+                description.effect.forEach(ef => {
+                    if (ef.name === 'emptyHole') classes += ' empty-hole';
+                    if (ef.name === 'armor') classes += ' armor';
+                });
+                grid.innerHTML += `
+                    <div id="${cell}" class="${classes}" title="${description.description}"></div>
+                `;
+            });
         });
-      });
     }
-  }
+}
 
+// Анимация броска
 function rollingAnimation() {
     illustration.style.backgroundImage = "url(./images/dice2.gif)";
 }
 
+// Результат броска
 function rollingResult(number) {
-    switch (number) {
-        case 1:
-            illustration.style.backgroundImage = "url(./images/num1.jpg)";
-            break;
-        case 2:
-            illustration.style.backgroundImage = "url(./images/num2.jpg)";
-            break
-        case 3:
-            illustration.style.backgroundImage = "url(./images/num3.jpg)";
-            break;
-    }
+    const images = {
+        1: './images/num1.jpg',
+        2: './images/num2.jpg',
+        3: './images/num3.jpg'
+    };
+    illustration.style.backgroundImage = `url(${images[number]})`;
 }
 
+// Анимация действия
 function actionAnimation(ill) {
-    switch (ill) {
-        case 'skip-1':
-            illustration.style.backgroundImage = "url(./images/skip1.gif)";
-            break;
-        case 'add-step-1':
-            illustration.style.backgroundImage = "url(./images/addstep1.jpg)";
-            break;
-    }
-};
+    const images = {
+        'skip-1': './images/skip1.gif',
+        'add-step-1': './images/addstep1.jpg'
+    };
+    illustration.style.backgroundImage = `url(${images[ill]})`;
+}
 
+// Звук действия
 function actionSound(sound) {
-    switch (sound) {
-        case 'skip-1':
-            addSound('./audio/skip-1.wav', 0.1);
-            break;
-        case 'add-step-1':
-            addSound('./audio/add-step-1.wav', 0.1);
-
+    const sounds = {
+        'skip-1': './audio/skip-1.wav',
+        'add-step-1': './audio/add-step-1.wav'
+    };
+    if (sounds[sound]) {
+        addSound(sounds[sound], 0.1);
     }
 }
 
-
+// Выполнение хода
 function run(n) {
     audio.currentTime = 0;
     user.steps--;
     audio.play();
-    // illustration.style.backgroundImage = "url(./images/dice2.gif)";
     runButton.disabled = true;
     let number = Math.ceil(Math.random() * 3);
     if (n) number = n;
@@ -183,80 +172,46 @@ function run(n) {
         runButton.disabled = false;
     }, 1500);
 
-
     const opisanie = getCellDescription(user.position);
     let stop = false;
-    opisanie.effect.forEach((ef) => {
-        if (typeof ef == 'string' && ef == 'reverse') {
+    opisanie.effect.forEach(ef => {
+        if (typeof ef === 'string' && ef === 'reverse') {
             setTimeout(() => {
                 user.position -= number;
-                action(user.position)
+                action(user.position);
             }, 1600);
             stop = true;
-        };
-    })
+        }
+    });
 
     if (!stop) {
         user.position += number;
         if (user.position > 94) user.position = 94;
         setTimeout(() => action(user.position), 1600);
     }
-};
+}
 
+// Выполнение действия
 async function action(n) {
-
-    // moveUser();
     socket.emit('new-user-position', user);
 
-    // { bomb: { name: 'damage', n: 1, title: '- 1 HP' }, position: 4 }
-    gameInfo.bombs.forEach((b) => {
-        if (user.position == b.position) {
+    // Обработка бомб
+    gameInfo.bombs.forEach(b => {
+        if (user.position === b.position) {
             socket.emit('bomb-was-exploded', user);
-
-            if (b.bomb.name == 'damage') {
-                if (user.armor > 0) user.armor--
-                else user.hitPoints -= b.bomb.n;
-            };
-            if (b.bomb.name == 'mega-damage') {
-                if (user.armor > 0) user.armor--
-                else user.hitPoints -= b.bomb.n;
-            };
-            if (b.bomb.name == 'amoral') {
-                if (user.armor > 0) user.armor--
-                else user.moral -= b.bomb.n;
-            };
-            if (b.bomb.name == 'micro-amoral') {
-                if (user.armor > 0) user.armor--
-                else user.moral -= b.bomb.n;
-            };
-            if (b.bomb.name == 'skip') {
-                if (user.armor > 0) user.armor--
-                else user.steps -= b.bomb.n;
-            };
-            if (b.bomb.name == 'mega-skip') {
-                if (user.armor > 0) user.armor--
-                else user.steps -= b.bomb.n;
-            };
-            // if (b.bomb.name == 'slow') {
-            //     if (user.armor > 0) user.armor--
-            //     else user.steps -= b.bomb.n;
-            // };
-            if (b.bomb.name == 'reverse') {
-                if (user.armor > 0) user.armor--
-                else setTimeout(() => {
+            if (user.armor > 0) user.armor--;
+            else if (b.bomb.name === 'damage' || b.bomb.name === 'mega-damage') user.hitPoints -= b.bomb.n;
+            else if (b.bomb.name === 'amoral' || b.bomb.name === 'micro-amoral') user.moral -= b.bomb.n;
+            else if (b.bomb.name === 'skip' || b.bomb.name === 'mega-skip') user.steps -= b.bomb.n;
+            else if (b.bomb.name === 'reverse') {
+                setTimeout(() => {
                     user.position -= b.bomb.n;
                     if (user.position < 1) user.position = 1;
-                    action(user.position)
-                }, 1600);                                            //проверить очередность кода после сет таймаута 
-            };
-
+                    action(user.position);
+                }, 1600);
+            }
         }
-
-
-
     });
-
-
 
     const opisanie = getCellDescription(n);
     descr.innerHTML = '';
@@ -264,104 +219,63 @@ async function action(n) {
     await pause(1000);
     descr.style.backgroundImage = '';
     descr.innerHTML = opisanie.description;
+
     if (user.aids) {
         user.hitPoints--;
-        const message = `${getUserName()} Заражен СПИДОМ, теряет 1 сантиметр`
+        const message = `${getUserName()} Заражен СПИДОМ, теряет 1 сантиметр`;
         socket.emit('master-message', message);
     }
-    opisanie.effect.forEach(async (ef) => {
-        if (typeof ef == 'string') {
-        };
-        if (typeof ef == 'object') {
-            if (ef.name == 'minusXp') {
-                if (user.armor > 0) user.armor--
-                else user.hitPoints -= ef.n;
-            };
-            if (ef.name == 'plusXp') {
-                user.hitPoints += ef.n
-            };
-            if (ef.name == 'minusMoral') {
-                if (user.armor > 0) user.armor--
-                else user.moral -= ef.n;
-            };
-            if (ef.name == 'plusMoral') {
-                user.moral += ef.n
-            };
-            if (ef.name == 'fall') {
-                user.position = ef.to;
+
+    for (const ef of opisanie.effect) {
+        if (typeof ef === 'object') {
+            if (ef.name === 'minusXp') user.hitPoints -= ef.n;
+            else if (ef.name === 'plusXp') user.hitPoints += ef.n;
+            else if (ef.name === 'minusMoral') user.moral -= ef.n;
+            else if (ef.name === 'plusMoral' || ef.name === 'plusMoral1') {
+                user.moral += ef.n;
                 socket.emit('new-user-position', user.position);
-                ;
+                if (ef.name === 'plusMoral1') addSound('./audio/rooster.wav', 0.1);
             }
-            if (ef.name == 'vampire') {
-            }
-            if (ef.name == 'plusMoral1') {
-                user.moral += ef.n
+            else if (ef.name === 'armor') {
+                user.armor += ef.n;
                 socket.emit('new-user-position', user.position);
-                ;
-                addSound('./audio/rooster.wav', 0.1);
-            }
-            if (ef.name == 'armor') {
-                user.armor += ef.n
-                socket.emit('new-user-position', user.position);
-                ;
                 addSound('./audio/armor.mp3', 0.1);
             }
-            if (ef.name == 'emptyHole') {
-                user.position = ef.to;
-                socket.emit('new-user-position', user.position);
-                ;
-            }
-            if (ef.name == 'skip') {
-                if (user.armor > 0) user.armor--
-                else user.steps--;
-
-            };
-
-            if (user.position > 94) user.position = 94;
-            if (ef.name == 'final') final();
-
-            if (ef.name == 'addStep') {
-                user.steps += ef.n;
-            };
-
-            if (ef.name == 'AIDS') {
-                user.aids = true;
-            };
+            else if (ef.name === 'emptyHole') user.position = ef.to;
+            else if (ef.name === 'skip') user.steps--;
+            else if (ef.name === 'fall') user.position = ef.to;
+            else if (ef.name === 'final') final();
+            else if (ef.name === 'addStep') user.steps += ef.n;
+            else if (ef.name === 'AIDS') user.aids = true;
 
             if (ef.ill) {
                 await pause(2000);
-                actionAnimation(ef.ill); // картинка гифка при попадании на клетку
-            };
+                actionAnimation(ef.ill);
+            }
             actionSound(ef.sound);
         }
-        // if (user.position < 9) {
-        //     user.position = 88;
-        // }
-    });
+    }
+
     render();
-    //start timer to skip step
+
     if (user.steps < 1) {
         document.querySelector('#run').disabled = true;
-        // gagarin(10, skip);
     }
 
     socket.emit('action-result', user);
 }
 
+// Финальная функция
 function final() {
-
-    // alert("Вы победили!!!");
     socket.emit('winner', user);
     const winnerScreenNode = document.querySelector('.final-screen');
     winnerScreenNode.classList.remove("hide");
     setTimeout(() => {
         winnerScreenNode.classList.add("hide");
     }, 10000);
-
 }
 
-
-
+// Функции разработчика для установки позиции
 function devSetPosition() {
     const cell = document.querySelector('#set-position input').value;
     user.position = +cell;
@@ -376,28 +290,27 @@ function devAddPosition() {
 }
 
 function devAddPosition2() {
-    user.position = +user.position + 2;
+    user.position += 2;
     moveUsers([user]);
     action(user.position);
 }
 
+// Добавление звука
 function addSound(path, volume = 1) {
-    let audio = new Audio(path);
+    const audio = new Audio(path);
     audio.volume = volume;
-    audio.play().then(() => {
-    }).catch((error) => {
-        console.error('Audio play failed:', error);
-        // Здесь можно добавить логику восстановления или информировать пользователя
-    });
+    audio.play().catch(error => console.error('Audio play failed:', error));
 }
 
+// Отправка сообщения
 function message(msg, effect) {
     const gm = document.querySelector('.global-message');
     const container = gm.querySelector('.text-container');
     const text = gm.querySelector('.text');
     text.innerHTML = msg;
     gm.style.display = 'flex';
-    if (effect == 'your-step') {
+
+    if (effect === 'your-step') {
         container.style.background = 'rgb(255 255 255 / 47%)';
         container.style.border = '5px green solid';
         text.style.color = '#004700';
@@ -405,9 +318,8 @@ function message(msg, effect) {
         gm.style.transition = '.5s';
         setTimeout(() => {
             gm.style.transform = 'scale(3,3)';
-            const grid = document.querySelector(".grid");
-            grid.style.borderColor = 'green';
-        }, 1000)
+            document.querySelector(".grid").style.borderColor = 'green';
+        }, 1000);
     } else {
         gm.style.transform = 'scale(1)';
         container.style.background = 'rgb(255 255 255 / 47%)';
@@ -415,11 +327,13 @@ function message(msg, effect) {
         text.style.color = 'black';
         text.style.fontSize = '5rem';
     }
+
     setTimeout(() => {
         gm.style.display = 'none';
-    }, 3000)
+    }, 3000);
 }
 
+// Отправка сообщения в чат
 function sendChatMessage(event) {
     event.preventDefault();
     const textarea = event.srcElement[0];
@@ -428,166 +342,145 @@ function sendChatMessage(event) {
     textarea.value = '';
 }
 
+// Переключение настроек
 function settingsToggle() {
     closeAllMenu('settings-menu');
-    const settingsMenu = document.querySelector('.settings-menu');
-    settingsMenu.classList.toggle('open-menu');
-    const username = localStorage.getItem("username");
-    const settingsUsername = document.querySelector('#settings-username');
-    settingsUsername.innerHTML = username;
+    document.querySelector('.settings-menu').classList.toggle('open-menu');
+    document.querySelector('#settings-username').innerHTML = localStorage.getItem("username");
 }
+
+// Переключение меню инвентаря
 function staffToggle() {
     closeAllMenu('staff-menu');
-    const staffMenu = document.querySelector('.staff-menu');
-    staffMenu.classList.toggle('open-menu');
+    document.querySelector('.staff-menu').classList.toggle('open-menu');
 }
+
+// Закрытие всех меню кроме указанного
 function closeAllMenu(dontTouch) {
     const settingsMenu = document.querySelector('.settings-menu');
     const staffMenu = document.querySelector('.staff-menu');
-    if (dontTouch != 'settings-menu') settingsMenu.classList.remove('open-menu');
-    if (dontTouch != 'staff-menu') staffMenu.classList.remove('open-menu');
-
-
+    if (dontTouch !== 'settings-menu') settingsMenu.classList.remove('open-menu');
+    if (dontTouch !== 'staff-menu') staffMenu.classList.remove('open-menu');
 }
 
+// Редактирование имени пользователя
 function editUsername() {
     const setUsernameScreen = document.querySelector('.set-username-screen');
-    const username = localStorage.getItem("username");
     setUsernameScreen.style.display = 'flex';
-    // } else { socket.emit('set-username', username) }
-    const nameUserInput = document.querySelector('#nameForm input');
-    nameUserInput.value = username;
+    document.querySelector('#nameForm input').value = localStorage.getItem("username");
 }
 
+// Начало игры
 function startGame() {
     addSound('./audio/start.wav', 0.1);
     setTimeout(() => {
         startButton.style.display = 'none';
-        const username = localStorage.getItem("username");
-        socket.emit('start-game-signal', username);
+        socket.emit('start-game-signal', localStorage.getItem("username"));
     }, 1000);
     startButton.style.backgroundImage = "url(./images/starting.gif)";
     startButton.style.backgroundSize = 'cover';
 }
 
-
-
+// Пропуск хода
 function skip() {
-    // clearInterval(setTimer);
     user.fightingStepFlag = false;
     socket.emit('skip-step', user);
     message('Ход завершён');
     document.querySelector('#run').disabled = true;
     document.querySelector('#skip').disabled = true;
-    const grid = document.querySelector(".grid");
-    grid.style.borderColor = 'black';
+    document.querySelector(".grid").style.borderColor = 'black';
 }
 
+// Проверка наличия имени пользователя в памяти
 function checkUsernameInMemory() {
     const username = localStorage.getItem("username");
     if (!username) {
         setUsernameScreen.style.display = 'flex';
-    } else { socket.emit('set-username', username) }
+    } else {
+        socket.emit('set-username', username);
+    }
 }
 
-const getCellDescription = (cellNumber) => cellsDescription.find(cdo => cdo.number == cellNumber) || { effect: [], description: '' };
+// Получение описания клетки
+const getCellDescription = (cellNumber) => cellsDescription.find(cdo => cdo.number === cellNumber) || { effect: [], description: '' };
 
+// Начало вечеринки
 const party = () => {
     startGame();
-    // const currentPartyStatus = document.querySelector('.js-status');
     const bigButton = document.querySelector('.js-big-button');
     const partyScreen = document.querySelector('.start-game-screen');
-    if (bigButton.classList.contains('is-active')) {
-        bigButton.classList.remove('is-active');
-        partyScreen.classList.remove('is-active');
-    } else {
-        bigButton.classList.add('is-active');
-        partyScreen.classList.add('is-active');
-    }
-};
+    bigButton.classList.toggle('is-active');
+    partyScreen.classList.toggle('is-active');
+}
 
+// Сброс игры
 function reset() {
-    socket.emit('reset')
-};
+    socket.emit('reset');
+}
 
-  
+// Перестройка игрового поля
 function rebuildGameField(gameInfo) {
     moveUsers(gameInfo.connectedPlayers);
     addItemsOnMap(gameInfo);
-  }
+}
 
+// Очистка ячеек
 function clearCells() {
-    const cells = document.querySelectorAll(".cell");
-    cells.forEach((cell) => {
+    document.querySelectorAll(".cell").forEach(cell => {
         cell.innerHTML = "";
         cell.classList.remove('you');
     });
+}
 
-};
-
-
+// Перемещение пользователей
 function moveUsers(players) {
     clearCells();
     players.forEach((p, i) => {
-      const currentCell = document.getElementById(p.position);
-      if (currentCell) {
-        currentCell.innerHTML += chips[i];
-        stickOutYou();
-      }
+        const currentCell = document.getElementById(p.position);
+        if (currentCell) {
+            currentCell.innerHTML += chips[i];
+            stickOutYou();
+        }
     });
-  }
+}
 
-
+// Выделение текущего пользователя
 function stickOutYou() {
-    // clearCells();
-    const cell = document.getElementById(user.position);
-    // log(cell);
-    cell.classList.add("you");
+    document.getElementById(user.position)?.classList.add("you");
+}
 
-};
-
-
+// Добавление элементов на карту
 function addItemsOnMap(gameInfo) {
-    gameInfo.bombs.forEach((b) => {
-        log('fix bomb', b)
-        const currentCell = document.getElementById(b.position); ///////////////////setbomb on cell
-        currentCell.innerHTML += `
-   <img src="./images/bomb.png" class="cell-bomb">
-   `
+    gameInfo.bombs.forEach(b => {
+        const currentCell = document.getElementById(b.position);
+        if (currentCell) {
+            currentCell.innerHTML += `
+                <img src="./images/bomb.png" class="cell-bomb">
+            `;
+        }
     });
+}
 
-};
-
+// Установка таймера
 let setTimer;
-
 function gagarin(n, clb) {
     clearInterval(setTimer);
     const timerPlace = document.querySelector('.bottom-panel .illustration');
     setTimer = setInterval(() => {
         n--;
         timerPlace.innerHTML = `
-  <div class="timer">${n} </div>
-  `
+            <div class="timer">${n}</div>
+        `;
         if (n < 1) {
             clearInterval(setTimer);
             clb();
         }
     }, 1000);
-};
+}
 
+// Установка бомбы на клетку
 function setBombmOnCell(i) {
     const bomb = userBombs.splice(i, 1)[0];
     render();
     socket.emit('set-bomb-on-cell', { bomb });
-};
-
-//////////////////////////////////////////////////////////////////////////////////////////////////новое с гпт
-
-// Добавление проверки наличия элемента перед использованием innerHTML
-
-
-  
-
-
-
-  
+}
