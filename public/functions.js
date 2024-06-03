@@ -371,14 +371,14 @@ function editUsername() {
 }
 
 // Начало игры
-function startGame() {
-    addSound('./audio/start.wav', 0.1);
-    setTimeout(() => {
-        startButton.style.display = 'none';
-        socket.emit('start-game-signal', localStorage.getItem("username"));
-    }, 1000);
+async function startGame() {
     startButton.style.backgroundImage = "url(./images/starting.gif)";
     startButton.style.backgroundSize = 'cover';
+    addSound('./audio/start.wav', 0.1);
+    await pause(3000)
+    startButton.style.display = 'none';
+    socket.emit('start-game-signal', localStorage.getItem("username"));
+
 }
 
 // Пропуск хода
