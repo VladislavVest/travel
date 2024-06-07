@@ -141,7 +141,7 @@ io.on("connection", (socket) => {
   socket.on('start-game-signal', () => {
     if (gameInfo.isGameStarted) return;
     gameInfo.isGameStarted = true;
-    players = getConnectedSockets();
+    players = getConnectedSockets().splice(0,5);
     const playerId = players[gameInfo.playerPointer][0];
     const playerSocket = players[gameInfo.playerPointer][1];
     gameInfo.currentUserId = playerId;

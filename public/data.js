@@ -18,7 +18,7 @@ const chips = [
   `<span class="material-symbols-outlined fishka">elderly_woman</span>`,
   `<span class="material-symbols-outlined fishka">accessible</span>`,
   `<span class="material-symbols-outlined fishka">accessible_forward</span>`,
-    `<span class="material-symbols-outlined"> assist_walker </span>`
+  `<span class="material-symbols-outlined fishka"> assist_walker </span>`
 ];
 
 // Описание клеток на игровом поле с их эффектами и описаниями
