@@ -31,4 +31,6 @@ socket.on('open-step', (gameInfo) => {
       runButton.disabled = true;
     }
   }
+
+
 });

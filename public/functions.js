@@ -337,9 +337,22 @@ function message(msg, effect) {
 function sendChatMessage(event) {
     event.preventDefault();
     const textarea = event.srcElement[0];
-    if (!textarea.value) return;
-    socket.emit('chat-message', textarea.value);
-    textarea.value = '';
+    const msg = textarea.value;
+    if (!msg) return;
+    switch (msg) {
+        case 'aslaeb':
+            $(".dev-panel").classList.toggle("hide");
+            break;
+        default:
+            socket.emit('chat-message', msg);
+            textarea.value = '';
+
+    }
+
+
+
+
+
 }
 
 // Переключение настроек
@@ -389,6 +402,11 @@ function skip() {
     document.querySelector('#run').disabled = true;
     document.querySelector('#skip').disabled = true;
     document.querySelector(".grid").style.borderColor = 'black';
+    
+    if (user.moral<0) {
+        const audio = new Audio('./audio/moral.mp3')
+        audio.play()
+      }  
 }
 
 // Проверка наличия имени пользователя в памяти
@@ -409,8 +427,8 @@ const party = () => {
     startGame();
     const bigButton = document.querySelector('.js-big-button');
     const partyScreen = document.querySelector('.start-game-screen');
-    bigButton.classList.toggle('is-active');
-    partyScreen.classList.toggle('is-active');
+    if (bigButton) bigButton.classList.toggle('is-active');
+    if (partyScreen) partyScreen.classList.toggle('is-active');
 }
 
 // Сброс игры

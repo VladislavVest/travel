@@ -33,7 +33,7 @@ const cellsDescription = [
   { number: 8, effect: [{ name: 'minusXp', n: 30 }], description: 'Минус 30 хп' },
   { number: 9, effect: [{ name: 'minusXp', n: 2 }, 'skip'], description: 'Минус 2 хп, минус ход' },
   { number: 10, effect: [{ name: 'casino', n: 2 }, 'rotation'], description: 'Казино: четное +1 к кубику на 2 хода, нечетное -1' },
-  { number: 11, effect: [{ name: 'minusMoral', n: 1 }], description: 'Минус 1 мораль' },
+  { number: 11, effect: [{ name: 'minusMoral', n: 11 }], description: 'Минус 11 мораль' },
   { number: 12, effect: [{ name: 'armor', n: 1 }, 'items'], description: 'Защита от следующего негативного эффекта' },
   { number: 13, effect: [{ name: 'vampire' }, 'jump'], description: 'Выбери игрока и забери его хп себе, прыжок вперед через поле' },
   { number: 14, effect: [{ name: 'emptyHole', to: 15 }], description: 'Тут нихрена нет' },
