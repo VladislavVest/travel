@@ -404,8 +404,8 @@ function skip() {
     document.querySelector(".grid").style.borderColor = 'black';
     
     if (user.moral<0) {
-        const audio = new Audio('./audio/moral.mp3')
-        audio.play()
+       if (!window.audio)  window.audio = new Audio('./audio/moral.mp3')
+        window.audio.play()
       }  
 }
 
