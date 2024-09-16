@@ -10,7 +10,14 @@ const { random } = require("./server-logic/utils.js");
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+// const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "*", // Или укажи конкретный домен, если нужно
+    methods: ["GET", "POST"]
+  }
+});
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -206,6 +213,12 @@ io.on("connection", (socket) => {
   socket.on('end-boy', ({ newXpFighter1, newXpFighter2, fighterObject1, fighterObject2 }) => {
     handleEndBoy(newXpFighter1, newXpFighter2, fighterObject1, fighterObject2);
   });
+  socket.on('test', ({  }) => {
+    log2('zaebis');
+
+  });
+
+
 });
 
 // Обработка пропуска хода
