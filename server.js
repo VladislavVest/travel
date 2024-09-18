@@ -146,6 +146,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on('start-game-signal', () => {
+    log2('igra na4alas')
     if (gameInfo.isGameStarted) return;
     gameInfo.isGameStarted = true;
     players = getConnectedSockets().splice(0,5);
@@ -213,7 +214,7 @@ io.on("connection", (socket) => {
   socket.on('end-boy', ({ newXpFighter1, newXpFighter2, fighterObject1, fighterObject2 }) => {
     handleEndBoy(newXpFighter1, newXpFighter2, fighterObject1, fighterObject2);
   });
-  socket.on('test', ({  }) => {
+  socket.on('test', () => {
     log2('zaebis');
 
   });
