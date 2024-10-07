@@ -106,6 +106,7 @@ function gameOver() {
 function reset() {
   io.emit('force-front-restart');
   gameInfo = getInitialGameInfo();
+
 }
 
 // Отправка сообщения от мастера
@@ -147,11 +148,13 @@ io.on("connection", (socket) => {
 
   socket.on('start-game-signal', () => {
     log2('igra na4alas')
-    if (gameInfo.isGameStarted) return;
-    gameInfo.isGameStarted = true;
     players = getConnectedSockets().splice(0,5);
-    const playerId = players[gameInfo.playerPointer][0];
+
     const playerSocket = players[gameInfo.playerPointer][1];
+
+    if (gameInfo.isGameStarted) return playerSocket.emit('game-already-started');
+    gameInfo.isGameStarted = true;
+    const playerId = players[gameInfo.playerPointer][0];
     gameInfo.currentUserId = playerId;
     playerSocket.emit('open-step', getGameInfo());
     io.emit('game-activation', getGameInfo());
