@@ -119,7 +119,7 @@ const usedMsgId = []; // Идентификаторы использованны
 
 io.on("connection", (socket) => {
   socket.username = 'Anonymous';
-  socket.frontUser = { position: 0 };
+  socket.frontUser = { position: 1 };
   connectedSockets[socket.id] = socket;
   socket.emit('your-id', socket.id);
   changeConnections(io);
