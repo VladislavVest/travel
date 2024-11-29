@@ -211,6 +211,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on('action-result', (frontUser) => {
+    log2(frontUser,'БоБЕРРРРРРРРРРРРРРРРРРРРРРР')
     socket.frontUser = frontUser;
   });
 
