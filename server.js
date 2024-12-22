@@ -1,4 +1,4 @@
-const log = () => {};
+const log = () => { };
 const log2 = console.log;
 
 const express = require("express");
@@ -124,6 +124,9 @@ io.on("connection", (socket) => {
   socket.emit('your-id', socket.id);
   changeConnections(io);
 
+  //ТЕСТ разного
+  // socket.emit('bomb-exploaded-for-all');	  
+
   // Перезапуск фронтенда при первом подключении
   setTimeout(() => {
     if (!reloadFrontFlag) {
@@ -148,7 +151,7 @@ io.on("connection", (socket) => {
 
   socket.on('start-game-signal', () => {
     log2('igra na4alas')
-    players = getConnectedSockets().splice(0,5);
+    players = getConnectedSockets().splice(0, 5);
 
     const playerSocket = players[gameInfo.playerPointer][1];
 
@@ -211,7 +214,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on('action-result', (frontUser) => {
-    log2(frontUser,'БоБЕРРРРРРРРРРРРРРРРРРРРРРР')
+    log2(frontUser, 'БоБЕРРРРРРРРРРРРРРРРРРРРРРР')
     socket.frontUser = frontUser;
   });
 
