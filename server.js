@@ -164,6 +164,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on('skip-step', (user) => {
+    log2('skip step 12/01/2025');
     handleSkipStep(user, socket);
   });
 
