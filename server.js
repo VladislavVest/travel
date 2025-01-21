@@ -1,3 +1,5 @@
+//когда отделим бек енд
+//выпилить обновление списка из бекенда , возможно заменить на обновление игры где это нужно
 const log = () => { };
 const log2 = console.log;
 
@@ -124,7 +126,6 @@ io.on("connection", (socket) => {
   socket.emit('your-id', socket.id);
   changeConnections(io);
 
-  //ТЕСТ разного
   // socket.emit('bomb-exploaded-for-all');	  
 
   // Перезапуск фронтенда при первом подключении
@@ -189,6 +190,7 @@ io.on("connection", (socket) => {
     io.emit('refresh-game-state', getGameInfo());
   });
 
+
   socket.on('master-message', masterMessage);
 
   socket.on('master-message-once', ({ message, roundId }) => {
@@ -215,8 +217,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on('action-result', (frontUser) => {
-    log2(frontUser, 'БоБЕРРРРРРРРРРРРРРРРРРРРРРР')
+    log2(frontUser, 'БоБЕРРРРРРРРРРРРРРРРРРРРРРР-екшен РЕЗАЛТ')
     socket.frontUser = frontUser;
+    io.emit('refresh-game-state', getGameInfo());
+    io.emit('refresh-users-list', getConnectedUsers());
   });
 
   socket.on('end-boy', ({ newXpFighter1, newXpFighter2, fighterObject1, fighterObject2 }) => {
