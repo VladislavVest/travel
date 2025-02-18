@@ -247,6 +247,18 @@ async function action(n) {
             else if (ef.name === 'final') final();
             else if (ef.name === 'addStep') user.steps += ef.n;
             else if (ef.name === 'AIDS') user.aids = true;
+            else if (ef.name === 'urine') {
+                if (!user.aids) {
+                    user.hitPoints -= ef.n;
+                    const message = `${getUserName()} Зачем ты пьешь эту мочу? минус 2 хп`;
+                    socket.emit('master-message', message);  //Добавить звук глотков
+                } else {
+                    user.aids = false
+                    const message = `${getUserName()} пьет мочу, которая исцеляет от СПИДа`;
+                    socket.emit('master-message', message);  //Добавить звук глотков
+
+                }
+            }
 
             if (ef.ill) {
                 await pause(2000);
@@ -402,11 +414,11 @@ function skip() {
     document.querySelector('#run').disabled = true;
     document.querySelector('#skip').disabled = true;
     document.querySelector(".grid").style.borderColor = 'black';
-    
-    if (user.moral<0) {
-       if (!window.audio)  window.audio = new Audio('./audio/moral.mp3')
+
+    if (user.moral < 0) {
+        if (!window.audio) window.audio = new Audio('./audio/moral.mp3')
         window.audio.play()
-      }  
+    }
 }
 
 // Проверка наличия имени пользователя в памяти

@@ -63,7 +63,7 @@ const cellsDescription = [
   { number: 38, effect: [{ name: 'fall', to: 14 }], description: 'Падаете вниз' },
   { number: 39, effect: ['addStep'], description: 'Плюс ход' },
   { number: 40, effect: [{ name: 'minusXp', n: 2 }], description: 'Минус 2 хп' },
-  { number: 41, effect: [{ name: 'minusMoral', n: 2 }, 'skip'], description: 'Минус 2 морали, вас немного разорвали, теряете ход' },
+  { number: 41, effect: [{ name: 'urine', n: 2 }, 'items'], description: 'Вы нашли флягу с уриной. Вы пьёте для исцеления от СПИДА' },
   { number: 42, effect: [{ name: 'plusMoral1', n: 2 }, 'addStep'], description: 'У вас встаёт боевой дух, за вами гонится... Плюс ход' },
   { number: 43, effect: [{ name: 'minusXp', n: 1 }], description: 'Минус 1 хп' },
   { number: 44, effect: ['reverse'], description: 'Кинь кубик и иди назад' },
