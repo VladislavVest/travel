@@ -80,7 +80,7 @@ function render() {
                 <img src="./images/bomb.png" alt="anal destroyer">
                 <span>${b.title}</span>
                 <div class="button-group">
-                    <button type="button" class="active" onclick="setBombmOnCell(${i})">
+                    <button type="button" class="active" onclick="setBombOnCell(${i})">
                         <img src="./images/trap.svg" alt="">
                     </button>
                 </div>
