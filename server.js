@@ -185,7 +185,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on('set-bomb-on-cell', (bomb) => {
-    bomb.position = socket.position;
+    log2(socket.position,'cокет позишен для бомбы')
+    bomb.position = socket.frontUser.position;
+    log2(bomb,'bomb')
     gameInfo.bombs.push(bomb);
     io.emit('refresh-game-state', getGameInfo());
   });
@@ -219,6 +221,7 @@ io.on("connection", (socket) => {
   socket.on('action-result', (frontUser) => {
     log2(frontUser, 'БоБЕРРРРРРРРРРРРРРРРРРРРРРР-екшен РЕЗАЛТ')
     socket.frontUser = frontUser;
+    // socket.position = frontUser.position
     io.emit('refresh-game-state', getGameInfo());
     io.emit('refresh-users-list', getConnectedUsers());
   });
